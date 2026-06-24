@@ -1,32 +1,61 @@
-# React + TypeScript + Vite
+# Eurogrip — Homepage
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A bold, motion-rich marketing homepage for **Eurogrip**, the flagship tyre brand of **TVS Srichakra Ltd** (a TVS Mobility Group company). Built for the export market — _"Specialist tyre technology, engineered to outperform."_
 
-Currently, two official plugins are available:
+> Brand promise: **Outlive · Outperform · Outdo**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech stack
 
-## React Compiler
+- **React 19** + **TypeScript** + **Vite**
+- **Tailwind CSS** (v3) with a custom Eurogrip theme + **shadcn/ui** conventions
+- **Framer Motion** for scroll reveals, parallax, count-ups and transitions
+- Real components from the **[21st.dev](https://21st.dev)** registry
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 21st.dev components used
 
-## Expanding the Oxlint configuration
+| Component | Where | Source |
+|---|---|---|
+| Interactive cobe globe | Global Presence | `@shuding/cobe-globe-interactive` |
+| Spotlight cards | Technology | `@berkcangumusisik/spotlight-card` |
+| Product Range Card (own) | Product Range | `@senthilindiagit-team/productrangecard` |
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Sections
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+Hero · Brand Promise · Product Range (6 categories) · Technology · Racing &
+Partnership · About the Group · Global Presence · Newsroom · Contact · Footer.
+Fully responsive and `prefers-reduced-motion` aware.
+
+## Getting started
+
+```sh
+npm install      # install dependencies
+npm run dev      # start the dev server (http://localhost:5180)
+npm run build    # production build → dist/
+npm run preview  # preview the production build locally
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+> Requires Node.js 20+.
+
+## Deployment
+
+Auto-deploys to **Vercel** on every push to `main` (Framework preset: Vite,
+build `npm run build`, output `dist`). The build uses a relative asset base
+(`base: './'` in `vite.config.ts`), so the `dist/` folder is also portable to
+any static host or sub-path.
+
+## Brand
+
+- **Racing Blue** `#0054a6` · **Eurogrip Red** `#ed1c24` · **Asphalt** `#0d1014`
+- Display type: **Saira** (black italic) · Body: **Noto Sans**
+
+## Notes
+
+- Tyre-platform names, OEM logos, rider videos and product photos are
+  placeholders (`NAME TBC`) pending final client assets.
+- The original single-file HTML prototype lives separately; this React app is
+  the current build.
+
+---
+
+© 2026 TVS Srichakra Limited. _Eurogrip_ is a registered trademark.
+Built by NewgenDigital.
