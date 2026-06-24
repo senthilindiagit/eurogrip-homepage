@@ -1,6 +1,7 @@
 import ProductRangeCard from "@/components/ui/productrangecard"
 import { PRODUCTS } from "@/lib/site-data"
 import { Reveal, SectionHead } from "./ui"
+import tyreImg from "@/assets/tyre.webp"
 
 export function ProductRange() {
   return (
@@ -16,7 +17,7 @@ export function ProductRange() {
         <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((p, i) => (
             <Reveal key={p.title} i={i % 3}>
-              <ProductRangeCard index={i + 1} {...p} />
+              <ProductRangeCard index={i + 1} {...p} popImage={tyreImg} popFrom="top" />
             </Reveal>
           ))}
         </div>

@@ -23,6 +23,10 @@ export interface ProductRangeCardProps {
   linkLabel?: string;
   /** Two tiles look best — they fan left/right behind the card on hover. */
   previews?: [PreviewTile, PreviewTile] | PreviewTile[];
+  /** A single transparent product image (e.g. a tyre) that pops out on hover. Overrides `previews`. */
+  popImage?: string;
+  /** Direction the pop-out emerges from. Default "bottom". */
+  popFrom?: "top" | "bottom";
   /** Accent colour (default Eurogrip red). */
   accent?: string;
   /** Brand colour used for index/icon/link (default Eurogrip blue). */
@@ -84,9 +88,18 @@ const CSS = `
 .egp-card:hover .egp-tile{opacity:1}
 .egp-card:hover .egp-tile-l{transform:translate(-42%,176px) rotate(-10deg) scale(1)}
 .egp-card:hover .egp-tile-r{transform:translate(42%,196px) rotate(10deg) scale(1)}
+/* single product image popping from the top */
+.egp-pop-top{position:absolute;left:0;right:0;top:0;height:0;z-index:1;display:flex;justify-content:center;pointer-events:none}
+.egp-pop-bottom-img{position:absolute;left:0;right:0;bottom:0;height:0;z-index:1;display:flex;justify-content:center;pointer-events:none}
+.egp-hero-img{position:absolute;width:74%;filter:drop-shadow(0 20px 34px rgba(0,20,50,.55));
+  opacity:0;transform-origin:center;transition:transform .6s var(--egp-ease),opacity .45s var(--egp-ease)}
+.egp-pop-top .egp-hero-img{bottom:-34px;transform:translateY(34px) scale(.72) rotate(0deg)}
+.egp-card:hover .egp-pop-top .egp-hero-img{opacity:1;transform:translateY(-108px) scale(1) rotate(-7deg)}
+.egp-pop-bottom-img .egp-hero-img{top:-34px;transform:translateY(-34px) scale(.72) rotate(0deg)}
+.egp-card:hover .egp-pop-bottom-img .egp-hero-img{opacity:1;transform:translateY(108px) scale(1) rotate(7deg)}
 @media (prefers-reduced-motion:reduce){
   .egp-card *{transition:none!important}
-  .egp-card:hover .egp-tile{opacity:0}
+  .egp-card:hover .egp-tile,.egp-card:hover .egp-hero-img{opacity:0}
 }
 `;
 
@@ -114,6 +127,8 @@ export default function ProductRangeCard({
   href = "#",
   linkLabel = "View range",
   previews = [],
+  popImage,
+  popFrom = "bottom",
   accent = "#ed1c24",
   brand = "#0054a6",
   className = "",
@@ -137,22 +152,28 @@ export default function ProductRangeCard({
       className={`egp-card ${className}`}
       style={{ ["--egp-accent" as any]: accent, ["--egp-brand" as any]: brand }}
     >
-      <div className="egp-pop" aria-hidden="true">
-        {tiles.map((t, i) => (
-          <div
-            key={i}
-            className={`egp-tile ${i === 0 ? "egp-tile-l" : "egp-tile-r"}`}
-            style={
-              t.imageSrc
-                ? { backgroundImage: `url(${t.imageSrc})` }
-                : { background: t.background ?? (i === 0 ? tileTread : tileBrand) }
-            }
-          >
-            <TileIcon path={iconPath} />
-            <span className="egp-cap">{t.label}</span>
-          </div>
-        ))}
-      </div>
+      {popImage ? (
+        <div className={popFrom === "top" ? "egp-pop-top" : "egp-pop-bottom-img"} aria-hidden="true">
+          <img className="egp-hero-img" src={popImage} alt="" />
+        </div>
+      ) : (
+        <div className="egp-pop" aria-hidden="true">
+          {tiles.map((t, i) => (
+            <div
+              key={i}
+              className={`egp-tile ${i === 0 ? "egp-tile-l" : "egp-tile-r"}`}
+              style={
+                t.imageSrc
+                  ? { backgroundImage: `url(${t.imageSrc})` }
+                  : { background: t.background ?? (i === 0 ? tileTread : tileBrand) }
+              }
+            >
+              <TileIcon path={iconPath} />
+              <span className="egp-cap">{t.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="egp-face">
         <div className="egp-bg" />
