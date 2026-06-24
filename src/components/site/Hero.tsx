@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
-import { TreadRing } from "./TreadRing"
 import { Counter, Btn, Arrow } from "./ui"
+import tyreImg from "@/assets/tyre.webp"
 
 const WORDS = ["every road", "the long haul", "85 countries", "the racetrack", "the worst weather"]
 const ENTER = [0.16, 0.84, 0.34, 1] as const
@@ -10,7 +10,7 @@ export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
   const treadY = useTransform(scrollYProgress, [0, 1], [0, 220])
-  const treadRotate = useTransform(scrollYProgress, [0, 1], [0, 90])
+  const treadRotate = useTransform(scrollYProgress, [0, 1], [0, 48])
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80])
 
   const [wi, setWi] = useState(0)
@@ -55,13 +55,18 @@ export function Hero() {
           />
         ))}
       </div>
-      {/* parallax tread ring */}
-      <motion.div
-        style={{ y: treadY, rotate: treadRotate }}
-        className="pointer-events-none absolute right-[-12vw] top-1/2 -translate-y-1/2 w-[62vw] max-w-[760px] opacity-[0.16]"
-      >
-        <TreadRing block="rgba(255,255,255,.7)" accent="#4f9be8" />
-      </motion.div>
+      {/* parallax product tyre */}
+      <div className="pointer-events-none absolute right-[-6vw] top-1/2 hidden -translate-y-1/2 md:block w-[54vw] max-w-[620px]">
+        <motion.img
+          src={tyreImg}
+          alt="Eurogrip Roadhound motorcycle tyre"
+          style={{ y: treadY, rotate: treadRotate }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease: [0.16, 0.84, 0.34, 1] }}
+          className="w-full drop-shadow-[0_40px_70px_rgba(0,0,0,.6)]"
+        />
+      </div>
       {/* blue glow */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-[46%] mix-blend-screen"
         style={{ background: "linear-gradient(115deg, rgba(0,84,166,.32), transparent 70%)" }} />
