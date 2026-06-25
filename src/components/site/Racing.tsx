@@ -17,7 +17,8 @@ export function Racing() {
           eyebrow="Racing & partnership"
           title={<>Proven by riders.<br />Not just by us.</>}
           lede="From championship grids to OEM fitments and the road-trip diaries of everyday riders — the proof of a Eurogrip tyre is in the people who trust it."
-          className="mb-[clamp(40px,6vh,56px)]"
+          className="mb-[clamp(40px,6vh,56px)] max-w-[1000px]"
+          ledeClassName="max-w-[68ch]"
         />
 
         <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
@@ -40,10 +41,6 @@ export function Racing() {
           ))}
         </div>
 
-        <Reveal className="mt-5 flex items-center gap-2 text-[0.82rem] text-slate-500">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" /><path d="M12 7v6m0 4h.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>
-          Rider-generated video testimonials — touring, adventure and track footage — curated here as social proof.
-        </Reveal>
 
         <div className="mt-12 border-t border-white/10 pt-8">
           <div className="mb-5 text-center text-[0.78rem] uppercase tracking-[0.12em] text-slate-500">Trusted on the grid &amp; the line</div>

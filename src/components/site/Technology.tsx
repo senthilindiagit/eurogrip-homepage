@@ -15,7 +15,7 @@ export function Technology() {
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <SectionHead
           eyebrow="Inside the tyre"
-          title={<>Technology you can feel<br />before you can see</>}
+          title={<><span className="whitespace-nowrap">Technology you can feel</span><br />before you can see</>}
           lede="Italian-influenced design heritage meets compounds, casings and tread architectures developed for the world’s most demanding conditions."
           className="mb-[clamp(40px,6vh,64px)]"
         />
@@ -35,7 +35,7 @@ export function Technology() {
                   </div>
                 </div>
               </div>
-              <p className="mt-7 max-w-[34ch] text-center text-sm text-slate-400">
+              <p className="mx-auto mt-7 max-w-[34ch] text-center text-sm text-slate-400">
                 Every platform is validated in simulation and on the road before it earns the Eurogrip name.
               </p>
             </SpotlightCard>

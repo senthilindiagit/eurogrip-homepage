@@ -129,12 +129,14 @@ export function SectionHead({
   lede,
   light = false,
   className,
+  ledeClassName,
 }: {
   eyebrow: string
   title: ReactNode
   lede?: ReactNode
   light?: boolean
   className?: string
+  ledeClassName?: string
 }) {
   return (
     <div className={cn("max-w-3xl", className)}>
@@ -156,7 +158,8 @@ export function SectionHead({
           <p
             className={cn(
               "mt-4 text-[clamp(1.02rem,1.6vw,1.25rem)] max-w-[60ch]",
-              light ? "text-slate-600" : "text-slate-300"
+              light ? "text-slate-600" : "text-slate-300",
+              ledeClassName
             )}
           >
             {lede}
