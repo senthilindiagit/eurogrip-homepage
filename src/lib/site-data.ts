@@ -82,11 +82,31 @@ export const PARTNERS = [
   "Adventure Series", "Endurance Cup",
 ]
 
-export const NEWS = [
-  { tag: "Technology", date: "June 2026", title: "Inside the lab: how a tread pattern is born", excerpt: "From simulation to road — the pipeline behind every Eurogrip groove.", big: true },
-  { tag: "Racing", date: "May 2026", title: "Podium finish at the national championship", excerpt: "Eurogrip-shod riders take the top step." },
-  { tag: "Sustainability", date: "Apr 2026", title: "Our renewable-materials roadmap", excerpt: "The next chapter for greener tyres." },
-  { tag: "Partnership", date: "Mar 2026", title: "New OEM fitment announced", excerpt: "Factory-fit confidence, straight from the line." },
+import thumbDhoni from "@/assets/yt-dhoni.webp"
+import thumbTread from "@/assets/yt-treadtalks.webp"
+import thumbAutomechanika from "@/assets/yt-automechanika.webp"
+import thumbColombo from "@/assets/yt-colombo.webp"
+import thumbDiwali from "@/assets/yt-diwali.webp"
+import thumbExpo from "@/assets/yt-expomoto.webp"
+
+export type NewsItem = {
+  type: "video" | "article"
+  tag: string
+  date: string
+  title: string
+  excerpt: string
+  img: string
+  videoId?: string
+  url?: string
+}
+
+export const NEWS: NewsItem[] = [
+  { type: "video", tag: "Brand", date: "2025", title: "M S Dhoni — behind the scenes", excerpt: "On set with our brand ambassador.", img: thumbDhoni, videoId: "Dxe4CF49qgc" },
+  { type: "article", tag: "Global", date: "2025", title: "Eurogrip at Automechanika Dubai 2025", excerpt: "Innovation unleashed at the region’s biggest trade show.", img: thumbAutomechanika, url: "https://www.youtube.com/watch?v=3_gkR_ZCmNE" },
+  { type: "article", tag: "Events", date: "2025", title: "Colombo Motor Show 2025 — highlights", excerpt: "Eurogrip on the floor in Sri Lanka.", img: thumbColombo, url: "https://www.youtube.com/watch?v=IEfBrQaLB3c" },
+  { type: "article", tag: "Community", date: "2024", title: "Celebrating delivery heroes this Diwali", excerpt: "A salute to the riders who keep moving.", img: thumbDiwali, url: "https://www.youtube.com/watch?v=Ku7TVwjt7jM" },
+  { type: "video", tag: "Technology", date: "2025", title: "TreadTalks: the tubeless advantage", excerpt: "9th edition — why tubeless changes the ride.", img: thumbTread, videoId: "4rfEaS_Jm48" },
+  { type: "article", tag: "Events", date: "2025", title: "Eurogrip rides into Expo Moto, Caracas", excerpt: "An incredible reception in Venezuela.", img: thumbExpo, url: "https://www.youtube.com/watch?v=VTFXL6-_knI" },
 ]
 
 /** Eurogrip markets for the interactive globe — [lat, lng]. */

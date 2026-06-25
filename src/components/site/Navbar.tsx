@@ -24,7 +24,10 @@ export function Navbar() {
   }, [])
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 0.84, 0.34, 1], delay: 1.55 }}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled ? "bg-asphalt/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,.08)] py-2.5" : "py-4"
@@ -86,6 +89,6 @@ export function Navbar() {
           </motion.nav>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   )
 }

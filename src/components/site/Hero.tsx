@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Counter, Btn, Arrow } from "./ui"
-import tyreImg from "@/assets/tyre.webp"
 
 const WORDS = ["every road", "the long haul", "85 countries", "the racetrack", "the worst weather"]
 const ENTER = [0.16, 0.84, 0.34, 1] as const
+const D = 1.55 // delay so nav/text arrive only after the loader tyre settles right
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
-  const treadY = useTransform(scrollYProgress, [0, 1], [0, 220])
-  const treadRotate = useTransform(scrollYProgress, [0, 1], [0, 48])
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80])
 
   const [wi, setWi] = useState(0)
@@ -55,41 +53,32 @@ export function Hero() {
           />
         ))}
       </div>
-      {/* parallax product tyre */}
-      <div className="pointer-events-none absolute right-[-6vw] top-1/2 hidden -translate-y-1/2 md:block w-[54vw] max-w-[620px]">
-        <motion.img
-          src={tyreImg}
-          alt="Eurogrip Roadhound motorcycle tyre"
-          style={{ y: treadY, rotate: treadRotate }}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: [0.16, 0.84, 0.34, 1] }}
-          className="w-full drop-shadow-[0_40px_70px_rgba(0,0,0,.6)]"
-        />
-      </div>
       {/* blue glow */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-[46%] mix-blend-screen"
         style={{ background: "linear-gradient(115deg, rgba(0,84,166,.32), transparent 70%)" }} />
 
-      <motion.div style={{ y: contentY }} className="relative z-10 mx-auto w-full max-w-[1280px] px-5 sm:px-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: ENTER }}>
+      <motion.div style={{ y: contentY }} className="relative z-20 mx-auto w-full max-w-[1280px] px-5 sm:px-8">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: ENTER, delay: D }}>
           <span className="inline-flex items-center gap-2 font-display italic font-extrabold uppercase tracking-[0.16em] text-[0.78rem] text-eurored">
             <span className="h-[2px] w-6 bg-eurored" /> Specialist Tyre Technology · Est. 1982
           </span>
         </motion.div>
 
         <h1 className="italic-display mt-4 mb-4 text-white leading-[0.9] text-[clamp(2.7rem,7.6vw,6.4rem)]">
-          <motion.span className="block" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.08 }}>
+          <motion.span className="block whitespace-nowrap" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.08 }}>
             Engineered
           </motion.span>
-          <motion.span className="block" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.16 }}>
+          <motion.span className="block whitespace-nowrap" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.16 }}>
             to outperform
           </motion.span>
-          <span className="block h-[1.02em] overflow-hidden text-eurored">
+          <motion.span
+            className="inline-block h-[1.02em] overflow-hidden whitespace-nowrap align-top text-eurored"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: ENTER, delay: D + 0.24 }}
+          >
             <AnimatePresence mode="wait">
               <motion.span
                 key={wi}
-                className="block"
+                className="block whitespace-nowrap"
                 initial={{ y: "100%", opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: "-100%", opacity: 0 }}
@@ -98,27 +87,27 @@ export function Hero() {
                 {WORDS[wi]}
               </motion.span>
             </AnimatePresence>
-          </span>
+          </motion.span>
         </h1>
 
         <motion.p
-          className="max-w-[60ch] text-[clamp(1.05rem,1.7vw,1.3rem)] text-slate-300"
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.24 }}
+          className="max-w-[48ch] text-[clamp(1.05rem,1.7vw,1.3rem)] text-slate-300"
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.24 }}
         >
           Three decades of obsessive R&amp;D, European engineering standards and a racer’s instinct — built into every tyre, for riders and machines in over 85 countries.
         </motion.p>
 
-        <motion.div className="mt-7 flex flex-wrap gap-3.5" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.32 }}>
+        <motion.div className="mt-7 flex flex-wrap gap-3.5" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.32 }}>
           <Btn href="#products" variant="red">Explore the range <Arrow /></Btn>
           <Btn href="#technology" variant="line">Inside the technology</Btn>
         </motion.div>
 
         <motion.div
-          className="mt-12 flex flex-wrap gap-x-[clamp(24px,3vw,46px)] gap-y-6 border-t border-white/10 pt-6"
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.4 }}
+          className="mt-12 flex flex-nowrap gap-x-[clamp(20px,3vw,46px)] gap-y-6 border-t border-white/10 pt-6"
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.4 }}
         >
           {stats.map((s) => (
-            <div key={s.label}>
+            <div key={s.label} className="shrink-0">
               <Counter to={s.to} suffix={s.suffix} className="font-display italic font-black text-white leading-none text-[clamp(1.8rem,3.4vw,2.7rem)]" />
               <div className="mt-1.5 text-[0.78rem] uppercase tracking-[0.08em] text-slate-400">{s.label}</div>
             </div>

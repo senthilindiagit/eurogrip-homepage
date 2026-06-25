@@ -1,4 +1,5 @@
 import { Navbar } from "./components/site/Navbar"
+import { HeroTyre } from "./components/site/HeroTyre"
 import { Hero } from "./components/site/Hero"
 import { Promise as BrandPromise } from "./components/site/Promise"
 import { ProductRange } from "./components/site/ProductRange"
@@ -14,8 +15,11 @@ export default function App() {
     <div className="bg-asphalt">
       <Navbar />
       <main>
-        <Hero />
-        <BrandPromise />
+        <div className="relative">
+          <Hero />
+          <BrandPromise />
+          <HeroTyre />
+        </div>
         <ProductRange />
         <Technology />
         <Racing />

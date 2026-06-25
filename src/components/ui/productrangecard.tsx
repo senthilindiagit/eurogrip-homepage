@@ -88,15 +88,15 @@ const CSS = `
 .egp-card:hover .egp-tile{opacity:1}
 .egp-card:hover .egp-tile-l{transform:translate(-42%,176px) rotate(-10deg) scale(1)}
 .egp-card:hover .egp-tile-r{transform:translate(42%,196px) rotate(10deg) scale(1)}
-/* single product image popping from the top */
-.egp-pop-top{position:absolute;left:0;right:0;top:0;height:0;z-index:1;display:flex;justify-content:center;pointer-events:none}
-.egp-pop-bottom-img{position:absolute;left:0;right:0;bottom:0;height:0;z-index:1;display:flex;justify-content:center;pointer-events:none}
-.egp-hero-img{position:absolute;width:74%;filter:drop-shadow(0 20px 34px rgba(0,20,50,.55));
-  opacity:0;transform-origin:center;transition:transform .6s var(--egp-ease),opacity .45s var(--egp-ease)}
-.egp-pop-top .egp-hero-img{bottom:-34px;transform:translateY(34px) scale(.72) rotate(0deg)}
-.egp-card:hover .egp-pop-top .egp-hero-img{opacity:1;transform:translateY(-108px) scale(1) rotate(-7deg)}
-.egp-pop-bottom-img .egp-hero-img{top:-34px;transform:translateY(-34px) scale(.72) rotate(0deg)}
-.egp-card:hover .egp-pop-bottom-img .egp-hero-img{opacity:1;transform:translateY(108px) scale(1) rotate(7deg)}
+/* single product image — only the top half peeks above the card on hover */
+.egp-pop-top{position:absolute;left:0;right:0;top:0;height:0;z-index:1;pointer-events:none}
+.egp-pop-bottom-img{position:absolute;left:0;right:0;bottom:0;height:0;z-index:1;pointer-events:none}
+.egp-hero-img{position:absolute;width:66%;left:17%;filter:drop-shadow(0 16px 26px rgba(0,20,50,.45));
+  opacity:0;transform-origin:center;transition:transform .55s var(--egp-ease),opacity .4s var(--egp-ease)}
+.egp-pop-top .egp-hero-img{top:0;transform:translateY(-24%) scale(.84) rotate(0deg)}
+.egp-card:hover .egp-pop-top .egp-hero-img{opacity:1;transform:translateY(-50%) scale(1) rotate(-6deg)}
+.egp-pop-bottom-img .egp-hero-img{bottom:0;transform:translateY(24%) scale(.84) rotate(0deg)}
+.egp-card:hover .egp-pop-bottom-img .egp-hero-img{opacity:1;transform:translateY(50%) scale(1) rotate(6deg)}
 @media (prefers-reduced-motion:reduce){
   .egp-card *{transition:none!important}
   .egp-card:hover .egp-tile,.egp-card:hover .egp-hero-img{opacity:0}
