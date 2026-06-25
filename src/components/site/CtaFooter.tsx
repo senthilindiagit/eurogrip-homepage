@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Reveal, Eyebrow, Btn, Arrow } from "./ui"
 import logoWhite from "@/assets/logo-white.png"
 import ctaBg from "@/assets/yt-masterclass.webp"
@@ -14,6 +15,43 @@ const CERTS = [
   { fam: "ISO", num: "14001", year: "2015" },
   { fam: "ISO", num: "45001", year: "2018" },
 ]
+
+function Newsletter() {
+  const [email, setEmail] = useState("")
+  const [done, setDone] = useState(false)
+  return (
+    <div className="w-full lg:max-w-[360px]">
+      <h5 className="mb-3 text-center font-display text-[0.82rem] font-extrabold uppercase italic tracking-[0.08em] text-white md:text-left">Subscribe to our newsletter</h5>
+      {done ? (
+        <p className="text-[0.9rem] text-slate-400">Thanks — you’re on the list. Watch your inbox for tyre tech, racing and product news.</p>
+      ) : (
+        <>
+          <p className="mb-3 text-[0.9rem] text-slate-500">Tyre technology, racing and product news — straight to your inbox.</p>
+          <form
+            onSubmit={(e) => { e.preventDefault(); if (email.trim()) setDone(true) }}
+            className="flex flex-col gap-2.5 sm:flex-row"
+          >
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your email address"
+              aria-label="Email address"
+              className="min-w-0 flex-1 rounded-[3px] border border-white/15 bg-white/[0.04] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-eurored focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="shrink-0 rounded-[3px] bg-eurored px-5 py-2.5 font-display text-[0.82rem] font-extrabold uppercase italic tracking-wide text-white transition-transform hover:-translate-y-0.5"
+            >
+              Subscribe
+            </button>
+          </form>
+        </>
+      )}
+    </div>
+  )
+}
 
 function CertSeal({ fam, num, year }: { fam: string; num: string; year: string }) {
   return (
@@ -70,13 +108,15 @@ export function CtaFooter() {
             ))}
           </div>
 
-          {/* certifications */}
-          <div className="mt-12 border-t border-white/10 pt-8">
-            <h5 className="mb-5 text-center font-display text-[0.82rem] font-extrabold uppercase italic tracking-[0.08em] text-white md:text-left">Certifications</h5>
-            <div className="flex flex-wrap items-center justify-center gap-x-9 gap-y-5 md:justify-start">
-              {CERTS.map((c) => <CertSeal key={c.fam + c.num} {...c} />)}
-              <p className="max-w-[24ch] text-[0.82rem] leading-snug text-slate-500">Quality, automotive, environmental &amp; occupational health management systems — independently certified.</p>
+          {/* certifications + newsletter */}
+          <div className="mt-12 grid gap-10 border-t border-white/10 pt-8 lg:grid-cols-[1fr_auto] lg:gap-16">
+            <div>
+              <h5 className="mb-5 text-center font-display text-[0.82rem] font-extrabold uppercase italic tracking-[0.08em] text-white md:text-left">Certifications</h5>
+              <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-5 md:justify-start">
+                {CERTS.map((c) => <CertSeal key={c.fam + c.num} {...c} />)}
+              </div>
             </div>
+            <Newsletter />
           </div>
 
           <div className="mt-12 flex flex-wrap items-center justify-between gap-3.5 border-t border-white/10 pt-6 text-[0.82rem] text-slate-600">
