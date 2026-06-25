@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import logoWhite from "@/assets/logo-white.png"
+import { LanguageSelect } from "./widgets"
 
 const LINKS = [
   ["Products", "#products"],
@@ -49,6 +50,7 @@ export function Navbar() {
               <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-eurored transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
+          <LanguageSelect />
           <a
             href="#contact"
             className="group inline-flex items-center gap-2 rounded-[3px] bg-eurored px-5 py-2.5 font-display text-[0.82rem] font-extrabold uppercase italic tracking-wide text-white transition-transform hover:-translate-y-0.5"
@@ -86,6 +88,7 @@ export function Navbar() {
             <a href="#contact" onClick={() => setOpen(false)} className="mt-3 inline-flex w-fit items-center gap-2 rounded-[3px] bg-eurored px-5 py-2.5 font-display text-sm font-extrabold uppercase italic text-white">
               Find a Dealer →
             </a>
+            <div className="mt-5 border-t border-white/10 pt-5"><LanguageSelect /></div>
           </motion.nav>
         )}
       </AnimatePresence>

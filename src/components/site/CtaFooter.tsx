@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Reveal, Eyebrow, Btn, Arrow } from "./ui"
+import { CountrySelect, Socials } from "./widgets"
 import logoWhite from "@/assets/logo-white.png"
 import ctaBg from "@/assets/yt-masterclass.webp"
 
@@ -119,15 +120,17 @@ export function CtaFooter() {
             <Newsletter />
           </div>
 
-          <div className="mt-12 flex flex-wrap items-center justify-between gap-3.5 border-t border-white/10 pt-6 text-[0.82rem] text-slate-600">
-            <span>© 2026 TVS Srichakra Limited · Eurogrip is a registered trademark.</span>
-            <div className="flex gap-3.5">
-              {[["Instagram", "#"], ["YouTube", "https://www.youtube.com/@eurogriptyres"], ["LinkedIn", "#"]].map(([s, href]) => (
-                <a key={s} href={href} target={href === "#" ? undefined : "_blank"} rel="noopener noreferrer" aria-label={s} className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-slate-400 transition-colors hover:border-eurored hover:bg-eurored hover:text-white">
-                  <span className="text-[0.7rem] font-bold">{s[0]}</span>
-                </a>
-              ))}
+          {/* country/region + socials */}
+          <div className="mt-10 flex flex-col gap-8 border-t border-white/10 pt-8 lg:flex-row lg:items-end lg:justify-between">
+            <CountrySelect />
+            <div className="flex flex-col gap-3 sm:items-end">
+              <span className="text-[0.7rem] uppercase tracking-[0.14em] text-slate-500">Follow us</span>
+              <Socials />
             </div>
+          </div>
+
+          <div className="mt-8 border-t border-white/10 pt-6 text-[0.82rem] text-slate-600">
+            © 2026 TVS Srichakra Limited · Eurogrip is a registered trademark.
           </div>
         </div>
       </footer>
