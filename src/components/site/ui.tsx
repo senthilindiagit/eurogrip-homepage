@@ -183,7 +183,7 @@ export function Marquee({
   className?: string
 }) {
   return (
-    <div className={cn("group flex overflow-hidden [--gap:3rem]", className)} style={{ gap: "var(--gap)" }}>
+    <div className={cn("group flex overflow-hidden [--gap:3rem]", className)}>
       {[0, 1].map((k) => (
         <div
           key={k}

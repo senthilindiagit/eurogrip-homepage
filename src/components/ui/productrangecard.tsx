@@ -27,6 +27,8 @@ export interface ProductRangeCardProps {
   popImage?: string;
   /** Direction the pop-out emerges from. Default "bottom". */
   popFrom?: "top" | "bottom";
+  /** Multiplier on the popped-out image size, to even out tyres of different aspect ratios. Default 1. */
+  popScale?: number;
   /** Accent colour (default Eurogrip red). */
   accent?: string;
   /** Brand colour used for index/icon/link (default Eurogrip blue). */
@@ -65,7 +67,7 @@ const CSS = `
   font-size:1rem;color:var(--egp-brand);letter-spacing:.05em;font-family:"Saira","Noto Sans",sans-serif}
 .egp-icon{position:absolute;top:14px;right:18px;z-index:2;width:62px;height:62px;opacity:.5;
   color:var(--egp-brand);transition:opacity .4s,transform .6s var(--egp-ease)}
-.egp-card:hover .egp-icon{opacity:.85;transform:rotate(28deg)}
+.egp-card:hover .egp-icon{opacity:.9;transform:scale(1.1)}
 .egp-title{position:relative;z-index:2;margin:0;font-weight:800;font-style:italic;text-transform:uppercase;
   font-size:1.5rem;color:#11151b;line-height:1.02;font-family:"Saira","Noto Sans",sans-serif}
 .egp-desc{position:relative;z-index:2;font-size:.92rem;color:#52606f;margin:8px 0 0;max-width:34ch}
@@ -94,9 +96,9 @@ const CSS = `
 .egp-hero-img{position:absolute;width:66%;left:17%;filter:drop-shadow(0 16px 26px rgba(0,20,50,.45));
   opacity:0;transform-origin:center;transition:transform .55s var(--egp-ease),opacity .4s var(--egp-ease)}
 .egp-pop-top .egp-hero-img{top:0;transform:translateY(-24%) scale(.84) rotate(0deg)}
-.egp-card:hover .egp-pop-top .egp-hero-img{opacity:1;transform:translateY(-50%) scale(1) rotate(-6deg)}
+.egp-card:hover .egp-pop-top .egp-hero-img{opacity:1;transform:translateY(-50%) scale(var(--pop-scale,1)) rotate(-6deg)}
 .egp-pop-bottom-img .egp-hero-img{bottom:0;transform:translateY(24%) scale(.84) rotate(0deg)}
-.egp-card:hover .egp-pop-bottom-img .egp-hero-img{opacity:1;transform:translateY(50%) scale(1) rotate(6deg)}
+.egp-card:hover .egp-pop-bottom-img .egp-hero-img{opacity:1;transform:translateY(50%) scale(var(--pop-scale,1)) rotate(6deg)}
 @media (prefers-reduced-motion:reduce){
   .egp-card *{transition:none!important}
   .egp-card:hover .egp-tile,.egp-card:hover .egp-hero-img{opacity:0}
@@ -129,6 +131,7 @@ export default function ProductRangeCard({
   previews = [],
   popImage,
   popFrom = "bottom",
+  popScale = 1,
   accent = "#ed1c24",
   brand = "#0054a6",
   className = "",
@@ -150,7 +153,7 @@ export default function ProductRangeCard({
     <a
       href={href}
       className={`egp-card ${className}`}
-      style={{ ["--egp-accent" as any]: accent, ["--egp-brand" as any]: brand }}
+      style={{ ["--egp-accent" as any]: accent, ["--egp-brand" as any]: brand, ["--pop-scale" as any]: popScale }}
     >
       {popImage ? (
         <div className={popFrom === "top" ? "egp-pop-top" : "egp-pop-bottom-img"} aria-hidden="true">
