@@ -70,11 +70,20 @@ export const TECH = [
   },
 ]
 
+import riderSaggar from "@/assets/rider-saggar.webp"
+import clipSaggar from "@/assets/rider-saggar.mp4"
+import riderGracias from "@/assets/rider-gracias.webp"
+import clipGracias from "@/assets/rider-gracias.mp4"
+import riderLeo from "@/assets/rider-leo.webp"
+import clipLeo from "@/assets/rider-leo.mp4"
+import riderYasir from "@/assets/rider-yasir.webp"
+import clipYasir from "@/assets/rider-yasir.mp4"
+
 export const RIDERS = [
-  { who: "Aarav", tag: "Touring", quote: "12,000 km across the Himalayas and the grip never blinked.", hue: 205 },
-  { who: "Lena", tag: "Adventure", quote: "Alpine passes, every kind of weather. Planted and predictable.", hue: 219 },
-  { who: "Diego", tag: "Track Days", quote: "Lap after lap, the same edge confidence. No drop-off.", hue: 233 },
-  { who: "Priya", tag: "Daily Ride", quote: "Monsoon commute, zero drama. That's all I ask of a tyre.", hue: 247 },
+  { who: "Saggar", tag: "Touring", quote: "12,000 km across the Himalayas and the grip never blinked.", img: riderSaggar, clip: clipSaggar, url: "https://www.instagram.com/reels/DQoby5BEoTU/" },
+  { who: "Gracias", tag: "Adventure", quote: "Alpine passes, every kind of weather. Planted and predictable.", img: riderGracias, clip: clipGracias, url: "https://www.instagram.com/p/DZIGogIqusR/" },
+  { who: "Leo Beretta", tag: "Track Days", quote: "Lap after lap, the same edge confidence. No drop-off.", img: riderLeo, clip: clipLeo, url: "https://www.youtube.com/shorts/GwABkNM3G1Q" },
+  { who: "Yasir", tag: "Daily Ride", quote: "Monsoon commute, zero drama. That's all I ask of a tyre.", img: riderYasir, clip: clipYasir, url: "https://www.instagram.com/reels/DZNGKcGBdGQ/" },
 ]
 
 export const PARTNERS = [

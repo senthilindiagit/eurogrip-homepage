@@ -62,6 +62,59 @@ function RiderImage() {
   )
 }
 
+type Rider = (typeof RIDERS)[number]
+
+function RiderCard({ who, tag, quote, img, clip, url }: Rider) {
+  const vref = useRef<HTMLVideoElement>(null)
+  const onEnter = () => {
+    const v = vref.current
+    if (!v) return
+    v.currentTime = 0
+    v.play().catch(() => {})
+  }
+  const onLeave = () => {
+    const v = vref.current
+    if (!v) return
+    v.pause()
+    v.currentTime = 0
+  }
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      className="group relative block aspect-[9/13] overflow-hidden rounded-md border border-white/10 transition-transform duration-500 hover:-translate-y-1.5"
+    >
+      {/* poster (always shown) + clip that plays on hover */}
+      <img src={img} alt={`${who} — ${tag}`} className="absolute inset-0 h-full w-full object-cover" />
+      <video
+        ref={vref}
+        src={clip}
+        poster={img}
+        muted
+        loop
+        playsInline
+        preload="none"
+        className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+      />
+      {/* legibility scrim */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#080a0e] via-[#080a0e]/55 to-transparent" />
+      {/* play affordance — fades out as the clip takes over */}
+      <div className="absolute inset-0 grid place-items-center transition-opacity duration-300 group-hover:opacity-0">
+        <PlayIcon />
+      </div>
+      {/* caption */}
+      <div className="absolute inset-x-0 bottom-0 z-10 p-5">
+        <p className="mb-3 text-[0.92rem] leading-snug text-slate-200">“{quote}”</p>
+        <div className="font-display text-[0.95rem] font-bold italic text-white">{who}</div>
+        <div className="text-[0.78rem] uppercase tracking-wide text-slate-400">{tag}</div>
+      </div>
+    </a>
+  )
+}
+
 export function Racing() {
   return (
     <section id="racing" className="bg-[#0a0c10] py-[clamp(84px,13vh,150px)]">
@@ -79,19 +132,7 @@ export function Racing() {
         <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
           {RIDERS.map((r, i) => (
             <Reveal key={r.who} i={i % 4}>
-              <div
-                className="group relative flex aspect-[9/13] flex-col justify-end overflow-hidden rounded-md border border-white/10 p-5 transition-transform duration-500 hover:-translate-y-1.5"
-                style={{ background: `linear-gradient(160deg, hsl(${r.hue} 45% 26%), #0b0f15)` }}
-              >
-                <div className="absolute inset-0 grid place-items-center opacity-90 transition group-hover:opacity-100">
-                  <PlayIcon />
-                </div>
-                <div className="relative z-10">
-                  <p className="mb-3 text-[0.92rem] leading-snug text-slate-200">“{r.quote}”</p>
-                  <div className="font-display text-[0.95rem] font-bold italic text-white">{r.who}</div>
-                  <div className="text-[0.78rem] uppercase tracking-wide text-slate-400">{r.tag}</div>
-                </div>
-              </div>
+              <RiderCard {...r} />
             </Reveal>
           ))}
         </div>

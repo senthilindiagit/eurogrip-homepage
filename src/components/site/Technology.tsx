@@ -1,17 +1,11 @@
-import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
 import { SpotlightCard } from "@/components/ui/spotlight-card"
-import { TreadRing } from "./TreadRing"
 import { TECH } from "@/lib/site-data"
 import { Reveal, SectionHead, Btn, Arrow } from "./ui"
+import techBanner from "@/assets/tech-banner.mp4"
 
 export function Technology() {
-  const ref = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-  const rotate = useTransform(scrollYProgress, [0, 1], [-90, 200])
-
   return (
-    <section ref={ref} id="technology" className="overflow-hidden bg-gradient-to-b from-asphalt to-[#10161f] py-[clamp(84px,13vh,150px)]">
+    <section id="technology" className="overflow-hidden bg-gradient-to-b from-asphalt to-[#10161f] py-[clamp(84px,13vh,150px)]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <SectionHead
           eyebrow="Inside the tyre"
@@ -24,17 +18,15 @@ export function Technology() {
           {/* tread visual — spans two rows on desktop */}
           <Reveal className="lg:row-span-2">
             <SpotlightCard spotlightColor="rgba(0,84,166,0.35)" className="flex h-full min-h-[360px] flex-col items-center justify-center !bg-[#0c121b] p-8">
-              <div className="relative grid place-items-center">
-                <motion.div style={{ rotate }} className="w-[min(360px,72vw)]">
-                  <TreadRing accent="#ed1c24" block="rgba(255,255,255,.42)" stroke="rgba(255,255,255,.22)" />
-                </motion.div>
-                <div className="absolute grid h-[38%] w-[38%] place-items-center rounded-full border border-white/10 bg-[radial-gradient(circle_at_35%_30%,#1d242e,#0d1014)] text-center">
-                  <div>
-                    <div className="font-display text-3xl font-black italic text-white">100%</div>
-                    <div className="mt-1 text-[0.62rem] uppercase tracking-[0.14em] text-slate-400">Contact confidence</div>
-                  </div>
-                </div>
-              </div>
+              <video
+                src={techBanner}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="aspect-square w-full max-w-[380px] rounded-2xl border border-white/10 object-cover shadow-[0_24px_60px_-24px_rgba(0,40,90,.7)]"
+              />
               <p className="mx-auto mt-7 max-w-[34ch] text-center text-sm text-slate-400">
                 Every platform is validated in simulation and on the road before it earns the Eurogrip name.
               </p>
