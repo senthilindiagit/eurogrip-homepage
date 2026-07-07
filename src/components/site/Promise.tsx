@@ -8,7 +8,7 @@ const ITEMS = [
 
 export function Promise() {
   return (
-    <section className="border-t border-white/10 bg-asphalt py-[clamp(80px,12vh,150px)]">
+    <section className="border-t border-white/10 bg-gradient-to-b from-steel-2 to-steel py-[clamp(80px,12vh,150px)]">
       <div className="relative z-20 mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mb-14 max-w-[780px]">
           <Reveal><Eyebrow>The brand promise</Eyebrow></Reveal>

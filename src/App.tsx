@@ -1,5 +1,5 @@
 import { Navbar } from "./components/site/Navbar"
-import { HeroTyre } from "./components/site/HeroTyre"
+import { Cine } from "./components/site/Cine"
 import { Hero } from "./components/site/Hero"
 import { Promise as BrandPromise } from "./components/site/Promise"
 import { ProductRange } from "./components/site/ProductRange"
@@ -15,18 +15,18 @@ export default function App() {
     <div className="bg-asphalt">
       <Navbar />
       <main>
-        <div className="relative">
+        <div className="relative overflow-x-clip">
           <Hero />
-          <BrandPromise />
-          <HeroTyre />
+          <Cine><BrandPromise /></Cine>
         </div>
-        <ProductRange />
-        <Technology />
-        <Racing />
-        <AboutGroup />
-        <GlobalPresence />
+        <Cine><ProductRange /></Cine>
+        <Cine><Technology /></Cine>
+        <Cine><Racing /></Cine>
+        <Cine><AboutGroup /></Cine>
+        <Cine><GlobalPresence /></Cine>
+        {/* Newsroom stays untransformed — its lightbox modal is position:fixed */}
         <Newsroom />
-        <CtaFooter />
+        <Cine><CtaFooter /></Cine>
       </main>
     </div>
   )

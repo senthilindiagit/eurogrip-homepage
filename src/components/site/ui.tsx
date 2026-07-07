@@ -99,7 +99,7 @@ export function Btn({
 }) {
   const styles = {
     red: "bg-eurored text-white shadow-[0_10px_30px_-10px_rgba(237,28,36,.6)] hover:-translate-y-0.5",
-    blue: "bg-racing text-white hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-12px_rgba(0,84,166,.7)]",
+    blue: "bg-racing text-white hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-12px_rgba(10,110,216,.7)]",
     line: "border border-white/40 text-white hover:border-white hover:bg-white/5",
   }[variant]
   return (

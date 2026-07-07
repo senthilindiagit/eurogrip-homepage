@@ -27,7 +27,7 @@ function Newsletter() {
         <p className="text-[0.9rem] text-slate-400">Thanks — you’re on the list. Watch your inbox for tyre tech, racing and product news.</p>
       ) : (
         <>
-          <p className="mb-3 text-[0.9rem] text-slate-500">Tyre technology, racing and product news — straight to your inbox.</p>
+          <p className="mb-3 text-[0.9rem] text-slate-400">Tyre technology, racing and product news — straight to your inbox.</p>
           <form
             onSubmit={(e) => { e.preventDefault(); if (email.trim()) setDone(true) }}
             className="flex flex-col gap-2.5 sm:flex-row"
@@ -39,7 +39,7 @@ function Newsletter() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email address"
               aria-label="Email address"
-              className="min-w-0 flex-1 rounded-[3px] border border-white/15 bg-white/[0.04] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-eurored focus:outline-none"
+              className="min-w-0 flex-1 rounded-[3px] border border-white/15 bg-white/[0.04] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-eurored focus:outline-none"
             />
             <button
               type="submit"
@@ -56,7 +56,7 @@ function Newsletter() {
 
 function CertSeal({ fam, num, year }: { fam: string; num: string; year: string }) {
   return (
-    <div className="relative grid h-[92px] w-[92px] shrink-0 place-items-center rounded-full border border-racing/70 bg-[#0b1622] shadow-[inset_0_0_0_4px_rgba(255,255,255,.04)]">
+    <div className="relative grid h-[92px] w-[92px] shrink-0 place-items-center rounded-full border border-racing/70 bg-[#1d2c44] shadow-[inset_0_0_0_4px_rgba(255,255,255,.04)]">
       <span className="absolute inset-[6px] rounded-full border border-dashed border-white/15" />
       <div className="text-center leading-none">
         <div className="font-display text-[0.6rem] font-extrabold uppercase tracking-[0.14em] text-sky-300">{fam}</div>
@@ -72,7 +72,7 @@ export function CtaFooter() {
     <>
       <section id="contact" className="relative overflow-hidden text-center text-white">
         <img src={ctaBg} alt="" className="absolute inset-0 h-full w-full scale-110 object-cover" style={{ filter: "blur(5px) brightness(0.6)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(0,70,140,.9), rgba(0,22,52,.92))" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(10,110,216,.88), rgba(18,58,112,.92))" }} />
         <div className="pointer-events-none absolute inset-0 opacity-[0.06]"
           style={{ background: "repeating-conic-gradient(#fff 0 25%,transparent 0 50%) 0 0/40px 40px" }} />
         <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-[clamp(80px,12vh,150px)] sm:px-8">
@@ -90,12 +90,12 @@ export function CtaFooter() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-[#070a0d] pb-8 pt-[74px]">
+      <footer className="border-t border-white/10 bg-steel pb-8 pt-[74px]">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
             <div className="col-span-2 md:col-span-1">
               <img src={logoWhite} alt="Eurogrip" className="mb-4 h-7 w-auto" />
-              <p className="max-w-[34ch] text-[0.9rem] text-slate-500">
+              <p className="max-w-[34ch] text-[0.9rem] text-slate-400">
                 Specialist tyre technology, engineered to outperform. A TVS Mobility Group company.
               </p>
             </div>
@@ -103,7 +103,7 @@ export function CtaFooter() {
               <div key={head}>
                 <h5 className="mb-4 font-display text-[0.82rem] font-extrabold uppercase italic tracking-[0.08em] text-white">{head}</h5>
                 {links.map((l) => (
-                  <a key={l} href="#" className="block py-1.5 text-[0.9rem] text-slate-500 transition-colors hover:text-white">{l}</a>
+                  <a key={l} href="#" className="block py-1.5 text-[0.9rem] text-slate-400 transition-colors hover:text-white">{l}</a>
                 ))}
               </div>
             ))}
@@ -124,12 +124,12 @@ export function CtaFooter() {
           <div className="mt-10 flex flex-col gap-8 border-t border-white/10 pt-8 lg:flex-row lg:items-end lg:justify-between">
             <CountrySelect />
             <div className="flex flex-col gap-3 sm:items-end">
-              <span className="text-[0.7rem] uppercase tracking-[0.14em] text-slate-500">Follow us</span>
+              <span className="text-[0.7rem] uppercase tracking-[0.14em] text-slate-400">Follow us</span>
               <Socials />
             </div>
           </div>
 
-          <div className="mt-8 border-t border-white/10 pt-6 text-[0.82rem] text-slate-600">
+          <div className="mt-8 border-t border-white/10 pt-6 text-[0.82rem] text-slate-400/80">
             © 2026 TVS Srichakra Limited · Eurogrip is a registered trademark.
           </div>
         </div>
