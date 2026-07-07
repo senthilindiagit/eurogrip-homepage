@@ -71,8 +71,11 @@ function FilmThumb({ onOpen }: { onOpen: () => void }) {
       aria-label="Play the Eurogrip brand film"
       className="group relative block aspect-video w-full overflow-hidden rounded-md border border-white/15 shadow-[0_30px_70px_-30px_rgba(0,0,0,.7)] transition-transform duration-500 hover:-translate-y-1"
     >
-      {/* silent looping preview as the thumbnail (same file as the hero — already cached) */}
-      <video src={VIDEO} muted loop autoPlay playsInline className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      <img
+        src="/brand-film-poster.webp"
+        alt="Still from the Eurogrip brand film — two riders setting off"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0d1014]/75 via-transparent to-transparent" />
 
       {/* play button — lifts, glows and rings on hover */}
