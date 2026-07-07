@@ -4,13 +4,12 @@ import { Counter, Btn, Arrow } from "./ui"
 
 const WORDS = ["every road", "the long haul", "85 countries", "the racetrack", "the worst weather"]
 const ENTER = [0.16, 0.84, 0.34, 1] as const
-const D = 0.15 // small settle delay before the hero text arrives
+const D = 1.55 // delay so nav/text arrive only after the loader tyre settles right
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80])
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.16])
 
   const [wi, setWi] = useState(0)
   useEffect(() => {
@@ -30,30 +29,33 @@ export function Hero() {
       ref={ref}
       id="top"
       className="relative flex min-h-screen items-center overflow-hidden pb-20 pt-28"
-      style={{ background: "radial-gradient(120% 90% at 80% 10%, #1e4f8f 0%, #0d1014 55%)" }}
+      style={{ background: "radial-gradient(120% 90% at 80% 10%, #16315a 0%, #0d1014 55%)" }}
     >
-      {/* brand video banner — slow cinematic push-in on scroll */}
-      <motion.video
-        style={{ scale: videoScale }}
-        className="absolute inset-0 h-full w-full object-cover"
-        src="/eurogrip-brand-video.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
-      {/* legibility scrim over the video */}
+      {/* grain */}
       <div
-        className="pointer-events-none absolute inset-0"
-        style={{ background: "linear-gradient(90deg, rgba(13,16,20,.82) 0%, rgba(13,16,20,.5) 48%, rgba(13,16,20,.12) 100%)" }}
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{ backgroundImage: "radial-gradient(rgba(255,255,255,.025) 1px, transparent 1px)", backgroundSize: "4px 4px" }}
       />
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-44"
-        style={{ background: "linear-gradient(180deg, transparent, rgba(13,16,20,.9))" }}
-      />
+      {/* speed lines */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {[...Array(6)].map((_, i) => (
+          <motion.span
+            key={i}
+            className="absolute h-[3px] rounded"
+            style={{
+              top: `${10 + i * 14}%`,
+              width: `${80 + (i % 3) * 90}px`,
+              background: "linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent)",
+            }}
+            initial={{ x: "-40vw", opacity: 0 }}
+            animate={{ x: "140vw", opacity: [0, 0.6, 0] }}
+            transition={{ duration: 3 + (i % 3), repeat: Infinity, delay: i * 0.7, ease: "linear" }}
+          />
+        ))}
+      </div>
       {/* blue glow */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-[46%] mix-blend-screen"
-        style={{ background: "linear-gradient(115deg, rgba(10,110,216,.38), transparent 70%)" }} />
+        style={{ background: "linear-gradient(115deg, rgba(0,84,166,.32), transparent 70%)" }} />
 
       <motion.div style={{ y: contentY }} className="relative z-20 mx-auto w-full max-w-[1280px] px-5 sm:px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: ENTER, delay: D }}>
@@ -62,7 +64,7 @@ export function Hero() {
           </span>
         </motion.div>
 
-        <h1 className="italic-display mt-4 mb-4 text-white leading-[0.9] text-[clamp(2.3rem,6.2vw,5.1rem)]">
+        <h1 className="italic-display mt-4 mb-4 text-white leading-[0.9] text-[clamp(2.7rem,7.6vw,6.4rem)]">
           <motion.span className="block whitespace-nowrap" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.08 }}>
             Engineered
           </motion.span>

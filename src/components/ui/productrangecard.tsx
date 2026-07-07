@@ -51,7 +51,7 @@ function useCardStyles(accent: string, brand: string) {
 
 const CSS = `
 .egp-card{position:relative;min-height:300px;cursor:pointer;display:block;z-index:1;
-  --egp-accent:#ed1c24;--egp-brand:#0a6ed8;--egp-ease:cubic-bezier(.16,.84,.34,1);
+  --egp-accent:#ed1c24;--egp-brand:#0054a6;--egp-ease:cubic-bezier(.16,.84,.34,1);
   font-family:"Noto Sans",system-ui,Arial,sans-serif;text-decoration:none}
 .egp-card:hover{z-index:6}
 .egp-face{position:relative;z-index:2;height:100%;min-height:300px;border-radius:8px;overflow:hidden;
@@ -133,7 +133,7 @@ export default function ProductRangeCard({
   popFrom = "bottom",
   popScale = 1,
   accent = "#ed1c24",
-  brand = "#0a6ed8",
+  brand = "#0054a6",
   className = "",
 }: ProductRangeCardProps) {
   useCardStyles(accent, brand);

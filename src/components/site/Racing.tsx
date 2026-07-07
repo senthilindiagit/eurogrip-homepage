@@ -117,7 +117,7 @@ function RiderCard({ who, tag, quote, img, clip, url }: Rider) {
 
 export function Racing() {
   return (
-    <section id="racing" className="bg-carbon py-[clamp(84px,13vh,150px)]">
+    <section id="racing" className="bg-[#0a0c10] py-[clamp(84px,13vh,150px)]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mb-[clamp(40px,6vh,56px)] grid items-center gap-8 lg:grid-cols-[1fr_clamp(340px,38%,460px)]">
           <SectionHead

@@ -11,7 +11,7 @@ const STATS = [
 
 export function GlobalPresence() {
   return (
-    <section id="global" className="bg-gradient-to-b from-steel-2 to-steel py-[clamp(84px,13vh,150px)]">
+    <section id="global" className="bg-gradient-to-b from-asphalt to-[#0a0e14] py-[clamp(84px,13vh,150px)]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="grid grid-cols-1 items-center gap-[clamp(30px,5vw,64px)] lg:grid-cols-2">
           <SectionHead

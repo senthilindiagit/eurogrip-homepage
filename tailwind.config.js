@@ -44,10 +44,8 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         // Eurogrip brand tokens
-        racing: "#0a6ed8",
-        "racing-deep": "#0054a6",
-        steel: "#26364e",
-        "steel-2": "#2f4464",
+        racing: "#0054a6",
+        "racing-deep": "#003a73",
         eurored: "#ed1c24",
         asphalt: "#0d1014",
         carbon: "#161b22",
