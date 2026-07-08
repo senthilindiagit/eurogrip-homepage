@@ -22,15 +22,10 @@ export function AboutGroup() {
           </Reveal>
           <Reveal i={2}>
             <p className="mt-4 max-w-[54ch] text-slate-600">
-              Eurogrip is the flagship tyre brand of TVS Srichakra Limited — part of the TVS Mobility Group, one of India’s most respected names in mobility. What began as a specialist in two-wheeler tyres has grown into a global manufacturer exporting across continents, while staying true to a single belief: hold yourself to a higher standard.
+              Eurogrip is the flagship tyre brand of TVS Srichakra Limited, part of the TVS Mobility Group — a two-wheeler tyre specialist grown into a global manufacturer, driven by relentless R&amp;D and one belief: hold yourself to a higher standard.
             </p>
           </Reveal>
-          <Reveal i={3}>
-            <p className="mt-3.5 max-w-[54ch] text-slate-600">
-              The journey of Eurogrip is a story of relentless R&amp;D, world-class manufacturing and a culture built around riders, partners and the planet.
-            </p>
-          </Reveal>
-          <Reveal i={4} className="mt-8">
+          <Reveal i={3} className="mt-8">
             <Btn href="#group" variant="blue">Discover Eurogrip <Arrow /></Btn>
           </Reveal>
         </div>
