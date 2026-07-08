@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { TECH } from "@/lib/site-data"
 import { Reveal, SectionHead, Btn, Arrow } from "./ui"
+import techBanner from "@/assets/tech-banner.mp4"
 import icDuct from "@/assets/tech/tech-duct.webp"
 import icTrip from "@/assets/tech/tech-trip.webp"
 import icD2t from "@/assets/tech/tech-d2t.webp"
@@ -59,7 +60,7 @@ export function Technology() {
 
         <Reveal>
           <div
-            className="grid overflow-hidden rounded-lg border border-white/10 bg-[#1f2f47]/70 lg:grid-cols-[minmax(260px,340px)_1fr]"
+            className="grid overflow-hidden rounded-lg border border-white/10 bg-[#1f2f47]/70 lg:grid-cols-[minmax(240px,300px)_1fr_minmax(230px,300px)]"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
@@ -154,6 +155,14 @@ export function Technology() {
                   style={{ width: "100%" }}
                 />
               )}
+            </div>
+
+            {/* the tyre film — right column */}
+            <div className="relative aspect-video w-full border-t border-white/10 lg:aspect-auto lg:h-full lg:border-l lg:border-t-0">
+              <video src={techBanner} autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0d1014]/85 to-transparent p-3.5 text-[0.78rem] font-semibold leading-snug text-slate-200">
+                Validated in simulation and on the road before it earns the Eurogrip name.
+              </span>
             </div>
           </div>
         </Reveal>
