@@ -9,7 +9,8 @@ const ITEMS = [
   { o: "Out", b: "do", p: "Always ready for the next trip, the next turn and the next challenge — designed to deliver, then better itself." },
 ]
 
-const VIDEO = "/eurogrip-brand-video.mp4"
+/* the original 2026 brand film — the hero banner uses the newer cut */
+const VIDEO = "/brand-film.mp4"
 
 /* Rendered via portal so the fixed overlay escapes the Cine 3D transform. */
 function FilmLightbox({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -90,7 +91,7 @@ function FilmThumb({ onOpen }: { onOpen: () => void }) {
 
       <span className="absolute inset-x-0 bottom-0 flex items-center justify-between p-4 text-left">
         <span className="font-display text-[0.85rem] font-extrabold uppercase italic tracking-[0.08em] text-white">Watch the brand film</span>
-        <span className="text-[0.78rem] tracking-[0.08em] text-slate-300">0:39</span>
+        <span className="text-[0.78rem] tracking-[0.08em] text-slate-300">0:46</span>
       </span>
     </button>
   )

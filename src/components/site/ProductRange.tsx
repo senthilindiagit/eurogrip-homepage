@@ -7,38 +7,26 @@ import tyreToofan from "@/assets/tyre-toofan.webp"
 import tyreHs1000 from "@/assets/tyre-hs1000.webp"
 import tyreMt63l from "@/assets/tyre-mt63l.webp"
 import tyreEl09 from "@/assets/tyre-el09.webp"
-import { Bike, Truck, Tractor, Forklift } from "lucide-react"
+import motorbikeSvg from "@/assets/products/motorbike.svg?raw"
+import tuktukSvg from "@/assets/products/tuktuk.svg?raw"
+import truckSvg from "@/assets/products/truck.svg?raw"
+import tractorSvg from "@/assets/products/tractor.svg?raw"
+import forkliftSvg from "@/assets/products/forklift.svg?raw"
+import dumptruckSvg from "@/assets/products/dumptruck.svg?raw"
 
-const ICON = 48
-const SW = 1.6
-// auto-rickshaw (three-wheeler) — domed cabin with one front + two rear wheels
-const Rickshaw = (
-  <svg viewBox="0 0 24 24" width={ICON} height={ICON} fill="none" stroke="currentColor" strokeWidth={SW} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M3 15v-3a5 5 0 0 1 5-5h3l4 4v4" />
-    <path d="M3 15h2m3 0h3m3 0h3" />
-    <circle cx="6" cy="17" r="1.8" />
-    <circle cx="13.6" cy="17" r="1.8" />
-    <circle cx="17" cy="17" r="1.8" />
-  </svg>
-)
-// OTR dump truck — big bed + cab on heavy wheels
-const DumpTruck = (
-  <svg viewBox="0 0 24 24" width={ICON} height={ICON} fill="none" stroke="currentColor" strokeWidth={SW} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M2.5 8h8v6h-8z" />
-    <path d="M10.5 14v-3h3l3 3v3" />
-    <path d="M2.5 14.5h2m4.5 0h4.5m4 0h2" />
-    <circle cx="6.5" cy="17.4" r="2.1" />
-    <circle cx="16.5" cy="17.4" r="2.1" />
-  </svg>
+// client-supplied vehicle icons, converted to currentColor so they take
+// the card's --egp-brand blue (and any future colour) automatically
+const svgIcon = (raw: string) => (
+  <span aria-hidden className="block h-full w-full [&_svg]:h-full [&_svg]:w-full" dangerouslySetInnerHTML={{ __html: raw }} />
 )
 
 const ICONS = [
-  <Bike size={ICON} strokeWidth={SW} />,
-  Rickshaw,
-  <Truck size={ICON} strokeWidth={SW} />,
-  <Tractor size={ICON} strokeWidth={SW} />,
-  <Forklift size={ICON} strokeWidth={SW} />,
-  DumpTruck,
+  svgIcon(motorbikeSvg),
+  svgIcon(tuktukSvg),
+  svgIcon(truckSvg),
+  svgIcon(tractorSvg),
+  svgIcon(forkliftSvg),
+  svgIcon(dumptruckSvg),
 ]
 
 // per-category hover pop-out — two-wheeler keeps the generic tyre,
