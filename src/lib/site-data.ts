@@ -43,30 +43,49 @@ export const PRODUCTS = [
   },
 ]
 
+/* The 7 Signature Technologies — Exports Sales Pitch Deck pp.29-34 + Bee Wild range deck pp.4-5 */
 export const TECH = [
   {
-    n: "01",
-    title: "Advanced Compound Platform",
-    tbc: true,
-    body: "Silica-rich compounds tuned for wet grip without trading away tread life — confidence in the first corner and the ten-thousandth.",
+    code: "DuCT",
+    title: "Dual Compound Technology",
+    body: "Cap-and-base construction — a middle compound layer binds the tyre's structure to the tread pattern.",
+    benefit: "Improved stability, grip and durability — 20% better than single-compound tyres",
   },
   {
-    n: "02",
-    title: "Precision Casing Architecture",
-    tbc: true,
-    body: "Optimised carcass construction for stability under load, sharper steering response and a planted feel at lean.",
+    code: "TriP",
+    title: "Tri-Polymer Compound",
+    body: "A special blend of silica-rich fillers with High Structure Carbon, varied from centre ribbon to shoulders.",
+    benefit: "Balanced grip on wet, cold, dry and hot tarmac alike",
   },
   {
-    n: "03",
-    title: "Adaptive Tread Design",
-    tbc: true,
-    body: "Computational groove patterns evacuate water fast and bite into loose surfaces — engineered per terrain, not per size.",
+    code: "D2T",
+    title: "Deep Tread Design",
+    body: "Computer-aided, finely tuned knob design balancing off-road traction against wearing and tearing.",
+    benefit: "Versatility across terrains, with increased durability",
   },
   {
-    n: "04",
-    title: "Sustainable Materials Roadmap",
-    tbc: false,
-    body: "A dedicated programme advancing renewable and recovered materials across the range — now with its own home on the site.",
+    code: "DrBond",
+    title: "Dry Bonding",
+    body: "Reinforcement technology that locks tread and casing layers together into one inseparable structure.",
+    benefit: "Strength that holds under heat, load and time",
+  },
+  {
+    code: "OpT-Pad",
+    title: "Optimised Tread Pattern",
+    body: "FEA-aided tread and contact-patch optimisation for even pressure distribution at every lean angle.",
+    benefit: "Improved water drainage, durability and wear regularity",
+  },
+  {
+    code: "A-SeT",
+    title: "Air Seal Technology",
+    body: "An air-seal inner liner that maintains tyre pressure for extended periods — under 10% drop across a month of testing.",
+    benefit: "The same grip throughout the life of the tyre",
+  },
+  {
+    code: "RoBusT",
+    title: "Roll Balanced Construction",
+    body: "Carcass layers and cord parameters finely tuned for dynamic performance, even on heavyweight motorcycles.",
+    benefit: "Better stability, agility and control at high speed",
   },
 ]
 

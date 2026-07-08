@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { RIDERS } from "@/lib/site-data"
-import { Reveal, SectionHead, Marquee } from "./ui"
+import { Reveal, SectionHead, Marquee, Btn, Arrow } from "./ui"
 import riderImg from "@/assets/race-bike.webp"
 import logoTvs from "@/assets/logo-tvs.webp"
 import logoBajaj from "@/assets/logo-bajaj.webp"
@@ -136,6 +136,11 @@ export function Racing() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal className="mt-9 flex flex-wrap gap-3.5">
+          <Btn href="#racing" variant="red">Inside Eurogrip Racing <Arrow /></Btn>
+          <Btn href="#racing" variant="line">View all testimonial videos →</Btn>
+        </Reveal>
 
         <div className="mt-12 border-t border-white/10 pt-8">
           <div className="mb-6 text-center text-[0.78rem] uppercase tracking-[0.12em] text-slate-500">OEM partners &amp; trusted fitments</div>

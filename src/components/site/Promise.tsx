@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { AnimatePresence, motion } from "framer-motion"
-import { Reveal, Eyebrow } from "./ui"
+import { Reveal, Eyebrow, Btn, Arrow } from "./ui"
 
 const ITEMS = [
   { o: "Out", b: "live", p: "The road might end — but with high performance, long life and durability, a Eurogrip tyre will outlive the journey." },
@@ -90,7 +90,7 @@ function FilmThumb({ onOpen }: { onOpen: () => void }) {
 
       <span className="absolute inset-x-0 bottom-0 flex items-center justify-between p-4 text-left">
         <span className="font-display text-[0.85rem] font-extrabold uppercase italic tracking-[0.08em] text-white">Watch the brand film</span>
-        <span className="text-[0.78rem] tracking-[0.08em] text-slate-300">0:46</span>
+        <span className="text-[0.78rem] tracking-[0.08em] text-slate-300">0:39</span>
       </span>
     </button>
   )
@@ -127,6 +127,9 @@ export function Promise() {
             </Reveal>
           ))}
         </div>
+        <Reveal className="mt-12">
+          <Btn href="#group" variant="red">About Eurogrip <Arrow /></Btn>
+        </Reveal>
       </div>
       <FilmLightbox open={open} onClose={() => setOpen(false)} />
     </section>
