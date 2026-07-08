@@ -1,8 +1,7 @@
-import { motion, useReducedMotion } from "framer-motion"
-import { SpotlightCard } from "@/components/ui/spotlight-card"
+import { useEffect, useState } from "react"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { TECH } from "@/lib/site-data"
 import { Reveal, SectionHead, Btn, Arrow } from "./ui"
-import techBanner from "@/assets/tech-banner.mp4"
 import icDuct from "@/assets/tech/tech-duct.webp"
 import icTrip from "@/assets/tech/tech-trip.webp"
 import icD2t from "@/assets/tech/tech-d2t.webp"
@@ -22,77 +21,35 @@ const ICONS: Record<string, string> = {
 }
 
 const ENTER = [0.16, 0.84, 0.34, 1] as const
-
-/* Technology illustration: rolls in on scroll, then floats; leans in on card hover. */
-function TechIcon({ code }: { code: string }) {
-  const reduce = useReducedMotion()
-  return (
-    <span className="relative block h-12 w-12 shrink-0">
-      {/* pulse ring behind the badge */}
-      <motion.span
-        aria-hidden
-        className="absolute inset-0 rounded-full bg-racing/35"
-        initial={false}
-        whileInView={reduce ? undefined : { scale: [1, 1.45, 1.45], opacity: [0.6, 0, 0] }}
-        viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-        transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
-      />
-      <motion.span
-        className="absolute inset-0 overflow-hidden rounded-full border border-white/25 bg-white shadow-[0_8px_20px_-8px_rgba(0,0,0,.55)] transition-transform duration-300 ease-out group-hover:scale-110 group-hover:rotate-6"
-        initial={reduce ? false : { rotate: -100, scale: 0.4, opacity: 0 }}
-        whileInView={{ rotate: 0, scale: 1, opacity: 1 }}
-        viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-        transition={{ type: "spring", stiffness: 190, damping: 17 }}
-      >
-        <motion.img
-          src={ICONS[code]}
-          alt=""
-          className="h-full w-full scale-[1.12] object-cover"
-          animate={reduce ? undefined : { y: [0, -2, 0] }}
-          transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.span>
-    </span>
-  )
-}
-
-function TechCard({ t, i }: { t: (typeof TECH)[number]; i: number }) {
-  const reduce = useReducedMotion()
-  return (
-    <SpotlightCard spotlightColor="rgba(237,28,36,0.16)" className="group h-full !bg-[#22334d] p-4">
-      <div className="flex items-start gap-3.5">
-        <TechIcon code={t.code} />
-        <div className="min-w-0">
-          <h4 className="font-display text-[0.98rem] font-extrabold uppercase italic leading-tight text-white">
-            <span className="mr-2 text-eurored">{t.code}</span>
-            {t.title}
-          </h4>
-          <p className="mt-1 text-[0.84rem] leading-snug text-slate-300">{t.body}</p>
-          {/* benefit — slides in after the icon lands */}
-          <motion.p
-            className="mt-2 inline-flex items-start gap-2 border-l-2 border-eurored pl-2 text-[0.8rem] font-semibold leading-snug text-white/90"
-            initial={reduce ? false : { opacity: 0, x: -14 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-            transition={{ duration: 0.55, delay: 0.25 + (i % 2) * 0.08, ease: ENTER }}
-          >
-            {t.benefit}
-          </motion.p>
-        </div>
-      </div>
-    </SpotlightCard>
-  )
-}
+const DWELL = 5000 // ms each technology stays up before auto-advancing
 
 export function Technology() {
+  const reduce = useReducedMotion()
+  const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [manual, setManual] = useState(false)
+  const t = TECH[active]
+
+  // showroom auto-rotate; pauses on hover and stops once the visitor drives
+  useEffect(() => {
+    if (reduce || paused || manual) return
+    const id = setInterval(() => setActive((i) => (i + 1) % TECH.length), DWELL)
+    return () => clearInterval(id)
+  }, [reduce, paused, manual])
+
+  const select = (i: number) => {
+    setManual(true)
+    setActive(i)
+  }
+
   return (
     <section id="technology" className="overflow-hidden bg-gradient-to-b from-steel-2 to-steel py-[clamp(60px,9vh,104px)]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <SectionHead
           eyebrow="Inside the tyre"
           title={
-            <span className="block text-[clamp(1.8rem,4.2vw,3.3rem)] leading-[1.02]">
-              Seven signature technologies.<br />
+            <span className="block text-[clamp(1.7rem,3.9vw,3.1rem)] leading-[1.04]">
+              <span className="whitespace-nowrap">Seven signature technologies.</span><br />
               <span className="whitespace-nowrap">One promise on the road.</span>
             </span>
           }
@@ -100,24 +57,106 @@ export function Technology() {
           className="mb-8"
         />
 
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          {TECH.map((t, i) => (
-            <Reveal key={t.code} i={i % 2}>
-              <TechCard t={t} i={i} />
-            </Reveal>
-          ))}
-          {/* the spinning-tyre film fills the 8th cell */}
-          <Reveal i={1}>
-            <SpotlightCard spotlightColor="rgba(10,110,216,0.4)" className="h-full overflow-hidden !bg-[#1f2f47] !p-0">
-              <div className="relative aspect-video w-full">
-                <video src={techBanner} autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0d1014]/85 to-transparent p-3.5 text-[0.8rem] font-semibold text-slate-200">
-                  Validated in simulation and on the road before it earns the Eurogrip name.
-                </span>
-              </div>
-            </SpotlightCard>
-          </Reveal>
-        </div>
+        <Reveal>
+          <div
+            className="grid overflow-hidden rounded-lg border border-white/10 bg-[#1f2f47]/70 lg:grid-cols-[minmax(260px,340px)_1fr]"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            {/* rail — the seven technologies */}
+            <div
+              role="tablist"
+              aria-label="Eurogrip signature technologies"
+              aria-orientation="vertical"
+              className="flex overflow-x-auto border-b border-white/10 lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-r"
+            >
+              {TECH.map((item, i) => {
+                const on = i === active
+                return (
+                  <button
+                    key={item.code}
+                    role="tab"
+                    aria-selected={on}
+                    onClick={() => select(i)}
+                    className={`group relative flex shrink-0 items-center gap-3 px-4 py-3 text-left transition-colors lg:flex-1 lg:px-5 ${
+                      on ? "bg-white/[0.07]" : "hover:bg-white/[0.04]"
+                    }`}
+                  >
+                    {/* active accent bar */}
+                    <span className={`absolute bottom-0 left-0 h-[3px] w-full bg-eurored transition-opacity lg:h-full lg:w-[3px] ${on ? "opacity-100" : "opacity-0"}`} />
+                    <span className={`font-display text-[0.72rem] font-black italic ${on ? "text-eurored" : "text-slate-500"}`}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0">
+                      <span className={`block font-display text-[0.88rem] font-extrabold italic leading-none ${on ? "text-white" : "text-slate-300"}`}>
+                        {item.code}
+                      </span>
+                      <span className={`mt-0.5 hidden whitespace-nowrap text-[0.72rem] uppercase tracking-[0.06em] lg:block ${on ? "text-slate-300" : "text-slate-500"}`}>
+                        {item.title}
+                      </span>
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* detail panel */}
+            <div role="tabpanel" className="relative min-h-[300px] p-6 sm:p-9">
+              {/* faint oversized code as backdrop texture */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={t.code}
+                  initial={reduce ? false : { opacity: 0, x: 28 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, x: -18 }}
+                  transition={{ duration: 0.45, ease: ENTER }}
+                  className="relative flex h-full flex-col justify-center"
+                >
+                  <span aria-hidden className="pointer-events-none absolute -right-2 -top-6 select-none font-display text-[clamp(4rem,9vw,7rem)] font-black italic leading-none text-white/[0.05]">
+                    {t.code}
+                  </span>
+                  <div className="flex items-start gap-5">
+                    <motion.span
+                      className="relative block h-20 w-20 shrink-0 overflow-hidden rounded-full border border-white/25 bg-white shadow-[0_14px_34px_-12px_rgba(0,0,0,.6)] sm:h-24 sm:w-24"
+                      initial={reduce ? false : { rotate: -90, scale: 0.6 }}
+                      animate={{ rotate: 0, scale: 1 }}
+                      transition={{ type: "spring", stiffness: 180, damping: 16 }}
+                    >
+                      <img src={ICONS[t.code]} alt="" className="h-full w-full scale-[1.12] object-cover" />
+                    </motion.span>
+                    <div className="min-w-0">
+                      <div className="font-display text-[1rem] font-black italic leading-none text-eurored">{t.code}</div>
+                      <h4 className="mt-1 font-display text-[clamp(1.15rem,2.2vw,1.5rem)] font-extrabold uppercase italic leading-tight text-white">
+                        {t.title}
+                      </h4>
+                      <p className="mt-2.5 max-w-[52ch] text-[0.95rem] leading-relaxed text-slate-300">{t.body}</p>
+                      <motion.p
+                        className="mt-3.5 inline-flex items-start gap-2 border-l-2 border-eurored pl-2.5 text-[0.88rem] font-semibold leading-snug text-white/90"
+                        initial={reduce ? false : { opacity: 0, x: -14 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.18, ease: ENTER }}
+                      >
+                        {t.benefit}
+                      </motion.p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* auto-advance progress line */}
+              {!reduce && !manual && (
+                <motion.span
+                  key={`progress-${active}-${paused}`}
+                  className="absolute bottom-0 left-0 h-[2px] origin-left bg-eurored/70"
+                  initial={{ scaleX: 0 }}
+                  animate={paused ? {} : { scaleX: 1 }}
+                  transition={{ duration: DWELL / 1000, ease: "linear" }}
+                  style={{ width: "100%" }}
+                />
+              )}
+            </div>
+          </div>
+        </Reveal>
 
         <Reveal className="mt-7 flex flex-wrap gap-3.5">
           <Btn href="#technology" variant="blue">Explore technology <Arrow /></Btn>
