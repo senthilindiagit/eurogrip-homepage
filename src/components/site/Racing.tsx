@@ -117,15 +117,22 @@ function RiderCard({ who, tag, quote, img, clip, url }: Rider) {
 
 export function Racing() {
   return (
-    <section id="racing" className="bg-gradient-to-b from-steel to-steel-2 py-[clamp(84px,13vh,150px)]">
+    <section id="racing" className="border-t border-black/5 bg-mist py-[clamp(84px,13vh,150px)]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-        <div className="mb-[clamp(40px,6vh,56px)] grid items-center gap-8 lg:grid-cols-[1fr_clamp(340px,38%,460px)]">
-          <SectionHead
-            eyebrow="Partnerships"
-            title={<>Proven by riders.<br />Not just by us.</>}
-            lede="Championship grids, OEM fitments, everyday riders — the proof is in the people who trust it."
-            ledeClassName="max-w-none"
-          />
+        <div className="mb-[clamp(40px,6vh,56px)] grid items-center gap-8 lg:grid-cols-[1fr_clamp(320px,36%,440px)]">
+          <div>
+            <SectionHead
+              light
+              eyebrow="Partnerships"
+              title={<>Proven by riders.<br />Not just by us.</>}
+              lede="Championship grids, OEM fitments, everyday riders — the proof is in the people who trust it."
+              ledeClassName="max-w-none lg:whitespace-nowrap lg:text-[0.92rem]"
+            />
+            <Reveal i={2} className="mt-7 flex flex-wrap gap-3.5">
+              <Btn href="#racing" variant="red">Explore our partnerships <Arrow /></Btn>
+              <Btn href="#racing" variant="line-dark">View all testimonial videos →</Btn>
+            </Reveal>
+          </div>
           <RiderImage />
         </div>
 
@@ -137,16 +144,11 @@ export function Racing() {
           ))}
         </div>
 
-        <Reveal className="mt-9 flex flex-wrap gap-3.5">
-          <Btn href="#racing" variant="red">Explore our partnerships <Arrow /></Btn>
-          <Btn href="#racing" variant="line">View all testimonial videos →</Btn>
-        </Reveal>
-
-        <div className="mt-12 border-t border-white/10 pt-8">
-          <div className="mb-6 text-center text-[0.74rem] uppercase tracking-[0.12em] text-slate-400">OEM partners &amp; trusted fitments</div>
+        <div className="mt-12 border-t border-black/10 pt-8">
+          <div className="mb-6 text-center text-[0.74rem] uppercase tracking-[0.12em] text-slate-500">OEM partners &amp; trusted fitments</div>
           <Marquee speed={30}>
             {LOGOS.map((src, i) => (
-              <img key={i} src={src} alt="" className="h-8 w-auto object-contain opacity-50 transition-opacity duration-300 hover:opacity-100" style={{ filter: "brightness(0) invert(1)" }} />
+              <img key={i} src={src} alt="" className="h-8 w-auto object-contain opacity-40 transition-opacity duration-300 hover:opacity-80" style={{ filter: "brightness(0)" }} />
             ))}
           </Marquee>
         </div>

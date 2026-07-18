@@ -43,9 +43,9 @@ export function ProductRange() {
         <SectionHead
           light
           eyebrow="The range"
-          title="One specialist. Six worlds of grip."
-          lede="Six specialist ranges, engineered for the way each machine works. Hover a category to preview it."
-          className="mb-[clamp(40px,6vh,64px)]"
+          title={<span className="whitespace-nowrap text-[clamp(1.2rem,3.6vw,2.9rem)]">One specialist. Six worlds of grip.</span>}
+          lede={<>Six specialist ranges, engineered for the way each machine works. <em>Hover a category to preview it.</em></>}
+          className="mb-[clamp(40px,6vh,64px)] max-w-none"
         />
         <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((p, i) => (
