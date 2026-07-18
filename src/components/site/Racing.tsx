@@ -100,7 +100,7 @@ function RiderCard({ who, tag, quote, img, clip, url }: Rider) {
         className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
       />
       {/* legibility scrim */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#080a0e] via-[#080a0e]/55 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1a30] via-[#0d1a30]/55 to-transparent" />
       {/* play affordance — fades out as the clip takes over */}
       <div className="absolute inset-0 grid place-items-center transition-opacity duration-300 group-hover:opacity-0">
         <PlayIcon />
@@ -117,14 +117,14 @@ function RiderCard({ who, tag, quote, img, clip, url }: Rider) {
 
 export function Racing() {
   return (
-    <section id="racing" className="bg-carbon py-[clamp(84px,13vh,150px)]">
+    <section id="racing" className="bg-gradient-to-b from-steel to-steel-2 py-[clamp(84px,13vh,150px)]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mb-[clamp(40px,6vh,56px)] grid items-center gap-8 lg:grid-cols-[1fr_clamp(340px,38%,460px)]">
           <SectionHead
-            eyebrow="Racing & partnership"
+            eyebrow="Partnerships"
             title={<>Proven by riders.<br />Not just by us.</>}
-            lede="From championship grids to OEM fitments and the road-trip diaries of everyday riders — the proof of a Eurogrip tyre is in the people who trust it."
-            ledeClassName="max-w-none lg:text-[1.04rem]"
+            lede="Championship grids, OEM fitments, everyday riders — the proof is in the people who trust it."
+            ledeClassName="max-w-none"
           />
           <RiderImage />
         </div>
@@ -138,12 +138,12 @@ export function Racing() {
         </div>
 
         <Reveal className="mt-9 flex flex-wrap gap-3.5">
-          <Btn href="#racing" variant="red">Inside Eurogrip Racing <Arrow /></Btn>
+          <Btn href="#racing" variant="red">Explore our partnerships <Arrow /></Btn>
           <Btn href="#racing" variant="line">View all testimonial videos →</Btn>
         </Reveal>
 
         <div className="mt-12 border-t border-white/10 pt-8">
-          <div className="mb-6 text-center text-[0.78rem] uppercase tracking-[0.12em] text-slate-500">OEM partners &amp; trusted fitments</div>
+          <div className="mb-6 text-center text-[0.74rem] uppercase tracking-[0.12em] text-slate-400">OEM partners &amp; trusted fitments</div>
           <Marquee speed={30}>
             {LOGOS.map((src, i) => (
               <img key={i} src={src} alt="" className="h-8 w-auto object-contain opacity-50 transition-opacity duration-300 hover:opacity-100" style={{ filter: "brightness(0) invert(1)" }} />

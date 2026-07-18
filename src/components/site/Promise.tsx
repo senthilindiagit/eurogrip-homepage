@@ -4,9 +4,9 @@ import { AnimatePresence, motion } from "framer-motion"
 import { Reveal, Eyebrow, Btn, Arrow } from "./ui"
 
 const ITEMS = [
-  { o: "Out", b: "live", p: "The road might end — but with high performance, long life and durability, a Eurogrip tyre will outlive the journey." },
-  { o: "Out", b: "perform", p: "Crafted with engineering precision and designed by global research centres, Eurogrip outperforms in any road condition." },
-  { o: "Out", b: "do", p: "Always ready for the next trip, the next turn and the next challenge — designed to deliver, then better itself." },
+  { o: "Out", b: "live", p: "High performance, long life, durability — a Eurogrip tyre outlives the journey." },
+  { o: "Out", b: "perform", p: "Engineered by global R&D centres to outperform in any road condition." },
+  { o: "Out", b: "do", p: "Ready for the next trip, the next turn, the next challenge." },
 ]
 
 /* the original 2026 brand film — the hero banner uses the newer cut */
@@ -106,11 +106,11 @@ export function Promise() {
           <div className="max-w-[780px]">
             <Reveal><Eyebrow>The brand promise</Eyebrow></Reveal>
             <Reveal i={1}>
-              <h2 className="italic-display mt-2 text-white text-[clamp(2rem,5vw,4rem)]">Hold a higher standard</h2>
+              <h2 className="italic-display mt-2 text-white text-[clamp(1.7rem,3.8vw,2.9rem)]">Hold a higher standard</h2>
             </Reveal>
             <Reveal i={2}>
-              <p className="mt-4 max-w-[60ch] text-lg text-slate-300">
-                Every journey we embark on pushes us further than we have gone before. That promise lives in three words.
+              <p className="mt-4 max-w-[58ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-300">
+                Every journey pushes us further. That promise lives in three words.
               </p>
             </Reveal>
           </div>
@@ -121,10 +121,10 @@ export function Promise() {
         <div className="grid grid-cols-1 md:grid-cols-3">
           {ITEMS.map((it, i) => (
             <Reveal key={it.b} i={i} className="border-t border-white/10 px-0 py-7 md:border-l md:border-t-0 md:px-8 md:py-0 [&:first-child]:md:pl-0 [&:first-child]:md:border-l-0">
-              <div className="font-display font-black italic uppercase leading-none text-white text-[clamp(2rem,4.4vw,3.4rem)]">
+              <div className="font-display font-black italic uppercase leading-none text-white text-[clamp(1.55rem,3.2vw,2.5rem)]">
                 {it.o}<span className="text-eurored">{it.b}</span>
               </div>
-              <p className="mt-3.5 text-[0.98rem] text-slate-400">{it.p}</p>
+              <p className="mt-3 text-[0.88rem] font-light leading-relaxed text-slate-300">{it.p}</p>
             </Reveal>
           ))}
         </div>

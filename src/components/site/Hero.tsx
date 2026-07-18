@@ -30,7 +30,7 @@ export function Hero() {
       ref={ref}
       id="top"
       className="relative flex min-h-screen items-center overflow-hidden pb-20 pt-28"
-      style={{ background: "radial-gradient(120% 90% at 80% 10%, #1e4f8f 0%, #0d1014 55%)" }}
+      style={{ background: "radial-gradient(120% 90% at 80% 10%, #2a5da8 0%, #13223c 60%)" }}
     >
       {/* brand video banner — slow cinematic push-in on scroll */}
       <motion.video
@@ -42,14 +42,14 @@ export function Hero() {
         loop
         playsInline
       />
-      {/* legibility scrim over the video */}
+      {/* legibility scrim over the video — brand-blue tint, not black */}
       <div
         className="pointer-events-none absolute inset-0"
-        style={{ background: "linear-gradient(90deg, rgba(13,16,20,.82) 0%, rgba(13,16,20,.5) 48%, rgba(13,16,20,.12) 100%)" }}
+        style={{ background: "linear-gradient(90deg, rgba(11,38,74,.74) 0%, rgba(11,38,74,.42) 48%, rgba(11,38,74,.08) 100%)" }}
       />
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-44"
-        style={{ background: "linear-gradient(180deg, transparent, rgba(13,16,20,.9))" }}
+        style={{ background: "linear-gradient(180deg, transparent, rgba(47,68,100,.95))" }}
       />
       {/* blue glow */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-[46%] mix-blend-screen"
@@ -62,7 +62,7 @@ export function Hero() {
           </span>
         </motion.div>
 
-        <h1 className="italic-display mt-4 mb-4 text-white leading-[0.9] text-[clamp(2.3rem,6.2vw,5.1rem)]">
+        <h1 className="italic-display mt-4 mb-4 text-white leading-[0.92] text-[clamp(1.9rem,5vw,4rem)]">
           <motion.span className="block whitespace-nowrap" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.08 }}>
             Engineered
           </motion.span>
@@ -89,10 +89,10 @@ export function Hero() {
         </h1>
 
         <motion.p
-          className="max-w-[48ch] text-[clamp(1.05rem,1.7vw,1.3rem)] text-slate-300"
+          className="max-w-[44ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-slate-200"
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.24 }}
         >
-          Three decades of obsessive R&amp;D, European engineering standards and a racer’s instinct — built into every tyre, for riders and machines in over 85 countries.
+          European engineering and a racer’s instinct — built into every tyre, in over 85 countries.
         </motion.p>
 
         <motion.div className="mt-7 flex flex-wrap gap-3.5" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.32 }}>
@@ -106,8 +106,8 @@ export function Hero() {
         >
           {stats.map((s) => (
             <div key={s.label} className="shrink-0">
-              <Counter to={s.to} suffix={s.suffix} className="font-display italic font-black text-white leading-none text-[clamp(1.8rem,3.4vw,2.7rem)]" />
-              <div className="mt-1.5 text-[0.78rem] uppercase tracking-[0.08em] text-slate-400">{s.label}</div>
+              <Counter to={s.to} suffix={s.suffix} className="font-display italic font-black text-white leading-none text-[clamp(1.5rem,2.7vw,2.15rem)]" />
+              <div className="mt-1.5 text-[0.72rem] uppercase tracking-[0.08em] text-slate-300/80">{s.label}</div>
             </div>
           ))}
         </motion.div>

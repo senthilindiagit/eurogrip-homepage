@@ -18,10 +18,10 @@ export function AboutGroup() {
             </span>
           </Reveal>
           <Reveal i={1}>
-            <h2 className="italic-display mt-2 text-asphalt text-[clamp(2rem,5vw,3.6rem)]">Built by TVS Srichakra</h2>
+            <h2 className="italic-display mt-2 text-asphalt text-[clamp(1.7rem,3.8vw,2.8rem)]">Built by TVS Srichakra</h2>
           </Reveal>
           <Reveal i={2}>
-            <p className="mt-4 max-w-[54ch] text-slate-600">
+            <p className="mt-4 max-w-[54ch] text-[0.95rem] font-light leading-relaxed text-slate-600">
               Eurogrip is the flagship tyre brand of TVS Srichakra Limited, part of the TVS Mobility Group — a two-wheeler tyre specialist grown into a global manufacturer, driven by relentless R&amp;D and one belief: hold yourself to a higher standard.
             </p>
           </Reveal>
@@ -34,10 +34,10 @@ export function AboutGroup() {
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-black/10 bg-black/10">
             {STATS.map((s) => (
               <div key={s.label} className="bg-white p-7">
-                <div className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-black italic leading-none text-racing">
+                <div className="font-display text-[clamp(1.55rem,2.9vw,2.3rem)] font-black italic leading-none text-racing">
                   {s.count ? <Counter to={Number(s.n)} suffix={s.suffix} /> : s.n}
                 </div>
-                <div className="mt-2 text-[0.82rem] uppercase tracking-wide text-slate-500">{s.label}</div>
+                <div className="mt-2 text-[0.74rem] uppercase tracking-wide text-slate-500">{s.label}</div>
               </div>
             ))}
           </div>

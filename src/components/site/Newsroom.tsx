@@ -21,17 +21,17 @@ export function Newsroom() {
   }, [])
 
   return (
-    <section id="news" className="bg-carbon py-[clamp(84px,13vh,150px)]">
+    <section id="news" className="bg-mist py-[clamp(84px,13vh,150px)]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mb-[clamp(40px,6vh,56px)] flex flex-wrap items-end justify-between gap-5">
           <div>
             <Reveal><Eyebrow>Newsroom</Eyebrow></Reveal>
             <Reveal i={1}>
-              <h2 className="italic-display mt-2 text-white text-[clamp(2rem,5vw,4rem)]">The latest from Eurogrip</h2>
+              <h2 className="italic-display mt-2 text-asphalt text-[clamp(1.7rem,3.8vw,2.9rem)]">The latest from Eurogrip</h2>
             </Reveal>
           </div>
           <Reveal i={2}>
-            <Btn href="https://www.youtube.com/@eurogriptyres/videos" variant="line">All stories <Arrow /></Btn>
+            <Btn href="https://www.youtube.com/@eurogriptyres/videos" variant="blue">All stories <Arrow /></Btn>
           </Reveal>
         </div>
 
@@ -49,16 +49,16 @@ export function Newsroom() {
                   )}
                 </div>
                 <div className="flex flex-1 flex-col gap-2 p-6">
-                  <span className="text-[0.74rem] uppercase tracking-[0.08em] text-slate-500">{n.date}{isVideo ? " · Video" : ""}</span>
-                  <h3 className="font-display text-[1.12rem] font-extrabold uppercase italic leading-tight text-white">{n.title}</h3>
-                  <p className="text-[0.9rem] text-slate-400">{n.excerpt}</p>
+                  <span className="text-[0.72rem] uppercase tracking-[0.08em] text-slate-500">{n.date}{isVideo ? " · Video" : ""}</span>
+                  <h3 className="font-display text-[1.02rem] font-extrabold uppercase italic leading-tight text-[#11151b]">{n.title}</h3>
+                  <p className="text-[0.85rem] font-light text-slate-600">{n.excerpt}</p>
                   <span className="mt-auto pt-2 font-display text-[0.8rem] font-extrabold uppercase italic tracking-wide text-eurored">
                     {isVideo ? "Watch now ▸" : "Read story →"}
                   </span>
                 </div>
               </>
             )
-            const cls = "group flex h-full flex-col overflow-hidden rounded-md border border-white/10 bg-[#0f141b] text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-eurored/50"
+            const cls = "group flex h-full flex-col overflow-hidden rounded-md border border-black/10 bg-white shadow-[0_12px_30px_-18px_rgba(16,35,70,.25)] text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-racing/40"
             return (
               <Reveal key={n.title} i={i % 3}>
                 {isVideo ? (

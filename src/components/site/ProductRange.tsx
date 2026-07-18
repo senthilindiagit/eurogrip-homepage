@@ -44,7 +44,7 @@ export function ProductRange() {
           light
           eyebrow="The range"
           title="One specialist. Six worlds of grip."
-          lede="From a city commute to a quarry haul, Eurogrip engineers a specialist tyre for the way each machine actually works. Hover a category to preview its line-up."
+          lede="Six specialist ranges, engineered for the way each machine works. Hover a category to preview it."
           className="mb-[clamp(40px,6vh,64px)]"
         />
         <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">

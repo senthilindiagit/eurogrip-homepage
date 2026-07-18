@@ -53,7 +53,7 @@ export function LanguageSelect({ className }: { className?: string }) {
         <GlobeIcon className="text-eurored" /> {lang.c} <Chevron open={open} />
       </button>
       {open && (
-        <ul role="listbox" className="absolute right-0 top-[calc(100%+12px)] z-50 min-w-[150px] overflow-hidden rounded-md border border-white/10 bg-asphalt/95 py-1.5 shadow-2xl backdrop-blur-xl">
+        <ul role="listbox" className="absolute right-0 top-[calc(100%+12px)] z-50 min-w-[150px] overflow-hidden rounded-md border border-white/10 bg-midnight/95 py-1.5 shadow-2xl backdrop-blur-xl">
           {LANGS.map((l) => (
             <li key={l.c}>
               <button onClick={() => { setLang(l); setOpen(false) }} className={cn("block w-full px-4 py-2 text-left text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-white", l.c === lang.c && "text-eurored")}>
@@ -85,6 +85,36 @@ export function CountrySelect() {
       </button>
       {open && (
         <ul role="listbox" className="absolute bottom-[calc(100%+8px)] left-0 z-50 max-h-64 w-full overflow-auto rounded-md border border-white/10 bg-asphalt/97 py-1.5 shadow-2xl backdrop-blur-xl">
+          {REGIONS.map((r) => (
+            <li key={r}>
+              <button onClick={() => { setRegion(r); setOpen(false) }} className={cn("block w-full px-4 py-2 text-left text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-white", r === region && "text-eurored")}>
+                {r}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+/* ---------- Compact country / region selector (header) ---------- */
+export function CountrySelectCompact({ className }: { className?: string }) {
+  const { open, setOpen, ref } = useDropdown()
+  const [region, setRegion] = useState(REGIONS[0])
+  return (
+    <div className={cn("relative", className)} ref={ref}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-haspopup="listbox" aria-expanded={open} aria-label="Select country / region"
+        className="flex items-center gap-2 rounded-[3px] border border-white/25 px-3.5 py-2 text-[0.8rem] font-semibold text-slate-200 transition-colors hover:border-white/60 hover:text-white"
+      >
+        <GlobeIcon className="text-eurored" />
+        <span className="max-w-[130px] truncate">{region}</span>
+        <Chevron open={open} />
+      </button>
+      {open && (
+        <ul role="listbox" className="absolute right-0 top-[calc(100%+10px)] z-50 max-h-72 min-w-[210px] overflow-auto rounded-md border border-white/10 bg-midnight/95 py-1.5 shadow-2xl backdrop-blur-xl">
           {REGIONS.map((r) => (
             <li key={r}>
               <button onClick={() => { setRegion(r); setOpen(false) }} className={cn("block w-full px-4 py-2 text-left text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-white", r === region && "text-eurored")}>

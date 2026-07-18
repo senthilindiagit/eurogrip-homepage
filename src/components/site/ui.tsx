@@ -106,7 +106,7 @@ export function Btn({
     <a
       href={href}
       className={cn(
-        "group inline-flex items-center gap-2 rounded-[3px] px-7 py-3.5 font-display italic font-extrabold uppercase tracking-[0.04em] text-[0.95rem] transition-all duration-300",
+        "group inline-flex items-center gap-2 rounded-[3px] px-6 py-3 font-display italic font-extrabold uppercase tracking-[0.04em] text-[0.86rem] transition-all duration-300",
         styles,
         className
       )}
@@ -146,7 +146,7 @@ export function SectionHead({
       <Reveal i={1}>
         <h2
           className={cn(
-            "italic-display leading-[0.94] mt-3 text-[clamp(2.1rem,5.4vw,4.4rem)]",
+            "italic-display leading-[0.98] mt-3 text-[clamp(1.7rem,3.8vw,2.9rem)]",
             light ? "text-asphalt" : "text-white"
           )}
         >
@@ -157,7 +157,7 @@ export function SectionHead({
         <Reveal i={2}>
           <p
             className={cn(
-              "mt-4 text-[clamp(1.02rem,1.6vw,1.25rem)] max-w-[60ch]",
+              "mt-4 max-w-[58ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed",
               light ? "text-slate-600" : "text-slate-300",
               ledeClassName
             )}

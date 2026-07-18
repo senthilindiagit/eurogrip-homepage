@@ -49,12 +49,12 @@ export function Technology() {
         <SectionHead
           eyebrow="Inside the tyre"
           title={
-            <span className="block text-[clamp(1.7rem,3.9vw,3.1rem)] leading-[1.04]">
+            <span className="block text-[clamp(1.6rem,3.4vw,2.6rem)] leading-[1.04]">
               <span className="whitespace-nowrap">Seven signature technologies.</span><br />
               <span className="whitespace-nowrap">One promise on the road.</span>
             </span>
           }
-          lede="The engineering platforms behind every Eurogrip tyre — proven in simulation, on test rigs and across a million real kilometres."
+          lede="The engineering platforms behind every Eurogrip tyre — proven in simulation and on the road."
           className="mb-8"
         />
 
@@ -128,10 +128,10 @@ export function Technology() {
                     </motion.span>
                     <div className="min-w-0">
                       <div className="font-display text-[1rem] font-black italic leading-none text-eurored">{t.code}</div>
-                      <h4 className="mt-1 font-display text-[clamp(1.15rem,2.2vw,1.5rem)] font-extrabold uppercase italic leading-tight text-white">
+                      <h4 className="mt-1 font-display text-[clamp(1.05rem,1.8vw,1.3rem)] font-extrabold uppercase italic leading-tight text-white">
                         {t.title}
                       </h4>
-                      <p className="mt-2.5 max-w-[52ch] text-[0.95rem] leading-relaxed text-slate-300">{t.body}</p>
+                      <p className="mt-2.5 max-w-[52ch] text-[0.88rem] font-light leading-relaxed text-slate-300">{t.body}</p>
                       <motion.p
                         className="mt-3.5 inline-flex items-start gap-2 border-l-2 border-eurored pl-2.5 text-[0.88rem] font-semibold leading-snug text-white/90"
                         initial={reduce ? false : { opacity: 0, x: -14 }}

@@ -12,7 +12,7 @@ import { CtaFooter } from "./components/site/CtaFooter"
 
 export default function App() {
   return (
-    <div className="bg-asphalt">
+    <div className="bg-midnight">
       <Navbar />
       <main>
         <div className="relative overflow-x-clip">

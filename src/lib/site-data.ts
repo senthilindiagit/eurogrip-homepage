@@ -1,43 +1,37 @@
 export const PRODUCTS = [
   {
     title: "Two-Wheeler Tyres",
-    description:
-      "Sport, street, scooter, commuter and off-road — grip engineered for every kind of rider.",
+    description: "Sport, street, scooter and off-road — grip for every rider.",
     iconPath: "M5 17a4 4 0 108 0M11 17a4 4 0 108 0M5 17h6",
     previews: [{ label: "Sport" }, { label: "Scooter" }],
   },
   {
     title: "Three-Wheeler Tyres",
-    description:
-      "Built to carry, built to last — durability and load stability for auto-rickshaws and cargo.",
+    description: "Durability and load stability for autos and cargo.",
     iconPath: "M4 17a3 3 0 106 0M14 17a3 3 0 106 0M4 17h4m6 0h-2V8h6l2 4",
     previews: [{ label: "Cargo" }, { label: "Passenger" }],
   },
   {
     title: "Ultra-Light Truck Tyres",
-    description:
-      "High-mileage, high-load tyres for last-mile commercial fleets that can’t stop.",
+    description: "High-mileage, high-load tyres for last-mile fleets.",
     iconPath: "M3 7h11v9H3zM14 10h4l3 3v3h-7M6 18a2 2 0 104 0m4 0a2 2 0 104 0",
     previews: [{ label: "Highway" }, { label: "Mixed" }],
   },
   {
     title: "Agricultural Tyres",
-    description:
-      "Deep-lug traction for fields and farms — pulling power that respects the soil.",
+    description: "Deep-lug traction for fields and farms.",
     iconPath: "M6 16a4 4 0 108 0M3 16h2m11 0h5M9 4v8",
     previews: [{ label: "Tractor Rear" }, { label: "Front" }],
   },
   {
     title: "Industrial Tyres",
-    description:
-      "Forklifts, handlers and plant — engineered for relentless duty cycles indoors and out.",
+    description: "Forklifts, handlers and plant — built for relentless duty.",
     iconPath: "M4 18V8h7v10M11 12h6v6M4 18h13M7 6V4",
     previews: [{ label: "Forklift" }, { label: "Solid" }],
   },
   {
     title: "OTR Tyres",
-    description:
-      "Off-the-road giants for mining, construction and quarry — built for the toughest ground.",
+    description: "Off-the-road giants for mining and construction.",
     iconPath: "M6 16a5 5 0 1010 0 5 5 0 10-10 0M2 16h3m13 0h3M11 5l1 3",
     previews: [{ label: "Loader" }, { label: "Grader" }],
   },

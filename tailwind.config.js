@@ -48,6 +48,8 @@ export default {
         "racing-deep": "#0054a6",
         steel: "#26364e",
         "steel-2": "#2f4464",
+        midnight: "#13223c",
+        mist: "#eef3f9",
         eurored: "#ed1c24",
         asphalt: "#0d1014",
         carbon: "#161b22",

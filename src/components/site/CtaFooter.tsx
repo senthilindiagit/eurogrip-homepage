@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { Reveal, Eyebrow, Btn, Arrow } from "./ui"
-import { CountrySelect, Socials } from "./widgets"
+import { Socials } from "./widgets"
 import logoWhite from "@/assets/logo-white.png"
 import ctaBg from "@/assets/yt-masterclass.webp"
 
 const FOOT = {
   Products: ["Two-Wheeler", "Three-Wheeler", "Ultra-Light Truck", "Agricultural", "Industrial", "OTR"],
-  Company: ["About Eurogrip", "Technology", "Racing & Partnership", "Global Presence", "Newsroom", "Careers"],
+  Company: ["About Eurogrip", "Technology", "Partnerships", "Global Presence", "Newsroom", "Careers"],
   Connect: ["Find a Dealer", "Become a Distributor", "OEM Enquiries", "Contact Us"],
 }
 
@@ -77,10 +77,10 @@ export function CtaFooter() {
           style={{ background: "repeating-conic-gradient(#fff 0 25%,transparent 0 50%) 0 0/40px 40px" }} />
         <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-[clamp(80px,12vh,150px)] sm:px-8">
           <Reveal><Eyebrow className="text-sky-300 [&::before]:bg-sky-300">Get in touch</Eyebrow></Reveal>
-          <Reveal i={1}><h2 className="italic-display mt-3 text-white text-[clamp(2.2rem,6vw,4.4rem)]">Find your Eurogrip</h2></Reveal>
+          <Reveal i={1}><h2 className="italic-display mt-3 text-white text-[clamp(1.9rem,4.4vw,3.3rem)]">Find your Eurogrip</h2></Reveal>
           <Reveal i={2}>
-            <p className="mx-auto mt-4 max-w-[60ch] text-[clamp(1.05rem,1.7vw,1.3rem)] text-sky-100">
-              Locate a distributor, request an OEM partnership, or talk to our team about the right specialist tyre for your fleet or your next ride.
+            <p className="mx-auto mt-4 max-w-[52ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-sky-100">
+              Locate a distributor, become a partner, or find the right tyre for your next ride.
             </p>
           </Reveal>
           <Reveal i={3} className="mt-8 flex flex-wrap justify-center gap-3.5">
@@ -120,17 +120,18 @@ export function CtaFooter() {
             <Newsletter />
           </div>
 
-          {/* country/region + socials */}
-          <div className="mt-10 flex flex-col gap-8 border-t border-white/10 pt-8 lg:flex-row lg:items-end lg:justify-between">
-            <CountrySelect />
-            <div className="flex flex-col gap-3 sm:items-end">
-              <span className="text-[0.7rem] uppercase tracking-[0.14em] text-slate-400">Follow us</span>
-              <Socials />
-            </div>
+          {/* socials */}
+          <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <span className="text-[0.7rem] uppercase tracking-[0.14em] text-slate-400">Follow us</span>
+            <Socials />
           </div>
 
-          <div className="mt-8 border-t border-white/10 pt-6 text-[0.82rem] text-slate-400/80">
-            © 2026 TVS Srichakra Limited · Eurogrip is a registered trademark.
+          <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-[0.8rem] text-slate-400/80 sm:flex-row sm:items-center sm:justify-between">
+            <span>© 2026 TVS Srichakra Limited · Eurogrip is a registered trademark.</span>
+            <span className="flex gap-5">
+              <a href="#" className="transition-colors hover:text-white">Privacy Policy</a>
+              <a href="#" className="transition-colors hover:text-white">Cookie Policy</a>
+            </span>
           </div>
         </div>
       </footer>
