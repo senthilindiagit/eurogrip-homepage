@@ -55,7 +55,8 @@ export function Technology() {
             </span>
           }
           lede="The engineering platforms behind every Eurogrip tyre — proven in simulation and on the road."
-          className="mb-8"
+          ledeClassName="max-w-none lg:whitespace-nowrap lg:text-[0.92rem]"
+          className="mb-8 max-w-none"
         />
 
         <Reveal>
