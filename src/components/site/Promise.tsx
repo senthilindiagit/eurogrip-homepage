@@ -70,7 +70,7 @@ function FilmThumb({ onOpen }: { onOpen: () => void }) {
     <button
       onClick={onOpen}
       aria-label="Play the Eurogrip brand film"
-      className="group relative block aspect-video w-full overflow-hidden rounded-md border border-white/15 shadow-[0_30px_70px_-30px_rgba(0,0,0,.7)] transition-transform duration-500 hover:-translate-y-1"
+      className="group relative block aspect-video w-full overflow-hidden rounded-md border border-black/10 shadow-[0_30px_60px_-28px_rgba(16,35,70,.45)] transition-transform duration-500 hover:-translate-y-1"
     >
       <img
         src="/brand-film-poster.webp"
@@ -100,16 +100,16 @@ function FilmThumb({ onOpen }: { onOpen: () => void }) {
 export function Promise() {
   const [open, setOpen] = useState(false)
   return (
-    <section className="border-t border-white/10 bg-gradient-to-b from-steel-2 to-steel py-[clamp(80px,12vh,150px)]">
+    <section className="bg-gradient-to-b from-[#f7fafd] to-mist py-[clamp(80px,12vh,150px)]">
       <div className="relative z-20 mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="mb-14 grid items-center gap-10 lg:grid-cols-[1fr_clamp(300px,34vw,440px)]">
           <div className="max-w-[780px]">
             <Reveal><Eyebrow>The brand promise</Eyebrow></Reveal>
             <Reveal i={1}>
-              <h2 className="italic-display mt-2 text-white text-[clamp(1.7rem,3.8vw,2.9rem)]">Hold a higher standard</h2>
+              <h2 className="italic-display mt-2 text-asphalt text-[clamp(1.7rem,3.8vw,2.9rem)]">Hold a higher standard</h2>
             </Reveal>
             <Reveal i={2}>
-              <p className="mt-4 max-w-[58ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-300">
+              <p className="mt-4 max-w-[58ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-600">
                 Every journey pushes us further. That promise lives in three words.
               </p>
             </Reveal>
@@ -120,11 +120,11 @@ export function Promise() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3">
           {ITEMS.map((it, i) => (
-            <Reveal key={it.b} i={i} className="border-t border-white/10 px-0 py-7 md:border-l md:border-t-0 md:px-8 md:py-0 [&:first-child]:md:pl-0 [&:first-child]:md:border-l-0">
-              <div className="font-display font-black italic uppercase leading-none text-white text-[clamp(1.55rem,3.2vw,2.5rem)]">
+            <Reveal key={it.b} i={i} className="border-t border-black/10 px-0 py-7 md:border-l md:border-t-0 md:px-8 md:py-0 [&:first-child]:md:pl-0 [&:first-child]:md:border-l-0">
+              <div className="font-display font-black italic uppercase leading-none text-asphalt text-[clamp(1.55rem,3.2vw,2.5rem)]">
                 {it.o}<span className="text-eurored">{it.b}</span>
               </div>
-              <p className="mt-3 text-[0.88rem] font-light leading-relaxed text-slate-300">{it.p}</p>
+              <p className="mt-3 text-[0.88rem] font-light leading-relaxed text-slate-600">{it.p}</p>
             </Reveal>
           ))}
         </div>

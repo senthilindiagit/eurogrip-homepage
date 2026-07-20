@@ -49,7 +49,7 @@ export function Hero() {
       />
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-44"
-        style={{ background: "linear-gradient(180deg, transparent, rgba(47,68,100,.95))" }}
+        style={{ background: "linear-gradient(180deg, transparent, rgba(247,250,253,.9))" }}
       />
       {/* blue glow */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-[46%] mix-blend-screen"
