@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# client source content (not for deploy)
+content/
+*.HEIC

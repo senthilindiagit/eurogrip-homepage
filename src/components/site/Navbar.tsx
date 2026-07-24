@@ -3,19 +3,26 @@ import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import logoWhite from "@/assets/logo-white.png"
 import { LanguageSelect, CountrySelectCompact } from "./widgets"
+import { useRouter } from "@/lib/router"
 
-const LINKS = [
-  ["Products", "#products"],
-  ["Technology", "#technology"],
-  ["Partnerships", "#racing"],
-  ["About", "#group"],
-  ["Global Presence", "#global"],
-  ["Newsroom", "#news"],
+const LINKS: [string, string][] = [
+  ["Products", "/#products"],
+  ["Technology", "/#technology"],
+  ["Partnerships", "/#racing"],
+  ["About", "/about"],
+  ["Global Presence", "/#global"],
+  ["Newsroom", "/#news"],
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const { navigate } = useRouter()
+  const go = (href: string) => (e: React.MouseEvent) => {
+    if (e.metaKey || e.ctrlKey) return
+    e.preventDefault()
+    navigate(href)
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -35,7 +42,7 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 sm:px-8">
-        <a href="#top" aria-label="Eurogrip home" className="shrink-0">
+        <a href="/" onClick={go("/")} aria-label="Eurogrip home" className="shrink-0">
           <img src={logoWhite} alt="Eurogrip" className={cn("w-auto transition-all", scrolled ? "h-6" : "h-7")} />
         </a>
 
@@ -44,6 +51,7 @@ export function Navbar() {
             <a
               key={href}
               href={href}
+              onClick={go(href)}
               className="group relative text-[0.86rem] font-semibold text-slate-200 transition-colors hover:text-white"
             >
               {label}
@@ -76,7 +84,7 @@ export function Navbar() {
             className="fixed right-0 top-0 z-50 flex h-screen w-[min(320px,84vw)] flex-col justify-center gap-1 bg-midnight/95 p-10 shadow-[-20px_0_60px_rgba(10,25,50,.5)] backdrop-blur-md lg:hidden"
           >
             {LINKS.map(([label, href]) => (
-              <a key={href} href={href} onClick={() => setOpen(false)} className="py-2.5 text-lg font-semibold text-slate-100">
+              <a key={href} href={href} onClick={(e) => { setOpen(false); go(href)(e) }} className="py-2.5 text-lg font-semibold text-slate-100">
                 {label}
               </a>
             ))}
