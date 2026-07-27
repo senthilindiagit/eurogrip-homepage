@@ -13,7 +13,7 @@ const FOOT: Record<string, [string, string][]> = {
   ],
   Company: [
     ["About Eurogrip", "/about"], ["Technology", "/#technology"], ["Partnerships", "/#racing"],
-    ["Global Presence", "/#global"], ["Newsroom", "/#news"], ["Careers", "#"],
+    ["Global Presence", "/#global"], ["Newsroom", "/#news"], ["Careers", "/careers"],
   ],
   Connect: [
     ["Find a Dealer", "/contact"], ["Become a Distributor", "/contact"],

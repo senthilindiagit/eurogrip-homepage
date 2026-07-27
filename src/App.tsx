@@ -3,11 +3,13 @@ import { RouterProvider, useRouter } from "./lib/router"
 import { Home } from "./pages/Home"
 import { About } from "./pages/About"
 import { Contact } from "./pages/Contact"
+import { Careers } from "./pages/Careers"
 
 function Outlet() {
   const { path } = useRouter()
   if (path === "/about") return <About />
   if (path === "/contact") return <Contact />
+  if (path === "/careers") return <Careers />
   return <Home />
 }
 
