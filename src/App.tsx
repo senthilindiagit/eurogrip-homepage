@@ -4,12 +4,14 @@ import { Home } from "./pages/Home"
 import { About } from "./pages/About"
 import { Contact } from "./pages/Contact"
 import { Careers } from "./pages/Careers"
+import { CareersApply } from "./pages/CareersApply"
 
 function Outlet() {
   const { path } = useRouter()
   if (path === "/about") return <About />
   if (path === "/contact") return <Contact />
   if (path === "/careers") return <Careers />
+  if (path === "/careers/apply") return <CareersApply />
   return <Home />
 }
 

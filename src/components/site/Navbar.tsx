@@ -15,6 +15,10 @@ const LINKS: [string, string][] = [
   ["Contact", "/contact"],
 ]
 
+/* Routes whose hero starts on a light canvas — the bar needs its solid dark
+   treatment immediately, or white nav text lands on white. */
+const LIGHT_TOP = new Set(["/careers", "/careers/apply"])
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -32,6 +36,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  const solid = scrolled || LIGHT_TOP.has(path)
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -16 }}
@@ -39,12 +45,12 @@ export function Navbar() {
       transition={{ duration: 0.6, ease: [0.16, 0.84, 0.34, 1], delay: 1.55 }}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "bg-midnight/85 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,.08)] py-2.5" : "py-4"
+        solid ? "bg-midnight/85 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,.08)] py-2.5" : "py-4"
       )}
     >
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 sm:px-8">
         <a href="/" onClick={go("/")} aria-label="Eurogrip home" className="shrink-0">
-          <img src={logoWhite} alt="Eurogrip" className={cn("w-auto transition-all", scrolled ? "h-6" : "h-7")} />
+          <img src={logoWhite} alt="Eurogrip" className={cn("w-auto transition-all", solid ? "h-6" : "h-7")} />
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex">
