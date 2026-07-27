@@ -118,7 +118,7 @@ function CareersHero() {
                 <span className="h-[2px] w-7 bg-eurored" /> Join the team
               </span>
             </Reveal>
-            <h1 className="italic-display mt-5 text-asphalt leading-[0.9] text-[clamp(2.4rem,7vw,5.4rem)]">
+            <h1 className="italic-display mt-5 text-asphalt leading-[0.92] text-[clamp(1.9rem,5vw,4rem)]">
               {line("Build what", 0.05)}
               {line("the world", 0.13)}
               {line("rides on.", 0.21, true)}
