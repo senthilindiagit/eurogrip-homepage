@@ -671,7 +671,7 @@ function InitiativeCard({ it }: { it: (typeof INITIATIVES)[number] }) {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(16,35,70,.5)] transition-transform duration-500 hover:-translate-y-1.5">
       <div className="relative h-52 overflow-hidden">
-        <img src={it.img} alt={it.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" />
+        <img src={it.img} alt={it.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(13,26,48,.15) 0%, transparent 35%, rgba(13,26,48,.85))" }} />
         <div className="absolute left-5 top-5 rounded-lg bg-eurored px-3.5 py-2 shadow-[0_12px_30px_-12px_rgba(237,28,36,.7)]">
           <div className="font-display text-[1.5rem] font-black italic leading-none text-white">{it.stat}</div>
