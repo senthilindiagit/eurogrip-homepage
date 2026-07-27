@@ -1,13 +1,24 @@
 import { useState } from "react"
 import { Reveal, Eyebrow, Btn, Arrow } from "./ui"
 import { Socials } from "./widgets"
+import { useRouter } from "@/lib/router"
 import logoWhite from "@/assets/logo-white.png"
 import ctaBg from "@/assets/yt-masterclass.webp"
 
-const FOOT = {
-  Products: ["Two-Wheeler", "Three-Wheeler", "Ultra-Light Truck", "Agricultural", "Industrial", "OTR"],
-  Company: ["About Eurogrip", "Technology", "Partnerships", "Global Presence", "Newsroom", "Careers"],
-  Connect: ["Find a Dealer", "Become a Distributor", "OEM Enquiries", "Contact Us"],
+/* [label, href] — hrefs the tiny router understands ("#" = not built yet) */
+const FOOT: Record<string, [string, string][]> = {
+  Products: [
+    ["Two-Wheeler", "/#products"], ["Three-Wheeler", "/#products"], ["Ultra-Light Truck", "/#products"],
+    ["Agricultural", "/#products"], ["Industrial", "/#products"], ["OTR", "/#products"],
+  ],
+  Company: [
+    ["About Eurogrip", "/about"], ["Technology", "/#technology"], ["Partnerships", "/#racing"],
+    ["Global Presence", "/#global"], ["Newsroom", "/#news"], ["Careers", "#"],
+  ],
+  Connect: [
+    ["Find a Dealer", "/contact"], ["Become a Distributor", "/contact"],
+    ["OEM Enquiries", "/contact"], ["Contact Us", "/contact"],
+  ],
 }
 
 const CERTS = [
@@ -67,7 +78,18 @@ function CertSeal({ fam, num, year }: { fam: string; num: string; year: string }
   )
 }
 
+/** Composition used by most pages: the "Get in touch" band + the site footer. */
 export function CtaFooter() {
+  return (
+    <>
+      <ContactCta />
+      <SiteFooter />
+    </>
+  )
+}
+
+/** The "Get in touch / Find your Eurogrip" band. */
+export function ContactCta() {
   return (
     <>
       <section id="contact" className="relative overflow-hidden text-center text-white">
@@ -84,12 +106,20 @@ export function CtaFooter() {
             </p>
           </Reveal>
           <Reveal i={3} className="mt-8 flex flex-wrap justify-center gap-3.5">
-            <Btn href="#contact" variant="red">Find a dealer <Arrow /></Btn>
-            <Btn href="#contact" variant="line">Partner with us</Btn>
+            <Btn href="/contact" variant="red">Find a dealer <Arrow /></Btn>
+            <Btn href="/contact" variant="line">Partner with us</Btn>
           </Reveal>
         </div>
       </section>
+    </>
+  )
+}
 
+/** The shared site footer. */
+export function SiteFooter() {
+  const { navigate } = useRouter()
+  return (
+    <>
       <footer className="border-t border-white/10 bg-steel pb-8 pt-[74px]">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
@@ -98,12 +128,23 @@ export function CtaFooter() {
               <p className="max-w-[34ch] text-[0.9rem] text-slate-400">
                 Specialist tyre technology, engineered to outperform. A TVS Mobility Group company.
               </p>
+              <div className="mt-6">
+                <h5 className="mb-3 font-display text-[0.72rem] font-extrabold uppercase italic tracking-[0.1em] text-white">Follow us</h5>
+                <Socials />
+              </div>
             </div>
             {Object.entries(FOOT).map(([head, links]) => (
               <div key={head}>
                 <h5 className="mb-4 font-display text-[0.82rem] font-extrabold uppercase italic tracking-[0.08em] text-white">{head}</h5>
-                {links.map((l) => (
-                  <a key={l} href="#" className="block py-1.5 text-[0.9rem] text-slate-400 transition-colors hover:text-white">{l}</a>
+                {links.map(([l, href]) => (
+                  <a
+                    key={l}
+                    href={href}
+                    onClick={(e) => { if (href !== "#" && !e.metaKey && !e.ctrlKey) { e.preventDefault(); navigate(href) } }}
+                    className="block py-1.5 text-[0.9rem] text-slate-400 transition-colors hover:text-white"
+                  >
+                    {l}
+                  </a>
                 ))}
               </div>
             ))}
@@ -120,13 +161,7 @@ export function CtaFooter() {
             <Newsletter />
           </div>
 
-          {/* socials */}
-          <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-            <span className="text-[0.7rem] uppercase tracking-[0.14em] text-slate-400">Follow us</span>
-            <Socials />
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-[0.8rem] text-slate-400/80 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-[0.8rem] text-slate-400/80 sm:flex-row sm:items-center sm:justify-between">
             <span>© 2026 TVS Srichakra Limited · Eurogrip is a registered trademark.</span>
             <span className="flex gap-5">
               <a href="#" className="transition-colors hover:text-white">Privacy Policy</a>

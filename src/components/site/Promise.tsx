@@ -129,7 +129,7 @@ export function Promise() {
           ))}
         </div>
         <Reveal className="mt-12">
-          <Btn href="#group" variant="red">About Eurogrip <Arrow /></Btn>
+          <Btn href="/about" variant="red">About Eurogrip <Arrow /></Btn>
         </Reveal>
       </div>
       <FilmLightbox open={open} onClose={() => setOpen(false)} />

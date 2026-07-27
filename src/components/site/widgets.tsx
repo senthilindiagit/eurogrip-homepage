@@ -68,7 +68,7 @@ export function LanguageSelect({ className }: { className?: string }) {
 }
 
 /* ---------- Country / region selector (footer) ---------- */
-const REGIONS = ["Global (English)", "India", "Europe", "Middle East", "Asia Pacific", "Latin America", "Africa", "North America"]
+const REGIONS = ["Global", "India", "Europe", "Middle East", "Asia Pacific", "Latin America", "Africa", "North America"]
 export function CountrySelect() {
   const { open, setOpen, ref } = useDropdown()
   const [region, setRegion] = useState(REGIONS[0])

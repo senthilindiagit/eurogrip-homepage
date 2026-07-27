@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { motion, useInView, animate, type Variants } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useRouter } from "@/lib/router"
 
 /* ---------- Scroll reveal ---------- */
 const revealVariants: Variants = {
@@ -103,9 +104,18 @@ export function Btn({
     line: "border border-white/40 text-white hover:border-white hover:bg-white/5",
     "line-dark": "border border-asphalt/40 text-asphalt hover:border-asphalt hover:bg-black/5",
   }[variant]
+  const { navigate } = useRouter()
+  // route internal links through the SPA router; leave "#…" and external URLs alone
+  const isRoute = href.startsWith("/")
   return (
     <a
       href={href}
+      onClick={(e) => {
+        if (isRoute && !e.metaKey && !e.ctrlKey) {
+          e.preventDefault()
+          navigate(href)
+        }
+      }}
       className={cn(
         "group inline-flex items-center gap-2 rounded-[3px] px-6 py-3 font-display italic font-extrabold uppercase tracking-[0.04em] text-[0.86rem] transition-all duration-300",
         styles,

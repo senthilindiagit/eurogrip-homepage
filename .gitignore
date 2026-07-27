@@ -26,3 +26,9 @@ dist-ssr
 # client source content (not for deploy)
 content/
 *.HEIC
+
+# stray pasted/temp images and client source drops at repo root
+/[0-9a-f][0-9a-f][0-9a-f][0-9a-f]*.jpg
+/[0-9a-f][0-9a-f][0-9a-f][0-9a-f]*.webp
+/website-ref-*.jpg
+/TVS Mobility Logo.svg

@@ -45,7 +45,7 @@ export function Hero() {
       {/* legibility scrim over the video — brand-blue tint, not black */}
       <div
         className="pointer-events-none absolute inset-0"
-        style={{ background: "linear-gradient(90deg, rgba(11,38,74,.74) 0%, rgba(11,38,74,.42) 48%, rgba(11,38,74,.08) 100%)" }}
+        style={{ background: "linear-gradient(90deg, rgba(11,38,74,.55) 0%, rgba(11,38,74,.26) 48%, rgba(11,38,74,.04) 100%)" }}
       />
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-44"
@@ -62,7 +62,7 @@ export function Hero() {
           </span>
         </motion.div>
 
-        <h1 className="italic-display mt-4 mb-4 text-white leading-[0.92] text-[clamp(1.9rem,5vw,4rem)]">
+        <h1 className="italic-display mt-4 mb-4 text-white leading-[0.92] text-[clamp(1.9rem,5vw,4rem)] drop-shadow-[0_2px_20px_rgba(6,18,38,.6)]">
           <motion.span className="block whitespace-nowrap" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.08 }}>
             Engineered
           </motion.span>

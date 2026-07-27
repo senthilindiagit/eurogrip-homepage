@@ -26,7 +26,7 @@ export function AboutGroup() {
             </p>
           </Reveal>
           <Reveal i={3} className="mt-8">
-            <Btn href="#group" variant="blue">Discover Eurogrip <Arrow /></Btn>
+            <Btn href="/about" variant="blue">Discover Eurogrip <Arrow /></Btn>
           </Reveal>
         </div>
 
