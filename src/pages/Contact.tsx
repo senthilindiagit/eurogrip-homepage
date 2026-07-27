@@ -355,7 +355,15 @@ export function Contact() {
   const { path } = useRouter()
   const [queryType, setQueryType] = useState<string>("general")
 
-  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }) }, [path])
+  // land at the top, unless the URL targets a section
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (id) {
+      requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }))
+      return
+    }
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior })
+  }, [path])
 
   return (
     <main>

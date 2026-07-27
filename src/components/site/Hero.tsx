@@ -19,7 +19,7 @@ export function Hero() {
   }, [])
 
   const stats = [
-    { to: 42, suffix: "+", label: "Years of expertise" },
+    { to: 44, suffix: "+", label: "Years of expertise" },
     { to: 85, suffix: "+", label: "Countries served" },
     { to: 6, suffix: "", label: "Product categories" },
     { to: 3, suffix: "", label: "Global R&D centres" },

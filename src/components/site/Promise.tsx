@@ -113,6 +113,9 @@ export function Promise() {
                 Every journey pushes us further. That promise lives in three words.
               </p>
             </Reveal>
+            <Reveal i={3} className="mt-7">
+              <Btn href="/about" variant="red">About Eurogrip <Arrow /></Btn>
+            </Reveal>
           </div>
           <Reveal i={2}>
             <FilmThumb onOpen={() => setOpen(true)} />
@@ -128,9 +131,6 @@ export function Promise() {
             </Reveal>
           ))}
         </div>
-        <Reveal className="mt-12">
-          <Btn href="/about" variant="red">About Eurogrip <Arrow /></Btn>
-        </Reveal>
       </div>
       <FilmLightbox open={open} onClose={() => setOpen(false)} />
     </section>

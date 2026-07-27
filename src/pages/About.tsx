@@ -227,7 +227,7 @@ function VehicleCollage() {
 
 function WhoWeAre() {
   return (
-    <section className="bg-gradient-to-b from-[#f7fafd] to-mist py-[clamp(70px,11vh,140px)] text-asphalt">
+    <section id="who-we-are" className="scroll-mt-24 bg-gradient-to-b from-[#f7fafd] to-mist py-[clamp(70px,11vh,140px)] text-asphalt">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="grid items-center gap-[clamp(32px,5vw,72px)] lg:grid-cols-2">
           {/* left — vehicle collage */}
@@ -751,7 +751,15 @@ export function About() {
   const { path } = useRouter()
 
   // ensure top on entry
-  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }) }, [path])
+  // land at the top, unless the URL targets a section (e.g. /about#who-we-are)
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (id) {
+      requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }))
+      return
+    }
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior })
+  }, [path])
 
   return (
     <main>
