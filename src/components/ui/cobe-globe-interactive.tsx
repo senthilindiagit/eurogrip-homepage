@@ -14,6 +14,22 @@ interface GlobeInteractiveProps {
   markers?: InteractiveMarker[]
   className?: string
   speed?: number
+  /**
+   * Optional [lat, long] to swing the globe to. While set, the idle spin
+   * stops and the globe eases to put that point front and centre; clearing it
+   * (or dragging) hands control back to the idle spin.
+   */
+  focus?: [number, number] | null
+  /** globe colours — defaults suit a light section */
+  theme?: {
+    dark?: number
+    baseColor?: [number, number, number]
+    markerColor?: [number, number, number]
+    glowColor?: [number, number, number]
+    mapBrightness?: number
+  }
+  /** the floating marker chips; off when the surrounding UI already names them */
+  showLabels?: boolean
 }
 
 const defaultMarkers: InteractiveMarker[] = [
@@ -25,10 +41,19 @@ const defaultMarkers: InteractiveMarker[] = [
   { id: "oceania", location: [-33.87, 151.21], name: "APAC", users: 445 },
 ]
 
+/** cobe's own recipe for pointing a [lat, long] at the camera */
+const locationToAngles = (lat: number, long: number): [number, number] => [
+  Math.PI - ((long * Math.PI) / 180 - Math.PI / 2),
+  (lat * Math.PI) / 180,
+]
+
 export function GlobeInteractive({
   markers = defaultMarkers,
   className = "",
   speed = 0.003,
+  focus = null,
+  theme,
+  showLabels = true,
 }: GlobeInteractiveProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const pointerInteracting = useRef<{ x: number; y: number } | null>(null)
@@ -36,7 +61,14 @@ export function GlobeInteractive({
   const phiOffsetRef = useRef(0)
   const thetaOffsetRef = useRef(0)
   const isPausedRef = useRef(false)
+  const focusRef = useRef<[number, number] | null>(null)
+  const settledRef = useRef(false)
   const [expanded, setExpanded] = useState<string | null>(null)
+
+  useEffect(() => {
+    focusRef.current = focus ? locationToAngles(focus[0], focus[1]) : null
+    settledRef.current = false
+  }, [focus])
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     pointerInteracting.current = { x: e.clientX, y: e.clientY }
@@ -87,11 +119,11 @@ export function GlobeInteractive({
       globe = createGlobe(canvas, {
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
         width, height: width,
-        phi: 0, theta: 0.2, dark: 0, diffuse: 1.5,
-        mapSamples: 16000, mapBrightness: 10,
-        baseColor: [1, 1, 1],
-        markerColor: [0.1, 0.2, 0.45],
-        glowColor: [0.94, 0.93, 0.91],
+        phi: 0, theta: 0.2, dark: theme?.dark ?? 0, diffuse: 1.5,
+        mapSamples: 16000, mapBrightness: theme?.mapBrightness ?? 10,
+        baseColor: theme?.baseColor ?? [1, 1, 1],
+        markerColor: theme?.markerColor ?? [0.1, 0.2, 0.45],
+        glowColor: theme?.glowColor ?? [0.94, 0.93, 0.91],
         markerElevation: 0,
         markers: markers.map((m) => ({ location: m.location, size: 0.025, id: m.id })),
         arcs: [], arcColor: [0.15, 0.3, 0.55],
@@ -99,7 +131,22 @@ export function GlobeInteractive({
       })
 
       function animate() {
-        if (!isPausedRef.current) phi += speed
+        const target = focusRef.current
+        if (target && !settledRef.current && pointerInteracting.current === null) {
+          // ease the absolute angle towards the focus point, taking the short
+          // way round, and fold the drag offsets back out as we go
+          const wantPhi = target[0] - phiOffsetRef.current
+          let d = (wantPhi - phi) % (Math.PI * 2)
+          if (d > Math.PI) d -= Math.PI * 2
+          if (d < -Math.PI) d += Math.PI * 2
+          phi += d * 0.06
+          thetaOffsetRef.current += (target[1] - 0.2 - thetaOffsetRef.current) * 0.06
+          // once it has arrived, hand back to the idle spin so the globe never
+          // just sits there
+          if (Math.abs(d) < 0.012) settledRef.current = true
+        } else if (!isPausedRef.current) {
+          phi += speed
+        }
         globe!.update({
           phi: phi + phiOffsetRef.current + dragOffset.current.phi,
           theta: 0.2 + thetaOffsetRef.current + dragOffset.current.theta,
@@ -126,7 +173,7 @@ export function GlobeInteractive({
       if (animationId) cancelAnimationFrame(animationId)
       if (globe) globe.destroy()
     }
-  }, [markers, speed])
+  }, [markers, speed, theme])
 
   return (
     <div className={`relative aspect-square select-none ${className}`}>
@@ -144,7 +191,7 @@ export function GlobeInteractive({
           transition: "opacity 1.2s ease", borderRadius: "50%", touchAction: "none",
         }}
       />
-      {markers.map((m) => (
+      {showLabels && markers.map((m) => (
         <div
           key={m.id}
           onClick={() => setExpanded(expanded === m.id ? null : m.id)}

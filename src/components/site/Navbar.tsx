@@ -10,7 +10,7 @@ const LINKS: [string, string][] = [
   ["Technology", "/#technology"],
   ["Partnerships", "/#racing"],
   ["About", "/about"],
-  ["Global Presence", "/#global"],
+  ["Global Presence", "/global-presence"],
   ["Newsroom", "/#news"],
   ["Contact", "/contact"],
 ]

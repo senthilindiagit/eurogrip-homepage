@@ -51,7 +51,7 @@ const LIFE = [
   { src: life2, label: "The proving ground", place: "Test track", copy: "Every platform earns its name outdoors, in the hands of testers." },
   { src: life3, label: "The craft", place: "Workshop", copy: "Four decades of know-how, handed over one tyre at a time." },
   { src: teamStudio, label: "The studio", place: "Design", copy: "Tread patterns modelled and argued over before a mould exists." },
-  { src: realEicma, label: "The world stage", place: "EICMA, Milan", copy: "Where the work meets the riders who'll ride it." },
+  { src: realEicma, label: "The open road", place: "Europe", copy: "Where the work meets the riders who'll ride it." },
 ]
 
 /* popout card over the hero imagery */

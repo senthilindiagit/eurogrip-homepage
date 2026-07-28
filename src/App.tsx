@@ -5,6 +5,7 @@ import { About } from "./pages/About"
 import { Contact } from "./pages/Contact"
 import { Careers } from "./pages/Careers"
 import { CareersApply } from "./pages/CareersApply"
+import { GlobalPresence } from "./pages/GlobalPresence"
 
 function Outlet() {
   const { path } = useRouter()
@@ -12,6 +13,7 @@ function Outlet() {
   if (path === "/contact") return <Contact />
   if (path === "/careers") return <Careers />
   if (path === "/careers/apply") return <CareersApply />
+  if (path === "/global-presence") return <GlobalPresence />
   return <Home />
 }
 

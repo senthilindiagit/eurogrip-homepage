@@ -1,6 +1,6 @@
 import { GlobeInteractive } from "@/components/ui/cobe-globe-interactive"
 import { MARKETS } from "@/lib/site-data"
-import { Reveal, SectionHead, Counter } from "./ui"
+import { Reveal, SectionHead, Counter, Btn, Arrow } from "./ui"
 
 const STATS = [
   { to: 85, suffix: "+", label: "Countries served" },
@@ -14,11 +14,16 @@ export function GlobalPresence() {
     <section id="global" className="bg-gradient-to-b from-steel-2 to-steel py-[clamp(84px,13vh,150px)]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="grid grid-cols-1 items-center gap-[clamp(30px,5vw,64px)] lg:grid-cols-2">
-          <SectionHead
-            eyebrow="Global presence"
-            title={<>One brand.<br />Eighty-five shades of road.</>}
-            lede="From monsoon highways to alpine passes — drag the globe to explore our markets."
-          />
+          <div>
+            <SectionHead
+              eyebrow="Global presence"
+              title={<>One brand.<br />Eighty-five shades of road.</>}
+              lede="From monsoon highways to alpine passes — drag the globe to explore our markets."
+            />
+            <Reveal i={2} className="mt-7">
+              <Btn href="/global-presence" variant="red">Explore our global presence <Arrow /></Btn>
+            </Reveal>
+          </div>
           <Reveal i={1}>
             <div className="relative mx-auto aspect-square w-full max-w-[460px]">
               <GlobeInteractive markers={MARKETS} className="h-full w-full" />

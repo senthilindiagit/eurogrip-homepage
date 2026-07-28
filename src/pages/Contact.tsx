@@ -338,8 +338,8 @@ function GlobalShowcase() {
         </Reveal>
         <Reveal i={3} className="mt-[clamp(30px,5vh,48px)] flex justify-center">
           <a
-            href="/#global"
-            onClick={(e) => { if (!e.metaKey && !e.ctrlKey) { e.preventDefault(); navigate("/#global") } }}
+            href="/global-presence"
+            onClick={(e) => { if (!e.metaKey && !e.ctrlKey) { e.preventDefault(); navigate("/global-presence") } }}
             className="group inline-flex items-center gap-2 rounded-[3px] bg-eurored px-7 py-3.5 font-display text-[0.88rem] font-extrabold uppercase italic tracking-[0.04em] text-white shadow-[0_14px_36px_-12px_rgba(237,28,36,.7)] transition-transform hover:-translate-y-0.5"
           >
             Explore our global presence <span className="transition-transform group-hover:translate-x-1">→</span>
