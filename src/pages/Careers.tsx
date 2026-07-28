@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { Reveal, SectionHead, Btn, Arrow, Eyebrow, Counter, Marquee } from "@/components/site/ui"
 import { Cine } from "@/components/site/Cine"
+import { TyreTrack } from "@/components/site/TyreTrack"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { useRouter } from "@/lib/router"
 import teamEngineer from "@/assets/careers/team-engineer.webp"
@@ -100,6 +101,8 @@ function CareersHero() {
     <section ref={ref} className="relative overflow-hidden bg-[#f4f7fb] pb-0 pt-[clamp(110px,17vh,160px)] text-asphalt">
       {/* faint diagonal brand wash */}
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(115deg, rgba(10,110,216,.07) 0%, transparent 42%, rgba(237,28,36,.05) 100%)" }} />
+      {/* the mark our people leave — sits low, under the content */}
+      <TyreTrack id="careers-hero-track" className="inset-x-0 bottom-[clamp(18px,4vh,64px)] w-full" />
 
       <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal>
