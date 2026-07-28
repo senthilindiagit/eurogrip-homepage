@@ -3,12 +3,17 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { Reveal, SectionHead, Btn, Arrow, Eyebrow, Counter, Marquee } from "@/components/site/ui"
 import { Cine } from "@/components/site/Cine"
 import { TyreTrack } from "@/components/site/TyreTrack"
+import { PhotoCycle } from "@/components/site/PhotoCycle"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { useRouter } from "@/lib/router"
 import teamEngineer from "@/assets/careers/team-engineer.webp"
 import teamLab from "@/assets/careers/team-lab.webp"
 import teamStudio from "@/assets/careers/team-studio.webp"
 import realTechnician from "@/assets/careers/real-technician.webp"
+import realTech1 from "@/assets/careers/real-tech-1.webp"
+import realTech2 from "@/assets/careers/real-tech-2.webp"
+import realTech3 from "@/assets/careers/real-tech-3.webp"
+import realTech4 from "@/assets/careers/real-tech-4.webp"
 import realEicma from "@/assets/careers/real-eicma.webp"
 import life1 from "@/assets/careers/life-1.webp"
 import life2 from "@/assets/careers/life-2.webp"
@@ -49,12 +54,14 @@ const LIFE = [
   { src: realEicma, label: "The world stage", place: "EICMA, Milan", copy: "Where the work meets the riders who'll ride it." },
 ]
 
-const STATS = [
+/* popout card over the hero imagery */
+const HERO_STATS: { compact?: string; to?: number; suffix?: string; label: string }[] = [
   { compact: "25,000+", label: "People across the group" },
   { to: 25, suffix: "+", label: "Countries we operate in" },
-  { to: 2, suffix: "", label: "Manufacturing plants" },
-  { to: 44, suffix: "+", label: "Years of engineering" },
 ]
+
+/* one test day, in sequence — read the data, fit it, check it, ride it */
+const TEST_DAY = [realTechnician, realTech2, realTech3, realTech1, realTech4]
 
 /* --------------------------------------------------------------- icons ---- */
 function PillarIcon({ name }: { name: string }) {
@@ -101,8 +108,8 @@ function CareersHero() {
     <section ref={ref} className="relative overflow-hidden bg-[#f4f7fb] pb-0 pt-[clamp(110px,17vh,160px)] text-asphalt">
       {/* faint diagonal brand wash */}
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(115deg, rgba(10,110,216,.07) 0%, transparent 42%, rgba(237,28,36,.05) 100%)" }} />
-      {/* the mark our people leave — sits low, under the content */}
-      <TyreTrack id="careers-hero-track" className="inset-x-0 bottom-[clamp(18px,4vh,64px)] w-full" />
+      {/* the mark our people leave — rolls in from the bottom-left corner */}
+      <TyreTrack opacity={0.11} className="-left-[38%] bottom-[-6%] w-[128%] sm:-left-[26%] sm:w-[92%] lg:-left-[18%] lg:bottom-[-30%] lg:w-[64%]" />
 
       <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal>
@@ -159,19 +166,43 @@ function CareersHero() {
             >
               <img src={teamEngineer} alt="Process engineer on the tyre-building line" className="aspect-[4/5] w-full object-cover" />
             </motion.div>
+            {/* lab photo, with the group-scale figures popping out above it —
+                anchored to the photo itself so they stay put at any size */}
             <motion.div
               style={reduce ? undefined : { y: yB }}
-              className="absolute bottom-[6%] left-0 w-[52%] overflow-hidden rounded-2xl border border-white shadow-[0_30px_70px_-30px_rgba(16,35,70,.45)]"
+              className="absolute bottom-[6%] left-0 w-[52%]"
               initial={reduce ? false : { opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: ENTER, delay: 0.34 }}
             >
-              <img src={teamLab} alt="Engineer testing a motorcycle tyre in the lab" className="aspect-square w-full object-cover" />
+              <div className="overflow-hidden rounded-2xl border border-white shadow-[0_30px_70px_-30px_rgba(16,35,70,.45)]">
+                <img src={teamLab} alt="Engineer testing a motorcycle tyre in the lab" className="aspect-square w-full object-cover" />
+              </div>
+              <motion.div
+                className="absolute -top-8 left-0 z-20 flex w-max gap-x-[clamp(14px,1.8vw,26px)] rounded-xl border border-white/10 bg-white px-4 py-3 shadow-[0_28px_60px_-24px_rgba(11,38,74,.55)]"
+                initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.62 }}
+              >
+                {HERO_STATS.map((s) => (
+                  <div key={s.label}>
+                    {s.compact ? (
+                      <div className="font-display text-[clamp(1.15rem,2vw,1.6rem)] font-black italic leading-none text-asphalt">{s.compact}</div>
+                    ) : (
+                      <Counter to={s.to!} suffix={s.suffix} className="font-display text-[clamp(1.15rem,2vw,1.6rem)] font-black italic leading-none text-asphalt" />
+                    )}
+                    {/* labels wrap on narrow screens so the card can't outgrow the viewport */}
+                    <div className="mt-1.5 max-w-[8rem] text-[0.68rem] uppercase leading-tight tracking-wide text-slate-500 sm:max-w-none">{s.label}</div>
+                  </div>
+                ))}
+              </motion.div>
             </motion.div>
             <motion.div
               style={reduce ? undefined : { y: yC }}
               className="absolute bottom-0 right-[8%] hidden w-[34%] overflow-hidden rounded-xl border border-white shadow-[0_24px_60px_-28px_rgba(16,35,70,.5)] sm:block"
               initial={reduce ? false : { opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: ENTER, delay: 0.48 }}
             >
-              <img src={realTechnician} alt="Eurogrip technician preparing a test bike" className="aspect-[4/3] w-full object-cover" />
+              <PhotoCycle
+                images={TEST_DAY}
+                alt="A Eurogrip test day: reading data, fitting and checking the tyre, then out on the wet track"
+                className="aspect-[4/3] w-full"
+              />
             </motion.div>
           </div>
         </div>
@@ -313,21 +344,7 @@ function LifeHere() {
         <div className="px-5 pb-4 sm:px-8"><Btn href={APPLY} variant="red">Send your application <Arrow /></Btn></div>
       </div>
 
-      {/* group scale */}
-      <div className="mx-auto max-w-[1280px] px-5 pb-[clamp(64px,10vh,130px)] pt-[clamp(28px,5vh,60px)] sm:px-8">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
-          {STATS.map((s, i) => (
-            <Reveal key={s.label} i={i} className="border-t-2 border-eurored pt-4">
-              {s.compact ? (
-                <div className="font-display text-[clamp(1.5rem,2.9vw,2.3rem)] font-black italic leading-none text-white">{s.compact}</div>
-              ) : (
-                <Counter to={s.to!} suffix={s.suffix} className="font-display text-[clamp(1.5rem,2.9vw,2.3rem)] font-black italic leading-none text-white" />
-              )}
-              <div className="mt-2 text-[0.74rem] uppercase tracking-wide text-slate-400">{s.label}</div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
+      <div className="pb-[clamp(48px,8vh,100px)]" />
     </section>
   )
 }
