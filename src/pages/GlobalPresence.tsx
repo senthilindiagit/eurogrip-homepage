@@ -88,7 +88,7 @@ const REGIONS: Region[] = [
 ]
 
 const STATS = [
-  { to: 85, suffix: "+", label: "Countries served" },
+  { to: 130, suffix: "+", label: "Countries served" },
   { to: 5, suffix: "", label: "Continents reached" },
   { to: 1000, suffix: "+", label: "Distribution partners" },
   { to: 3, suffix: "", label: "Road-test geographies" },

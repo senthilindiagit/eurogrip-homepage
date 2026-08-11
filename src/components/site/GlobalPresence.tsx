@@ -3,7 +3,7 @@ import { MARKETS } from "@/lib/site-data"
 import { Reveal, SectionHead, Counter, Btn, Arrow } from "./ui"
 
 const STATS = [
-  { to: 85, suffix: "+", label: "Countries served" },
+  { to: 130, suffix: "+", label: "Countries served" },
   { to: 5, suffix: "", label: "Continents reached" },
   { to: 1000, suffix: "+", label: "Distribution partners" },
   { to: 6, suffix: "", label: "Tyre categories exported" },
@@ -17,7 +17,7 @@ export function GlobalPresence() {
           <div>
             <SectionHead
               eyebrow="Global presence"
-              title={<>One brand.<br />Eighty-five shades of road.</>}
+              title={<>One brand.<br />130 shades of road.</>}
               lede="From monsoon highways to alpine passes — drag the globe to explore our markets."
             />
             <Reveal i={2} className="mt-7">

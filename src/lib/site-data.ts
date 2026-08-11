@@ -104,12 +104,12 @@ export const PARTNERS = [
   "Adventure Series", "Endurance Cup",
 ]
 
-import thumbDhoni from "@/assets/yt-dhoni.webp"
-import thumbTread from "@/assets/yt-treadtalks.webp"
 import thumbAutomechanika from "@/assets/yt-automechanika.webp"
 import thumbColombo from "@/assets/yt-colombo.webp"
-import thumbDiwali from "@/assets/yt-diwali.webp"
 import thumbExpo from "@/assets/yt-expomoto.webp"
+import thumbBeeConnect from "@/assets/yt-beeconnect.webp"
+import thumbMasterclass from "@/assets/yt-treadtalks-masterclass.webp"
+import thumbTrailhound from "@/assets/yt-trailhound.webp"
 
 export type NewsItem = {
   type: "video" | "article"
@@ -123,12 +123,12 @@ export type NewsItem = {
 }
 
 export const NEWS: NewsItem[] = [
-  { type: "video", tag: "Brand", date: "2025", title: "M S Dhoni — behind the scenes", excerpt: "On set with our brand ambassador.", img: thumbDhoni, videoId: "Dxe4CF49qgc" },
-  { type: "article", tag: "Global", date: "2025", title: "Eurogrip at Automechanika Dubai 2025", excerpt: "Innovation unleashed at the region’s biggest trade show.", img: thumbAutomechanika, url: "https://www.youtube.com/watch?v=3_gkR_ZCmNE" },
-  { type: "article", tag: "Events", date: "2025", title: "Colombo Motor Show 2025 — highlights", excerpt: "Eurogrip on the floor in Sri Lanka.", img: thumbColombo, url: "https://www.youtube.com/watch?v=IEfBrQaLB3c" },
-  { type: "article", tag: "Community", date: "2024", title: "Celebrating delivery heroes this Diwali", excerpt: "A salute to the riders who keep moving.", img: thumbDiwali, url: "https://www.youtube.com/watch?v=Ku7TVwjt7jM" },
-  { type: "video", tag: "Technology", date: "2025", title: "TreadTalks: the tubeless advantage", excerpt: "9th edition — why tubeless changes the ride.", img: thumbTread, videoId: "4rfEaS_Jm48" },
-  { type: "article", tag: "Events", date: "2025", title: "Eurogrip rides into Expo Moto, Caracas", excerpt: "An incredible reception in Venezuela.", img: thumbExpo, url: "https://www.youtube.com/watch?v=VTFXL6-_knI" },
+  { type: "video", tag: "Events", date: "2025", title: "Eurogrip rides into Expo Moto, Caracas", excerpt: "An incredible reception for Eurogrip in Venezuela.", img: thumbExpo, videoId: "VTFXL6-_knI" },
+  { type: "video", tag: "Product", date: "2025", title: "Bee Connect — put to the test", excerpt: "Our scooter tyre proves its grip, braking and handling on the test track.", img: thumbBeeConnect, videoId: "y1Wo5p6yj-o" },
+  { type: "video", tag: "Global", date: "2025", title: "Eurogrip at Automechanika Dubai 2025", excerpt: "Innovation unleashed at the region’s biggest trade show.", img: thumbAutomechanika, videoId: "3_gkR_ZCmNE" },
+  { type: "video", tag: "Events", date: "2025", title: "Colombo Motor Show 2025 — highlights", excerpt: "Eurogrip on the floor in Sri Lanka.", img: thumbColombo, videoId: "IEfBrQaLB3c" },
+  { type: "video", tag: "Technology", date: "2025", title: "TreadTalks: The Masterclass", excerpt: "Tyre know-how straight from our experts, one tread at a time.", img: thumbMasterclass, videoId: "59gIfXJcmUM" },
+  { type: "video", tag: "Product", date: "2025", title: "Trailhound launch — TreadTalks special", excerpt: "Introducing our adventure tyre to the US market.", img: thumbTrailhound, videoId: "MnVbMdYLxWw" },
 ]
 
 /** Eurogrip markets for the interactive globe — [lat, lng]. */

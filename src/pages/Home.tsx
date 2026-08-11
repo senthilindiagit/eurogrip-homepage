@@ -11,7 +11,7 @@ import { CtaFooter } from "@/components/site/CtaFooter"
 
 export function Home() {
   return (
-    <main>
+    <main className="home-titles">
       <div className="relative overflow-x-clip">
         <Hero />
         <Cine><BrandPromise /></Cine>

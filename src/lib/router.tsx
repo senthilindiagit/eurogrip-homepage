@@ -62,9 +62,12 @@ export function Link({
 }) {
   const { navigate } = useRouter()
   const isInternal = href.startsWith("/") || href.startsWith("#")
+  const isExternal = /^https?:\/\//.test(href)
   return (
     <a
       href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       className={className}
       onClick={(e) => {
         if (isInternal && !e.metaKey && !e.ctrlKey) {

@@ -7,16 +7,15 @@ import ctaBg from "@/assets/yt-masterclass.webp"
 
 /* [label, href] — hrefs the tiny router understands ("#" = not built yet) */
 const FOOT: Record<string, [string, string][]> = {
-  Products: [
-    ["Two-Wheeler", "/#products"], ["Three-Wheeler", "/#products"], ["Ultra-Light Truck", "/#products"],
-    ["Agricultural", "/#products"], ["Industrial", "/#products"], ["OTR", "/#products"],
+  Explore: [
+    ["Products", "/#products"], ["Technology", "/#technology"], ["Racing & Partnerships", "/#racing"],
   ],
   Company: [
-    ["About Eurogrip", "/about"], ["Technology", "/#technology"], ["Partnerships", "/#racing"],
-    ["Global Presence", "/global-presence"], ["Newsroom", "/#news"], ["Careers", "/careers"],
+    ["Global Presence", "/global-presence"], ["About Eurogrip", "/about"],
+    ["Newsroom", "/newsroom"], ["Careers", "/careers"],
   ],
   Connect: [
-    ["Find a Dealer", "/contact"], ["Become a Distributor", "/contact"],
+    ["Partner with Us", "/contact"], ["Become a Distributor", "/contact"],
     ["OEM Enquiries", "/contact"], ["Contact Us", "/contact"],
   ],
 }
@@ -98,16 +97,16 @@ export function ContactCta() {
         <div className="pointer-events-none absolute inset-0 opacity-[0.06]"
           style={{ background: "repeating-conic-gradient(#fff 0 25%,transparent 0 50%) 0 0/40px 40px" }} />
         <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-[clamp(80px,12vh,150px)] sm:px-8">
-          <Reveal><Eyebrow className="text-sky-300 [&::before]:bg-sky-300">Get in touch</Eyebrow></Reveal>
-          <Reveal i={1}><h2 className="italic-display mt-3 text-white text-[clamp(1.9rem,4.4vw,3.3rem)]">Find your Eurogrip</h2></Reveal>
+          <Reveal><Eyebrow className="text-sky-300 [&::before]:bg-sky-300">Partner with us</Eyebrow></Reveal>
+          <Reveal i={1}><h2 className="italic-display mt-3 text-white text-[clamp(1.9rem,4.4vw,3.3rem)]">Grow with Eurogrip</h2></Reveal>
           <Reveal i={2}>
             <p className="mx-auto mt-4 max-w-[52ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-sky-100">
-              Locate a distributor, become a partner, or find the right tyre for your next ride.
+              Become a distributor, explore OEM opportunities, or bring Eurogrip to your market.
             </p>
           </Reveal>
           <Reveal i={3} className="mt-8 flex flex-wrap justify-center gap-3.5">
-            <Btn href="/contact" variant="red">Find a dealer <Arrow /></Btn>
-            <Btn href="/contact" variant="line">Partner with us</Btn>
+            <Btn href="/contact" variant="red">Partner with us <Arrow /></Btn>
+            <Btn href="/contact" variant="line">Contact us</Btn>
           </Reveal>
         </div>
       </section>

@@ -105,11 +105,14 @@ export function Btn({
     "line-dark": "border border-asphalt/40 text-asphalt hover:border-asphalt hover:bg-black/5",
   }[variant]
   const { navigate } = useRouter()
-  // route internal links through the SPA router; leave "#…" and external URLs alone
+  // route internal links through the SPA router; external URLs open in a new window
   const isRoute = href.startsWith("/")
+  const isExternal = /^https?:\/\//.test(href)
   return (
     <a
       href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       onClick={(e) => {
         if (isRoute && !e.metaKey && !e.ctrlKey) {
           e.preventDefault()

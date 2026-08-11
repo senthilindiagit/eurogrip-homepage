@@ -2,9 +2,9 @@ import { Reveal, Counter, Btn, Arrow } from "./ui"
 
 const STATS = [
   { n: "1982", label: "Founded as a tyre specialist", count: false },
-  { n: "85", suffix: "+", label: "Export markets", count: true },
-  { n: "3", label: "Global R&D centres", count: true },
-  { n: "TVS", label: "Mobility Group company", count: false },
+  { n: "130", suffix: "+", label: "Export markets", count: true },
+  { n: "2", label: "Global R&D centres", count: true },
+  { n: "TVS Mobility", label: "Group company", count: false },
 ]
 
 export function AboutGroup() {

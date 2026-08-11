@@ -14,28 +14,51 @@ const ENTER = [0.16, 0.84, 0.34, 1] as const
 export const QUERY_TYPES = [
   { key: "general", title: "General Enquiry", body: "Questions, feedback or information", icon: "chat" },
   { key: "dealer", title: "Dealer / Distributor", body: "B2B partnership requests", icon: "handshake" },
+  { key: "franchisee", title: "Franchisee Partner", body: "Exclusive Eurogrip store enquiries", icon: "store" },
   { key: "oem", title: "OEM Enquiries", body: "Original-equipment fitments", icon: "cog" },
   { key: "media", title: "Media & Press", body: "Journalists, PR, spokespeople", icon: "news" },
   { key: "support", title: "Technical Support", body: "Product or fitment queries", icon: "tools" },
   { key: "careers", title: "Careers", body: "Jobs and internships", icon: "user" },
 ] as const
 
+/* Grouping per client feedback 2026-08-06. Full postal addresses (registered
+   office, Chennai corporate, 4–5 regional offices) are coming from the client —
+   city-level entries hold the slots until then. */
 const OFFICES = [
   {
-    tag: "Headquarters",
+    group: "Registered & Corporate Offices",
+    tag: "Registered Office",
     city: "Madurai, India",
-    lines: ["TVS Srichakra Limited", "Madurai, Tamil Nadu", "India"],
-    note: "Corporate HQ & R&D centre",
-    map: "TVS+Srichakra+Limited+Madurai+Tamil+Nadu+India",
+    lines: ["TVS Srichakra Limited", "TVS Building, 7-B West Veli Street", "Madurai 625 001, Tamil Nadu, India"],
+    note: "Registered office",
+    map: "TVS+Srichakra+Limited+West+Veli+Street+Madurai",
   },
   {
+    group: "Registered & Corporate Offices",
+    tag: "Corporate Office",
+    city: "Chennai, India",
+    lines: ["TVS Srichakra Limited", "Chennai, Tamil Nadu, India"],
+    note: "Full address to follow",
+    map: "Chennai+Tamil+Nadu+India",
+  },
+  {
+    group: "Manufacturing Plants",
+    tag: "Manufacturing",
+    city: "Madurai, India",
+    lines: ["TVS Srichakra Limited", "Vellaripatti, Madurai", "Tamil Nadu, India"],
+    note: "Plant 1 · alongside the R&D centre",
+    map: "TVS+Srichakra+Limited+Vellaripatti+Madurai+Tamil+Nadu+India",
+  },
+  {
+    group: "Manufacturing Plants",
     tag: "Manufacturing",
     city: "Pantnagar, India",
     lines: ["TVS Srichakra Manufacturing Plant", "Pantnagar, Uttarakhand", "India"],
-    note: "Second manufacturing facility",
+    note: "Plant 2",
     map: "TVS+Srichakra+Pantnagar+Rudrapur+Uttarakhand+India",
   },
   {
+    group: "Design Centre",
     tag: "Design Centre",
     city: "Milan, Italy",
     lines: ["Eurogrip Design Centre", "Milan", "Italy"],
@@ -43,11 +66,14 @@ const OFFICES = [
     map: "Milano+Lombardia+Italy",
   },
 ]
+const OFFICE_GROUPS = [...new Set(OFFICES.map((o) => o.group))]
+/* shown under the corporate group until the client sends the list */
+const REGIONAL_NOTE = "4–5 regional offices across India will be listed here."
 
 const CHANNELS = [
-  { label: "General", value: "info@eurogriptyres.com", href: "mailto:info@eurogriptyres.com" },
-  { label: "Dealers & distributors", value: "sales@eurogriptyres.com", href: "mailto:sales@eurogriptyres.com" },
-  { label: "Media & press", value: "media@eurogriptyres.com", href: "mailto:media@eurogriptyres.com" },
+  { label: "General", value: "info@eurogriptyres.com", href: "mailto:info@eurogriptyres.com", icon: "chat" },
+  { label: "Dealers & distributors", value: "sales@eurogriptyres.com", href: "mailto:sales@eurogriptyres.com", icon: "handshake" },
+  { label: "Media & press", value: "media@eurogriptyres.com", href: "mailto:media@eurogriptyres.com", icon: "news" },
 ]
 
 const REGIONS = ["India & SAARC", "Europe", "Americas", "Asia Pacific", "Middle East & Africa", "Other"]
@@ -57,6 +83,7 @@ function QueryIcon({ name }: { name: string }) {
   const paths: Record<string, ReturnType<typeof String>> = {
     chat: "M21 12a8 8 0 01-8 8H8l-5 3 1.5-5A8 8 0 1121 12z",
     handshake: "M6 12l3-3 3 3 3-3 3 3M4 12l4 4a2 2 0 003 0l1-1 1 1a2 2 0 003 0l4-4",
+    store: "M4 9l1-4h14l1 4M4 9v11h16V9M4 9h16M9 20v-6h6v6",
     cog: "M12 15a3 3 0 100-6 3 3 0 000 6zM12 3v2m0 14v2M5 5l1.5 1.5M17.5 17.5L19 19M3 12h2m14 0h2M5 19l1.5-1.5M17.5 6.5L19 5",
     news: "M4 5h13v14H4zM17 9h3v8a2 2 0 01-2 2M7 9h7M7 13h7",
     tools: "M14 6l4 4-8 8H6v-4l8-8zM13 7l4 4",
@@ -85,15 +112,17 @@ function DirectChannels() {
       <Reveal>
         <h3 className="font-display text-[0.74rem] font-extrabold uppercase italic tracking-[0.14em] text-white">Direct channels</h3>
       </Reveal>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+      <div className="mt-5 flex flex-col gap-4">
         {CHANNELS.map((c, i) => (
           <Reveal key={c.label} i={i}>
-            <a
-              href={c.href}
-              className="group flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-[#16294a]/85 px-4 py-3 shadow-[0_16px_36px_-24px_rgba(6,18,38,.9)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-eurored/50 hover:bg-[#16294a]"
-            >
-              <span className="text-[0.78rem] font-light text-slate-300">{c.label}</span>
-              <span className="text-[0.85rem] font-medium text-white transition-colors group-hover:text-eurored">{c.value}</span>
+            <a href={c.href} className="group inline-flex items-center gap-3.5">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white text-racing shadow-[0_12px_28px_-14px_rgba(6,18,38,.7)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-eurored group-hover:text-white">
+                <QueryIcon name={c.icon} />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-[0.7rem] uppercase tracking-[0.1em] text-slate-300">{c.label}</span>
+                <span className="block truncate text-[0.92rem] font-medium text-white underline-offset-4 transition-colors group-hover:underline">{c.value}</span>
+              </span>
             </a>
           </Reveal>
         ))}
@@ -111,7 +140,7 @@ const label = "mb-1.5 block text-[0.76rem] font-semibold uppercase tracking-[0.0
 function ContactForm({ queryType, onQueryType }: { queryType: string; onQueryType: (k: string) => void }) {
   const [sent, setSent] = useState(false)
   const reduce = useReducedMotion()
-  const isBusiness = queryType === "dealer" || queryType === "oem"
+  const isBusiness = queryType === "dealer" || queryType === "oem" || queryType === "franchisee"
 
   return (
     <div id="contact-form" className="rounded-2xl border border-black/10 bg-white p-6 shadow-[0_30px_70px_-45px_rgba(16,35,70,.5)] sm:p-8">
@@ -128,7 +157,7 @@ function ContactForm({ queryType, onQueryType }: { queryType: string; onQueryTyp
             </span>
             <h3 className="mt-5 font-display text-[1.3rem] font-extrabold uppercase italic text-asphalt">Message sent</h3>
             <p className="mx-auto mt-2 max-w-[42ch] text-[0.95rem] font-light text-slate-600">
-              Thanks for reaching out. Our team typically responds within two business days.
+              Thanks for reaching out. Our team will get back to you shortly.
             </p>
             <button
               onClick={() => setSent(false)}
@@ -196,20 +225,19 @@ function ContactForm({ queryType, onQueryType }: { queryType: string; onQueryTyp
             </div>
             <div className="sm:col-span-2">
               <label htmlFor="message" className={label}>Message *</label>
-              <textarea id="message" required rows={5} className={field} placeholder="How can we help?" />
+              <textarea id="message" required rows={2} className={field} placeholder="How can we help?" />
             </div>
             <label className="flex items-start gap-2.5 text-[0.82rem] font-light text-slate-600 sm:col-span-2">
               <input type="checkbox" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#0a6ed8]" />
               I agree that Eurogrip may use my details to respond to this enquiry.
             </label>
-            <div className="flex flex-wrap items-center gap-4 sm:col-span-2">
+            <div className="sm:col-span-2">
               <button
                 type="submit"
                 className="group inline-flex items-center gap-2 rounded-[3px] bg-eurored px-6 py-3 font-display text-[0.86rem] font-extrabold uppercase italic tracking-[0.04em] text-white shadow-[0_10px_30px_-10px_rgba(237,28,36,.6)] transition-transform hover:-translate-y-0.5"
               >
                 Send message <span className="transition-transform group-hover:translate-x-1">→</span>
               </button>
-              <span className="text-[0.8rem] font-light text-slate-500">We typically respond within 2 business days.</span>
             </div>
           </motion.form>
         )}
@@ -219,84 +247,138 @@ function ContactForm({ queryType, onQueryType }: { queryType: string; onQueryTyp
 }
 
 /* -------------------------------------------------------------- offices ---- */
+const TAB_LABELS: Record<string, string> = {
+  "Registered & Corporate Offices": "Registered & Corporate",
+  "Manufacturing Plants": "Manufacturing",
+  "Design Centre": "Design Centre",
+}
+
 function Offices() {
-  const [active, setActive] = useState(0)
-  const o = OFFICES[active]
+  const [group, setGroup] = useState(OFFICE_GROUPS[0])
+  const [sel, setSel] = useState(0)
+  const reduce = useReducedMotion()
+  const groupOffices = OFFICES.filter((of) => of.group === group)
+  const o = groupOffices[Math.min(sel, groupOffices.length - 1)]
+  const pickGroup = (g: string) => { setGroup(g); setSel(0) }
 
   return (
-    <section className="bg-mist py-[clamp(60px,9vh,120px)] text-asphalt">
+    <section className="bg-mist pb-[clamp(60px,9vh,120px)] pt-[clamp(40px,6vh,72px)] text-asphalt">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <SectionHead
           light
           eyebrow="Where to find us"
           title={<>Our offices &amp; plants</>}
-          lede="From the Madurai headquarters to the Milan design centre — select a location to view it on the map."
-          className="mb-[clamp(28px,4vh,44px)] max-w-none"
+          lede="From the Madurai headquarters to the Milan design centre — pick a location to view it on the map."
+          className="mb-[clamp(24px,3.5vh,40px)] max-w-none"
         />
 
-        <div className="grid gap-6 lg:grid-cols-[minmax(300px,420px)_1fr]">
-          {/* selectable office list */}
-          <div className="space-y-4">
-            {OFFICES.map((of, i) => {
-              const on = i === active
+        {/* group tabs — sliding pill */}
+        <Reveal>
+          <div className="flex w-fit max-w-full flex-wrap gap-1 rounded-full border border-black/10 bg-white p-1.5 shadow-[0_18px_40px_-30px_rgba(16,35,70,.5)]">
+            {OFFICE_GROUPS.map((g) => {
+              const on = g === group
               return (
-                <Reveal key={of.city} i={i}>
-                  <button
-                    onClick={() => setActive(i)}
-                    aria-pressed={on}
-                    className={`w-full rounded-xl border p-5 text-left transition-all duration-300 ${
-                      on
-                        ? "border-eurored bg-white shadow-[0_24px_50px_-30px_rgba(237,28,36,.45)]"
-                        : "border-black/10 bg-white shadow-[0_20px_45px_-34px_rgba(16,35,70,.45)] hover:border-racing/40 hover:-translate-y-0.5"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className={`mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full transition-colors ${on ? "bg-eurored text-white" : "bg-racing/10 text-racing"}`}>
-                        <PinIcon />
-                      </span>
-                      <div>
-                        <span className="font-display text-[0.68rem] font-extrabold uppercase tracking-[0.1em] text-racing">{of.tag}</span>
-                        <div className="font-display text-[1.05rem] font-extrabold uppercase italic leading-tight text-asphalt">{of.city}</div>
-                        <p className="mt-1.5 text-[0.86rem] font-light leading-relaxed text-slate-600">
-                          {of.lines.map((l) => <span key={l} className="block">{l}</span>)}
-                        </p>
-                        <span className="mt-2 inline-block text-[0.76rem] font-medium text-slate-500">{of.note}</span>
-                      </div>
-                    </div>
-                  </button>
-                </Reveal>
+                <button
+                  key={g}
+                  onClick={() => pickGroup(g)}
+                  aria-pressed={on}
+                  className={`relative rounded-full px-5 py-2.5 font-display text-[0.78rem] font-extrabold uppercase italic tracking-[0.06em] transition-colors duration-300 ${on ? "text-white" : "text-slate-500 hover:text-asphalt"}`}
+                >
+                  {on && (
+                    <motion.span
+                      layoutId="office-tab-pill"
+                      className="absolute inset-0 rounded-full bg-racing shadow-[0_10px_24px_-10px_rgba(10,110,216,.8)]"
+                      transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 34 }}
+                    />
+                  )}
+                  <span className="relative z-10">{TAB_LABELS[g] ?? g}</span>
+                </button>
               )
             })}
-
           </div>
+        </Reveal>
 
-          {/* google map */}
-          <Reveal i={1}>
-            <div className="relative h-full min-h-[420px] overflow-hidden rounded-2xl border border-black/10 shadow-[0_30px_70px_-45px_rgba(16,35,70,.5)]">
-              <iframe
-                key={o.map}
-                title={`Map — ${o.city}`}
-                src={`https://www.google.com/maps?q=${o.map}&output=embed`}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="absolute inset-0 h-full w-full"
-                style={{ border: 0 }}
-                allowFullScreen
-              />
-              <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-white/95 px-3.5 py-1.5 font-display text-[0.72rem] font-extrabold uppercase italic tracking-wide text-asphalt shadow-md">
-                {o.city}
-              </span>
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${o.map}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute bottom-4 right-4 rounded-full bg-white/95 px-4 py-2 font-display text-[0.72rem] font-extrabold uppercase italic tracking-wide text-racing shadow-md transition-colors hover:bg-white hover:text-eurored"
-              >
-                Open in Google Maps →
-              </a>
+        {/* detail panel — dark rail + map in one premium card */}
+        <Reveal i={1}>
+          <div className="relative mt-5 overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_40px_90px_-50px_rgba(11,38,74,.55)]">
+            <span aria-hidden className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-racing via-sky-400 to-eurored" />
+            <div className="grid lg:grid-cols-[minmax(320px,420px)_1fr]">
+              {/* left — office rail on steel gradient */}
+              <div className="relative p-6 sm:p-7" style={{ background: "linear-gradient(150deg, #1f3050 0%, #2c4a76 100%)" }}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={group}
+                    initial={reduce ? false : { opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduce ? undefined : { opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3, ease: ENTER }}
+                  >
+                    <span className="font-display text-[0.7rem] font-extrabold uppercase italic tracking-[0.14em] text-sky-300">{group}</span>
+                    <div className="mt-4 space-y-3">
+                      {groupOffices.map((of, i) => {
+                        const on = i === Math.min(sel, groupOffices.length - 1)
+                        return (
+                          <button
+                            key={of.tag + of.city}
+                            onClick={() => setSel(i)}
+                            aria-pressed={on}
+                            className={`w-full rounded-xl border p-4 text-left transition-all duration-300 ${
+                              on
+                                ? "border-eurored/70 bg-white/10 shadow-[0_18px_40px_-24px_rgba(0,0,0,.6)]"
+                                : "border-white/10 bg-white/[0.04] hover:border-white/30 hover:bg-white/[0.07]"
+                            }`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <span className={`mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full transition-colors ${on ? "bg-eurored text-white" : "bg-white/10 text-sky-300"}`}>
+                                <PinIcon />
+                              </span>
+                              <div>
+                                <span className="font-display text-[0.64rem] font-extrabold uppercase tracking-[0.1em] text-sky-300">{of.tag}</span>
+                                <div className="font-display text-[1rem] font-extrabold uppercase italic leading-tight text-white">{of.city}</div>
+                                <p className="mt-1 text-[0.82rem] font-light leading-relaxed text-slate-300">
+                                  {of.lines.map((l) => <span key={l} className="block">{l}</span>)}
+                                </p>
+                                <span className="mt-1.5 inline-block text-[0.72rem] font-medium text-slate-400">{of.note}</span>
+                              </div>
+                            </div>
+                          </button>
+                        )
+                      })}
+                      {group === "Registered & Corporate Offices" && (
+                        <p className="px-1 pt-1 text-[0.78rem] font-light italic text-slate-400">{REGIONAL_NOTE}</p>
+                      )}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* right — map fills the panel */}
+              <div className="relative min-h-[320px] lg:min-h-[420px]">
+                <iframe
+                  key={o.map}
+                  title={`Map — ${o.city}`}
+                  src={`https://www.google.com/maps?q=${o.map}&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0 h-full w-full"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                />
+                <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-white/95 px-3.5 py-1.5 font-display text-[0.72rem] font-extrabold uppercase italic tracking-wide text-asphalt shadow-md">
+                  {o.city}
+                </span>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${o.map}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-4 right-4 rounded-full bg-white/95 px-4 py-2 font-display text-[0.72rem] font-extrabold uppercase italic tracking-wide text-racing shadow-md transition-colors hover:bg-white hover:text-eurored"
+                >
+                  Open in Google Maps →
+                </a>
+              </div>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )
@@ -333,7 +415,7 @@ function GlobalShowcase() {
         </Reveal>
         <Reveal i={2}>
           <p className="mx-auto mt-4 max-w-[56ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-200">
-            Eurogrip tyres reach riders and fleets across 85+ countries through a distribution network built over four decades.
+            Eurogrip tyres reach riders and fleets across 130+ countries through a distribution network built over four decades.
           </p>
         </Reveal>
         <Reveal i={3} className="mt-[clamp(30px,5vh,48px)] flex justify-center">
@@ -377,6 +459,7 @@ export function Contact() {
           aside={<ContactForm queryType={queryType} onQueryType={setQueryType} />}
           asideAlign="start"
           below={<DirectChannels />}
+          pad="pb-[clamp(36px,6vh,64px)] pt-[clamp(104px,15vh,140px)]"
         />
       </div>
 

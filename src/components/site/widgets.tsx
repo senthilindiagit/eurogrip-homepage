@@ -10,6 +10,18 @@ export function GlobeIcon({ className }: { className?: string }) {
     </svg>
   )
 }
+export function LanguagesIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="m5 8 6 6" />
+      <path d="m4 14 6-6 2-3" />
+      <path d="M2 5h12" />
+      <path d="M7 2h1" />
+      <path d="m22 22-5-10-5 10" />
+      <path d="M14 18h6" />
+    </svg>
+  )
+}
 function Chevron({ open }: { open?: boolean }) {
   return (
     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.2" className={cn("transition-transform duration-300", open && "rotate-180")} aria-hidden="true">
@@ -50,7 +62,7 @@ export function LanguageSelect({ className }: { className?: string }) {
         aria-haspopup="listbox" aria-expanded={open}
         className="flex items-center gap-1.5 text-[0.86rem] font-semibold text-slate-200 transition-colors hover:text-white"
       >
-        <GlobeIcon className="text-eurored" /> {lang.c} <Chevron open={open} />
+        <LanguagesIcon className="text-eurored" /> {lang.c} <Chevron open={open} />
       </button>
       {open && (
         <ul role="listbox" className="absolute right-0 top-[calc(100%+12px)] z-50 min-w-[150px] overflow-hidden rounded-md border border-white/10 bg-midnight/95 py-1.5 shadow-2xl backdrop-blur-xl">

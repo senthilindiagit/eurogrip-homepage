@@ -23,6 +23,7 @@ export function PageHero({
   below,
   dots = true,
   className,
+  pad = "pb-[clamp(70px,11vh,120px)] pt-[clamp(120px,19vh,170px)]",
 }: {
   crumbs: Crumb[]
   eyebrow: string
@@ -35,12 +36,14 @@ export function PageHero({
   below?: ReactNode
   dots?: boolean
   className?: string
+  /** section padding — override for pages that need a tighter hero */
+  pad?: string
 }) {
   const reduce = useReducedMotion()
   const { navigate } = useRouter()
 
   return (
-    <section className={`relative overflow-hidden pb-[clamp(70px,11vh,120px)] pt-[clamp(120px,19vh,170px)] ${className ?? ""}`}>
+    <section className={`relative overflow-hidden ${pad} ${className ?? ""}`}>
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(70% 55% at 82% 4%, rgba(255,255,255,.26), transparent 60%)" }} />
       {dots && (
         <img

@@ -123,7 +123,7 @@ export function Racing() {
           <div>
             <SectionHead
               light
-              eyebrow="Partnerships"
+              eyebrow="Racing &amp; Partnerships"
               title={<>Proven by riders.<br />Not just by us.</>}
               lede="Championship grids, OEM fitments, everyday riders — the proof is in the people who trust it."
               ledeClassName="max-w-none lg:whitespace-nowrap lg:text-[0.92rem]"

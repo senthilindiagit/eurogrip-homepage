@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { Reveal, SectionHead, Btn, Arrow, Counter, Eyebrow } from "@/components/site/ui"
 import { Cine } from "@/components/site/Cine"
-import { CtaFooter } from "@/components/site/CtaFooter"
+import { SiteFooter } from "@/components/site/CtaFooter"
 import { useRouter } from "@/lib/router"
 import rangeWorld from "@/assets/about/range-world.webp"
 import worldDots from "@/assets/about/world-dots.webp"
@@ -28,8 +28,8 @@ const ENTER = [0.16, 0.84, 0.34, 1] as const
 /* ============================ Hero ============================ */
 const HERO_STATS = [
   { to: 44, suffix: "+", label: "Years of expertise" },
-  { to: 85, suffix: "+", label: "Countries served" },
-  { to: 3, suffix: "", label: "R&D centres" },
+  { to: 130, suffix: "+", label: "Countries served" },
+  { to: 2, suffix: "", label: "R&D centres" },
 ]
 
 function AboutHero() {
@@ -88,7 +88,7 @@ function AboutHero() {
             className="mt-5 max-w-[46ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-slate-200"
             initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.34 }}
           >
-            The international two-wheeler, three-wheeler and off-highway tyre brand of TVS Srichakra — four decades of engineering, trusted by riders across 85+ countries.
+            The international two-wheeler, three-wheeler and off-highway tyre brand of TVS Srichakra — four decades of engineering, trusted by riders across 130+ countries.
           </motion.p>
           <motion.div
             className="mt-8"
@@ -133,55 +133,56 @@ function AboutHero() {
   )
 }
 
-/* ==================== Brand pillars ribbon (overlaps) ==================== */
-const PILLARS = [
-  { k: "Outlive", body: "High-performance, long-lasting tyres designed to outlive every journey." },
-  { k: "Outperform", body: "Engineering precision and technological acumen from global research centres — to outperform in any road condition." },
-  { k: "Outdo", body: "Always ready for the next journey — empowering the rider to outdo what was done yesterday." },
+/* ==================== "Our Parent" ribbon (overlaps hero) ==================== */
+/* Client feedback 2026-08-06: the TVS Mobility affiliation is key information —
+   it leads the page now, replacing the pillars ribbon. */
+const GROUP_STATS = [
+  { v: "USD 2 bn+", l: "Annual revenue" },
+  { v: "25,000+", l: "Employees" },
+  { v: "25+", l: "Countries" },
+  { v: "6", l: "Continents" },
 ]
 
-function PillarIcon({ i }: { i: number }) {
-  const paths = [
-    // outlive — shield
-    "M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z",
-    // outperform — chevrons
-    "M5 14l7-7 7 7M5 19l7-7 7 7",
-    // outdo — arrow-up circle
-    "M12 21a9 9 0 100-18 9 9 0 000 18zM12 16V9m0 0l-3 3m3-3l3 3",
-  ]
-  return (
-    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d={paths[i]} />
-    </svg>
-  )
-}
-
-function PillarsRibbon() {
+function ParentRibbon() {
   return (
     <div className="relative z-20 mx-auto -mt-[clamp(70px,10vh,120px)] max-w-[1200px] px-5 sm:px-8">
       <Reveal>
-        <div className="grid overflow-hidden rounded-xl border border-white/15 bg-[#2e5695] shadow-[0_40px_90px_-40px_rgba(11,38,74,.55)] lg:grid-cols-[minmax(220px,320px)_1fr]">
-          {/* intro cell */}
-          <div className="flex flex-col justify-center border-b border-white/12 bg-black/10 p-7 lg:border-b-0 lg:border-r">
-            <span className="font-display text-[0.72rem] font-extrabold uppercase italic tracking-[0.16em] text-eurored">What we stand for</span>
-            <h2 className="mt-2 font-display text-[clamp(1.3rem,2.2vw,1.8rem)] font-black uppercase italic leading-[1.02] text-white">
-              Three words we<br />hold ourselves to
+        <div
+          className="relative overflow-hidden rounded-2xl border border-white/15 shadow-[0_44px_100px_-44px_rgba(11,38,74,.65)]"
+          style={{ background: "linear-gradient(118deg, #2e5695 0%, #24466f 55%, #1b3357 100%)" }}
+        >
+          {/* brand keyline */}
+          <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-racing via-sky-400 to-eurored" />
+          <div className="relative p-6 sm:p-8">
+            {/* title — single line */}
+            <Eyebrow>Our Parent</Eyebrow>
+            <h2 className="italic-display mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-white text-[clamp(1.3rem,2.5vw,2rem)] leading-[1.06]">
+              Part of the
+              <img src={tvsMobilityLogo} alt="TVS Mobility" className="h-[0.95em] w-auto" />
+              Group
             </h2>
-            <p className="mt-3 text-[0.86rem] font-light leading-relaxed text-slate-300">
-              Every Eurogrip tyre is built to a promise — one that lives in three words.
-            </p>
-          </div>
-          {/* three pillars */}
-          <div className="grid gap-px bg-white/10 sm:grid-cols-3">
-            {PILLARS.map((p, i) => (
-              <div key={p.k} className="bg-[#2e5695] p-6">
-                <span className="text-eurored"><PillarIcon i={i} /></span>
-                <h3 className="mt-3 font-display text-[1.15rem] font-black uppercase italic text-white">
-                  Out<span className="text-eurored">{p.k.slice(3)}</span>
-                </h3>
-                <p className="mt-2 text-[0.86rem] font-light leading-relaxed text-slate-300">{p.body}</p>
+            {/* content below the title, CTA on the right */}
+            <div className="mt-4 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+              <p className="text-[0.92rem] font-light leading-relaxed text-slate-200">
+                TVS Srichakra is part of the TVS Mobility group — an automotive conglomerate
+                <br className="hidden sm:block" />
+                rooted in the century-old legacy of TV Sundram Iyengar, spanning four business verticals.
+              </p>
+              <div className="shrink-0">
+                <Btn href="https://www.tvsmobility.in" variant="line">Visit TVS Mobility <Arrow /></Btn>
               </div>
-            ))}
+            </div>
+            {/* group stats in one line */}
+            <div className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-6 sm:grid-cols-4">
+              {GROUP_STATS.map((s, i) => (
+                <Reveal key={s.l} i={i}>
+                  <div>
+                    <div className="font-display text-[clamp(1.45rem,2.6vw,2.1rem)] font-black italic leading-none text-white">{s.v}</div>
+                    <div className="mt-2 text-[0.72rem] uppercase tracking-wide text-slate-300">{s.l}</div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </Reveal>
@@ -192,8 +193,8 @@ function PillarsRibbon() {
 /* ============================ Who we are ============================ */
 const WHO_STATS = [
   { to: 44, suffix: "+", label: "Years of expertise" },
-  { to: 85, suffix: "+", label: "Countries served" },
-  { to: 3, suffix: "", label: "Global R&D centres" },
+  { to: 130, suffix: "+", label: "Countries served" },
+  { to: 2, suffix: "", label: "Global R&D centres" },
   { to: 25000, suffix: "+", label: "People across the group", compact: true },
 ]
 
@@ -248,7 +249,7 @@ function WhoWeAre() {
             </Reveal>
             <Reveal i={2}>
               <p className="mt-4 max-w-[52ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-600">
-                Eurogrip is the tyre brand of TVS Srichakra Limited — incorporated in 1982 and headquartered in Madurai, one of India's leading manufacturers and exporters of two-wheeler, three-wheeler and off-highway tyres. Trusted by riders across 85+ countries, with a significant share of both OEM and replacement markets in India and a distribution network built over four decades.
+                Eurogrip is the tyre brand of TVS Srichakra Limited — a leading manufacturer of two-wheeler, three-wheeler and off-highway tyres since 1982, headquartered in Madurai and trusted by riders across 130+ countries.
               </p>
             </Reveal>
             <Reveal i={3} className="mt-7 flex gap-4">
@@ -286,23 +287,26 @@ function WhoWeAre() {
           ))}
         </div>
 
-        {/* brand evolution — TVS Tyres → TVS Eurogrip → Eurogrip */}
-        <div className="mt-[clamp(48px,7vh,80px)] rounded-2xl border border-black/10 bg-white p-6 shadow-[0_30px_70px_-45px_rgba(16,35,70,.4)] sm:p-8">
+        {/* Brands of TVS Srichakra — TVS Tyres → TVS Eurogrip → Eurogrip */}
+        <div className="mt-[clamp(48px,7vh,80px)]">
           <Reveal>
-            <h3 className="font-display text-[0.78rem] font-extrabold uppercase italic tracking-[0.14em] text-eurored">The brand, evolving</h3>
+            <Eyebrow>Our Brands</Eyebrow>
           </Reveal>
-          <div className="mt-5 grid gap-5 md:grid-cols-3">
+          <Reveal i={1}>
+            <h3 className="italic-display mt-3 text-asphalt text-[clamp(1.35rem,2.8vw,2.1rem)]">Brands of TVS Srichakra</h3>
+          </Reveal>
+          <div className="relative mt-8 grid gap-5 md:grid-cols-3">
             {[
               { tag: "Until 2019", name: "TVS Tyres", body: "The replacement-market brand that built the company's reputation for quality." },
               { tag: "August 2019", name: "TVS Eurogrip", body: "Relaunched to be more youthful and vibrant, speaking to millennial and Gen Z riders." },
-              { tag: "From 2024", name: "Eurogrip", body: "All two- & three-wheeler products aligned under one global brand, worldwide." },
+              { tag: "From 2024", name: "Eurogrip", body: "All two- & three-wheeler products aligned under one global brand, worldwide.", current: true },
             ].map((s, i) => (
               <Reveal key={s.name} i={i}>
-                <div className="relative h-full rounded-xl border border-black/10 bg-mist p-5">
-                  <span className="font-display text-[0.68rem] font-extrabold uppercase tracking-[0.1em] text-racing">{s.tag}</span>
-                  <div className="mt-1.5 font-display text-[1.1rem] font-extrabold uppercase italic leading-tight text-asphalt">{s.name}</div>
-                  <p className="mt-2 text-[0.86rem] font-light leading-relaxed text-slate-600">{s.body}</p>
-                  {i < 2 && <span aria-hidden className="pointer-events-none absolute -right-4 top-1/2 hidden -translate-y-1/2 text-eurored/50 md:block">→</span>}
+                <div className={`relative h-full overflow-hidden rounded-xl border bg-white p-6 shadow-[0_24px_55px_-40px_rgba(16,35,70,.45)] ${s.current ? "border-racing/50" : "border-black/10"}`}>
+                  <span className={`inline-block rounded-full px-3 py-1 font-display text-[0.66rem] font-extrabold uppercase tracking-[0.1em] ${s.current ? "bg-racing text-white" : "bg-racing/10 text-racing"}`}>{s.tag}</span>
+                  <div className="mt-3 font-display text-[clamp(1.25rem,2vw,1.6rem)] font-black uppercase italic leading-tight text-asphalt">{s.name}</div>
+                  <p className="mt-2.5 text-[0.88rem] font-light leading-relaxed text-slate-600">{s.body}</p>
+                  {s.current && <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-racing to-eurored" />}
                 </div>
               </Reveal>
             ))}
@@ -570,59 +574,282 @@ function Journey() {
   )
 }
 
-/* ============================ TVS Mobility Group ============================ */
-const VERTICALS = ["Manufacturing", "Global Supply Chain", "Aftermarket Distribution & Service", "Automobile Distribution"]
-const GROUP_STATS = [
-  { v: "USD 2 bn+", l: "Annual revenue" },
-  { v: "25,000+", l: "Employees" },
-  { v: "25+", l: "Countries" },
-  { v: "6", l: "Continents" },
+/* ============================ Leadership ============================ */
+/* Board list sourced from eurogriptyres.com/board-of-directors (2026-08).
+   Photos to come from client; monogram cards until then.
+   Flip SHOW_LEADERSHIP to false to deactivate the section. */
+const SHOW_LEADERSHIP = true as boolean
+/* Bios verbatim from eurogriptyres.com/board-of-directors (2026-08). */
+const LEADERS: { honorific: string; name: string; role: string; din: string; bio: string[]; other?: string[]; img?: string }[] = [
+  {
+    honorific: "Mr.", name: "R Naresh", role: "Executive Vice Chairman", din: "00273609",
+    bio: [
+      "Mr. R. Naresh is an accomplished engineering graduate with nearly four decades of extensive experience in the automobile and rubber industries.",
+      "As a co-founder of the company, he brings a unique blend of strategic vision, technical expertise and vast industry experience, which has been instrumental in driving the company's growth and expanding its commercial footprint.",
+      "With an in-depth understanding of the dynamic trends in the automotive and tire sectors, Mr. Naresh is widely recognized for his inspiring leadership and is a respected figure in the corporate world.",
+      "He was first appointed as a director on the company's board on 2nd June 1982.",
+    ],
+    other: [
+      "M/s TVS Mobility Private Limited",
+      "M/s Sundaram Industries Private Limited - Joint Managing Director",
+      "M/s TVS Argomm Private Limited",
+      "M/s SI Air Springs Private Limited",
+      "M/s TVS Sensing Solutions Private Limited",
+      "M/s TVS Srichakra Investments Limited",
+    ],
+  },
+  {
+    honorific: "Ms.", name: "Shobhana Ramachandhran", role: "Managing Director", din: "00273837",
+    bio: [
+      "Ms. Shobhana Ramachandhran is a distinguished Postgraduate in English Literature and has been a pivotal member of our organization since her appointment as Managing Director on March 28, 1986.",
+      "Under her visionary leadership and strategic guidance, the company has witnessed notable growth and transformation, establishing itself as a leader in the tyre industry.",
+      "With her extensive expertise and deep understanding of the industry, she has played a key role in shaping the company's success and fostering innovation and digitalisation across its operations.",
+      "Beyond her professional achievements, Ms. Shobhana Ramachandhran is actively involved in many charitable trusts and institutions dedicated to education, healthcare and social welfare. Her commitment to community service reflects her passion for making a positive impact in society.",
+    ],
+    other: [
+      "M/s. TVS Mobility Private Limited",
+      "M/s. Sundaram Industries Private Limited",
+      "M/s. TVS Argomm Private Limited",
+      "M/s. SI Air Springs Private Limited",
+      "M/s. TVS Srichakra Investments Limited",
+      "M/s. TVS Supply Chain Solutions Limited",
+      "M/s. TVS Automobile Solutions Private Limited",
+      "M/s. Sundaram Finance Holdings Limited",
+      "M/s. Sundaram Brake Linings Limited",
+      "M/s. TASL Automobile Solutions Private Limited",
+    ],
+  },
+  {
+    honorific: "Mr.", name: "V Ramakrishnan", role: "Independent Director", din: "00002931",
+    bio: [
+      "Mr. V. Ramakrishnan is a seasoned professional with a Master of Technology (M. Tech) in Mechanical Engineering, a Post Graduate Diploma in Business Management (PGDBM) specializing in Finance and a Diploma in Public Speaking.",
+      "He has also undergone extended professional training in Sweden and Germany, further enhancing his global perspective and technical expertise. He is an accredited Executive Coach and is trained in several profiling and assessment centres.",
+      "With a distinguished career spanning senior and middle management roles, Mr. Ramakrishnan has extensive experience in engineering and design management, business unit and profit center management, strategic planning and diversification, business development, project implementation, marketing and manufacturing. He has managed manufacturing units in India, Indonesia and Singapore, covering multiple verticals like machine tools, cutting tools, tool and die making, high precision plastic injection moulding, textile machinery and auto component/sub systems manufacture and assembly.",
+      "From 2004 to 2013, Mr. Ramakrishnan served as an Independent Director of PRICOL India, bringing strategic oversight and leadership to the organization. Additionally, he was the Commissioner of PRICOL Surya, Indonesia, and a member of the Board of Commissioners from 2010 to 2013, where he oversaw operations as Lead Director. As a CEO with regional and global responsibilities, he successfully established a Six Sigma manufacturing operation, delivering excellence in operational efficiency.",
+      "Mr. Ramakrishnan founded and managed, as the Managing Director, M/s. Organisation Development Pte Ltd., Singapore, between 1999 and 2024; the advisory and consulting company was focused on Enterprise Performance Enhancement. The firm assisted client companies with developing strategic initiatives, aligning business processes to evolving market needs, and fostered strong relationships with stakeholders, including customers, suppliers, employees, and partners.",
+      "Beyond his corporate endeavours, Mr. Ramakrishnan has been teaching public policy for over a decade at the prestigious Lee Kuan Yew School of Public Policy. His areas of focus include governance, strategy & risk management, cost management, project management, public private partnership and value-for-money performance and audits.",
+      "He has been the lead involved in negotiating and concluding over 10 Joint and Technology Ventures with firms in Germany, UK, US, Australia and Japan, and has set up several greenfield and brownfield sites arising from the JVs.",
+      "An accomplished author, he has contributed to four internationally published books on topics such as governance, board performance management, family business coaching and dashboard-driven enterprise performance management. He has a patent on a Solar Based Central Heating System and is a votary of renewable energy.",
+      "Mr. Ramakrishnan's vast experience, academic excellence and strategic leadership continue to make a significant impact across industries and academia alike.",
+    ],
+  },
+  {
+    honorific: "Ms.", name: "S V Mathangi", role: "Independent Director", din: "02596421",
+    bio: [
+      "Ms. S. V. Mathangi is a distinguished finance professional and a graduate in Physics. She is a member of the Institute of Chartered Accountants of India, a Registered Valuer and a Certified Business Analyst from the Great Lakes Institute of Management.",
+      "A recipient of the Shivayogam Award for being the Top Lady Candidate from Southern India in both CA Final and Intermediate Examinations, Ms. Mathangi also holds the distinction of securing All India 8th Rank in both stages.",
+      "With extensive experience in Consulting and Assurance Services, Ms. Mathangi specializes in due diligence and valuations for mergers and acquisitions, particularly for listed companies and large business houses. Her expertise includes in-depth knowledge of accounting for financial instruments under Ind AS, as well as the implementation of Ind AS.",
+      "She brings a diverse, multi-industry perspective, with significant exposure across sectors such as BFSI, Power, Manufacturing, Logistics, E-Commerce, FMCG, Software, Healthcare, Automotive and Realty.",
+      "Ms. Mathangi is a Partner at M/s. M C Ranganathan & Co., where she continues to deliver excellence in financial consulting and assurance.",
+    ],
+  },
+  {
+    honorific: "Mr.", name: "Ashok Srinivasan", role: "Independent Director", din: "06539656",
+    bio: [
+      "Mr. Ashok Srinivasan has more than 25 years of experience as an investment/finance professional on a global scale. He has built and currently runs his family offices, based in Singapore and India.",
+      "Ashok was a senior investment professional at Temasek Holdings, where he was responsible for evaluating direct investments across multiple industry sectors including industrials (specialty chemicals and construction materials), transportation (container ports and shipping), financial services and telecommunications — leading the execution of complex investments and divestments across sectors and geographies, managing a public equities portfolio, and instituting capital management, shareholder rights, governance and value creation frameworks for all actively managed investments across the portfolio.",
+      "He engaged the boards and management of key portfolio investments on going-forward strategic and operational plans, worked closely with the Chief Investment Officer to formulate firm-wide investment and portfolio management plans, and contributed to formulating and drafting the Santiago Principles in conjunction with the International Working Group of Sovereign Wealth Funds.",
+      "Ashok holds a Bachelor of Arts (Distinction) in Economics from the University of Michigan, where he was a James B. Angell and CIGNA Merit Scholar. He also holds a Masters in Business Administration from the Darden School of Business, University of Virginia, where he was a recipient of the Faculty Award for Academic Excellence, awarded to the Top 10% of each graduating class.",
+    ],
+    other: [
+      "M/s. Leonne Hill Property Developments Private Limited",
+      "M/s. Tripleone Developments Private Limited",
+    ],
+  },
+  {
+    honorific: "Mr.", name: "Piyush Jinendrakumar Munot", role: "Independent Director", din: "00119507",
+    bio: [
+      "Mr. Piyush Jinendrakumar Munot is a distinguished Mechanical Engineer, holding both bachelor's and master's degrees from the University of Applied Sciences Konstanz, Germany. With his technical expertise and leadership acumen, he has made significant contributions to the automotive and manufacturing sectors.",
+      "Currently, Mr. Munot serves as the Managing Director of Varsha Forgings Private Limited and the CEO & Director of KCTR Varsha Automotive Private Limited, where he spearheads innovation, operational excellence and growth.",
+      "A respected member of the Young Presidents' Organisation, Pune since 2015, he is recognized for his leadership and vision. Within the Automotive Component Manufacturers Association of India (ACMA), he has been an elected member of the Executive Committee from 2014 to 2023, during which he also served as the Co-Chairman of the Western Region, driving initiatives that have strengthened the industry.",
+      "His blend of technical proficiency, global perspective and leadership has established him as a key figure in advancing India's auto component manufacturing industry.",
+    ],
+    other: ["M/s. Kinetic Watts and Volts Limited"],
+  },
+  {
+    honorific: "Mr.", name: "S Ravichandran", role: "Non-Executive & Non-Independent Director", din: "01485845",
+    bio: [
+      "Mr. S. Ravichandran is an accomplished professional with over 43 years of diverse experience spanning the consumer durables, automotive and logistics industries. An Engineering Graduate, he also holds a prestigious management degree from the Indian Institute of Management, Ahmedabad.",
+      "Mr. Ravichandran's extensive career includes leadership roles with some of the most respected names in the industry, such as Voltas, Mahindra and TVS Supply Chain Solutions. His expertise extends across Indian and international markets, equipping him with a well-rounded perspective and strategic acumen essential for driving growth and operational excellence.",
+      "He serves as a Director on the boards of numerous Indian and overseas companies, contributing his deep industry knowledge and leadership experience to foster innovation and success.",
+      "Mr. Ravichandran's rich professional background, combined with his strong academic foundation, positions him as a key leader in shaping the future of the industries he serves.",
+    ],
+    other: [
+      "M/s. TVS Packaging Solutions Private Limited",
+      "M/s. White Data Systems India Private Limited",
+      "M/s. TVS Industrial & Logistics Parks Private Limited",
+      "M/s. TVS Toyota Tsusho Supply Chain Solutions Limited",
+      "M/s. FLEXOL Packaging (India) Limited",
+      "M/s. TVS Infrastructure Investment Manager Private Limited",
+      "M/s. Nyaybodha Technologies & Business Solutions Private Limited",
+      "M/s. Super Grip Corporation, USA",
+      "M/s. TVS SCS Siam Limited, Thailand (Formerly known as TVS Logistics Siam Limited)",
+      "M/s. Multipart Limited, UK",
+      "M/s. RICO Logistics Limited, UK",
+      "M/s. MSYS Software Solutions Limited",
+      "M/s. TVS SCS Singapore Pte. Ltd. (Formerly known as Pan Asia Logistics Singapore Pte Ltd.)",
+      "M/s. Pan Asia Container Line Pte Ltd, Hong Kong",
+      "M/s. TVS SCS Hong Kong Limited (Formerly known as Pan Asia Freight-Forwarding & Logistics Hong Kong Ltd)",
+      "M/s. TVS SCS (Korea) Ltd. (Formerly known as Pan Asia International (Korea)",
+      "M/s. TVS SCS Logistics (Thailand) Limited (Formerly known as Pan Asia Logistics (Thailand) Ltd)",
+      "M/s. TVS Supply Chain Solutions (Thailand) Limited (Formerly known as TVS Asianics (Thailand) Limited)",
+      "M/s. TVS SCS Logistics Management Co., Ltd. (Formerly known as TLM Logistics Management Co., Ltd., Thailand)",
+      "M/s. TVS Supply Chain Solutions Australia Holdings Pty. Ltd (Formerly known as TVS Asianics Australia Holdings Ptv. Ltd.,)",
+      "M/s. T.I.F Holdings Pty. Ltd, Australia",
+      "M/s. TVS SCS (Aust) Pty. Ltd (Formerly known as Transtar International Freight (Aust.) Pry Ltd., Australia)",
+      "M/s. TVS SCS New Zealand Limited (Formerly known as Transtar International Freight Limited, NZl)",
+      "M/s. Kahn Nominees Pty. Ltd., Australia",
+      "M/s. Transtar International Freight Limited, HK",
+      "M/s. TVS SCS International Freight (Singapore) Pte. Ltd (Formerly known as Transtar International Freight (Singapore) Pte. Ltd)",
+      "M/s. TVS Supply Chain Solutions Holdings Limited, Thailand (Formerly known as Transtar International Freight Holdings (Thailand) Ltd.,",
+      "M/s. TVS SCS International Freight (Thailand) Ltd, Thailand (Formerly known as Transtar International Freight (Thailand) Ltd, Thailand)",
+      "M/s. TVS SCS Forwarding SLU (formerly known as Nadal Forwarding SLU)",
+    ],
+  },
+  {
+    honorific: "Mr.", name: "P Srinivasavaradhan", role: "Non-Executive & Non-Independent Director", din: "08701214",
+    bio: [
+      "Mr. P. Srinivasavaradhan is an accomplished Engineering Graduate with over 30 years of extensive industrial experience spanning Research & Development, Operations, Projects and International Marketing.",
+      "As the President of TVS Srichakra Limited, he has led the business with a vision for innovation and growth. His expertise and leadership have significantly contributed to the company's success in the automotive sector.",
+      "His treasure of knowledge and strategic acumen continue to drive excellence and innovation across all his ventures.",
+    ],
+    other: [
+      "M/s. SI Air Springs Private Limited",
+      "M/s. TVS SIRIUS Controls Private Limited",
+      "M/s. Sri Athreya Automotives Private Limited",
+      "M/s. Sabo Hema Automotive Private Limited",
+    ],
+  },
 ]
 
-function TVSMobility() {
+function LeaderCard({ l, i, onOpen }: { l: (typeof LEADERS)[number]; i: number; onOpen: () => void }) {
+  const initials = l.name.split(" ").map((w) => w[0]).slice(0, 2).join("")
   return (
-    <section className="overflow-hidden bg-gradient-to-b from-steel to-steel-2 py-[clamp(70px,11vh,140px)]">
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-        <div className="grid items-center gap-[clamp(32px,5vw,64px)] lg:grid-cols-[1fr_1.1fr]">
-          <div>
-            <Reveal><Eyebrow>Our Parent</Eyebrow></Reveal>
-            <Reveal i={1}>
-              <h2 className="italic-display mt-3 text-white text-[clamp(1.7rem,3.8vw,2.9rem)] leading-[1.05]">
-                Part of the
-                <span className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <img src={tvsMobilityLogo} alt="TVS Mobility" className="h-6 w-auto sm:h-8" />
-                  Group
-                </span>
-              </h2>
-            </Reveal>
-            <Reveal i={2}>
-              <p className="mt-4 max-w-[52ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-300">
-                TVS Srichakra is part of the TVS Mobility group — an automotive conglomerate rooted in the century-old legacy of TV Sundram Iyengar, spanning four business verticals with a network across 25+ countries and six continents.
-              </p>
-            </Reveal>
-            <Reveal i={3} className="mt-6 flex flex-wrap gap-2.5">
-              {VERTICALS.map((v) => (
-                <span key={v} className="rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-[0.8rem] font-light text-slate-200">{v}</span>
-              ))}
-            </Reveal>
-            <Reveal i={4} className="mt-7">
-              <Btn href="https://www.tvsmobility.com" variant="line">Visit TVS Mobility <Arrow /></Btn>
-            </Reveal>
-          </div>
+    <Reveal i={i % 4}>
+      <button
+        type="button"
+        onClick={onOpen}
+        aria-label={`View profile: ${l.honorific} ${l.name}`}
+        className="group relative flex min-h-[210px] w-full flex-col justify-end overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1f3050] to-[#2c4a76] p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-eurored/40">
+        {l.img ? (
+          <>
+            <img src={l.img} alt={`${l.honorific} ${l.name}`} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d1a30]/95 via-[#0d1a30]/30 to-transparent" />
+          </>
+        ) : (
+          <>
+            {/* oversized monogram watermark until client photos arrive */}
+            <span aria-hidden className="pointer-events-none absolute -right-2 -top-7 select-none font-display text-[6rem] font-black italic leading-none text-white/[0.06]">
+              {initials}
+            </span>
+            <span className="absolute left-6 top-6 grid h-12 w-12 place-items-center rounded-full border border-white/20 bg-white/10 font-display text-[1rem] font-black italic text-white">
+              {initials}
+            </span>
+          </>
+        )}
+        <div className="relative">
+          <div className="text-[0.72rem] uppercase tracking-[0.1em] text-slate-400">{l.honorific}</div>
+          <div className="font-display text-[1.02rem] font-extrabold uppercase italic leading-tight text-white">{l.name}</div>
+          <div className="mt-1.5 text-[0.74rem] uppercase tracking-[0.08em] text-slate-300">{l.role}</div>
+          <span className="mt-3 inline-flex items-center gap-2 font-display text-[0.72rem] font-extrabold uppercase italic tracking-wide text-eurored">
+            View profile <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </span>
+        </div>
+      </button>
+    </Reveal>
+  )
+}
 
-          {/* stat grid */}
-          <Reveal i={1}>
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10">
-              {GROUP_STATS.map((s) => (
-                <div key={s.l} className="bg-[#223650] p-7">
-                  <div className="font-display text-[clamp(1.6rem,3vw,2.4rem)] font-black italic leading-none text-white">{s.v}</div>
-                  <div className="mt-2 text-[0.76rem] uppercase tracking-wide text-slate-400">{s.l}</div>
-                </div>
-              ))}
+/* Profile lightbox — portalled to body (Leadership sits inside a Cine transform). */
+function LeaderLightbox({ l, onClose }: { l: (typeof LEADERS)[number]; onClose: () => void }) {
+  const initials = l.name.split(" ").map((w) => w[0]).slice(0, 2).join("")
+  return createPortal(
+    <motion.div
+      className="fixed inset-0 z-[200] grid place-items-center bg-black/85 p-5 backdrop-blur-sm"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        role="dialog" aria-modal="true" aria-label={`Profile: ${l.honorific} ${l.name}`}
+        className="relative w-full max-w-[540px] overflow-hidden rounded-2xl border border-white/15 shadow-2xl"
+        style={{ background: "linear-gradient(135deg, #1f3050 0%, #2c4a76 100%)" }}
+        initial={{ scale: 0.94, opacity: 0, y: 14 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.94, opacity: 0, y: 14 }}
+        transition={{ duration: 0.3, ease: ENTER }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-racing via-sky-400 to-eurored" />
+        <button
+          onClick={onClose}
+          aria-label="Close profile"
+          className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white hover:text-white"
+        >
+          ✕
+        </button>
+        <div className="max-h-[82vh] overflow-y-auto p-7 sm:p-9">
+          {l.img ? (
+            <img src={l.img} alt={`${l.honorific} ${l.name}`} className="h-24 w-24 rounded-full border border-white/20 object-cover" />
+          ) : (
+            <span className="grid h-20 w-20 place-items-center rounded-full border border-white/20 bg-white/10 font-display text-[1.4rem] font-black italic text-white">
+              {initials}
+            </span>
+          )}
+          <div className="mt-5 text-[0.74rem] uppercase tracking-[0.1em] text-slate-400">{l.honorific}</div>
+          <h3 className="font-display text-[1.5rem] font-extrabold uppercase italic leading-tight text-white">{l.name}</h3>
+          <div className="mt-2.5 flex flex-wrap items-center gap-3">
+            <span className="inline-block rounded-full bg-eurored px-3.5 py-1 font-display text-[0.7rem] font-extrabold uppercase italic tracking-wide text-white">
+              {l.role}
+            </span>
+            <span className="text-[0.72rem] uppercase tracking-[0.08em] text-slate-400">DIN {l.din}</span>
+          </div>
+          <div className="mt-5 space-y-3.5">
+            {l.bio.map((p, i) => (
+              <p key={i} className="text-[0.92rem] font-light leading-relaxed text-slate-200">{p}</p>
+            ))}
+          </div>
+          {l.other && l.other.length > 0 && (
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <h4 className="font-display text-[0.78rem] font-extrabold uppercase italic tracking-[0.12em] text-sky-300">Other Directorships</h4>
+              <ul className={`mt-3 space-y-1.5 ${l.other.length > 6 ? "sm:columns-2 sm:gap-x-8 sm:space-y-0" : ""}`}>
+                {l.other.map((o) => (
+                  <li key={o} className="flex items-start gap-2 break-inside-avoid text-[0.82rem] font-light leading-snug text-slate-300 sm:pb-1.5">
+                    <span aria-hidden className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-eurored" />
+                    {o}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </Reveal>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>,
+    document.body
+  )
+}
+
+function Leadership() {
+  const [sel, setSel] = useState<number | null>(null)
+  useEffect(() => {
+    if (sel === null) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSel(null)
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [sel])
+
+  return (
+    <section id="leadership" className="overflow-hidden bg-gradient-to-b from-steel-2 to-steel py-[clamp(70px,11vh,140px)]">
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+        <SectionHead
+          eyebrow="Leadership"
+          title={<>Board of Directors</>}
+          lede="The board guiding TVS Srichakra and the Eurogrip brand — select a profile to know more."
+        />
+        <div className="mt-[clamp(32px,5vh,48px)] grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {LEADERS.map((l, i) => <LeaderCard key={l.name} l={l} i={i} onOpen={() => setSel(i)} />)}
         </div>
       </div>
+      <AnimatePresence>
+        {sel !== null && <LeaderLightbox l={LEADERS[sel]} onClose={() => setSel(null)} />}
+      </AnimatePresence>
     </section>
   )
 }
@@ -765,14 +992,15 @@ export function About() {
     <main>
       <div className="relative overflow-x-clip pb-[clamp(36px,6vh,80px)]" style={{ background: "linear-gradient(180deg, #4a83cf 0%, #3a6cb0 44%, #e7eef7 100%)" }}>
         <AboutHero />
-        <PillarsRibbon />
+        <ParentRibbon />
       </div>
       <WhoWeAre />
       <WhatWeDo />
       <Journey />
-      <Cine><TVSMobility /></Cine>
+      {SHOW_LEADERSHIP && <Cine><Leadership /></Cine>}
       <CultureInitiatives />
-      <Cine><CtaFooter /></Cine>
+      {/* client feedback 2026-08-06: no "Partner with us" band on About — footer only */}
+      <SiteFooter />
     </main>
   )
 }

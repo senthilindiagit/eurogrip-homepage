@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Counter, Btn, Arrow } from "./ui"
 
-const WORDS = ["every road", "the long haul", "85 countries", "the racetrack", "the worst weather"]
+const WORDS = ["every road", "the long haul", "130 countries", "the racetrack", "the worst weather"]
 const ENTER = [0.16, 0.84, 0.34, 1] as const
 const D = 0.15 // small settle delay before the hero text arrives
 
@@ -20,9 +20,9 @@ export function Hero() {
 
   const stats = [
     { to: 44, suffix: "+", label: "Years of expertise" },
-    { to: 85, suffix: "+", label: "Countries served" },
+    { to: 130, suffix: "+", label: "Countries served" },
     { to: 6, suffix: "", label: "Product categories" },
-    { to: 3, suffix: "", label: "Global R&D centres" },
+    { to: 2, suffix: "", label: "Global R&D centres" },
   ]
 
   return (
@@ -92,7 +92,7 @@ export function Hero() {
           className="max-w-[44ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-slate-200"
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.24 }}
         >
-          European engineering and a racer’s instinct — built into every tyre, in over 85 countries.
+          European engineering and a racer’s instinct — built into every tyre, in over 130 countries.
         </motion.p>
 
         <motion.div className="mt-7 flex flex-wrap gap-3.5" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.32 }}>

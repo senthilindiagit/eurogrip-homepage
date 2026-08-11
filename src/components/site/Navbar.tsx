@@ -9,15 +9,17 @@ const LINKS: [string, string][] = [
   ["Products", "/#products"],
   ["Technology", "/#technology"],
   ["Partnerships", "/#racing"],
-  ["About", "/about"],
   ["Global Presence", "/global-presence"],
-  ["Newsroom", "/#news"],
+  ["About", "/about"],
+  ["Newsroom", "/newsroom"],
   ["Contact", "/contact"],
 ]
 
 /* Routes whose hero starts on a light canvas — the bar needs its solid dark
    treatment immediately, or white nav text lands on white. */
 const LIGHT_TOP = new Set(["/careers", "/careers/apply"])
+/** the newsroom tree is light-topped too */
+const LIGHT_PREFIX = ["/newsroom"]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -36,7 +38,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  const solid = scrolled || LIGHT_TOP.has(path)
+  const solid = scrolled || LIGHT_TOP.has(path) || LIGHT_PREFIX.some((p) => path.startsWith(p))
 
   return (
     <motion.header
