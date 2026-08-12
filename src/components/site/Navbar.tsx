@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
-import logoWhite from "@/assets/logo-white.png"
+import logoWhite from "@/assets/logo-red-white.png"
 import { LanguageSelect, CountrySelectCompact } from "./widgets"
 import { useRouter } from "@/lib/router"
 

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Reveal, Eyebrow, Btn, Arrow } from "./ui"
 import { Socials } from "./widgets"
 import { useRouter } from "@/lib/router"
-import logoWhite from "@/assets/logo-white.png"
+import logoWhite from "@/assets/logo-red-white.png"
 import ctaBg from "@/assets/yt-masterclass.webp"
 
 /* [label, href] — hrefs the tiny router understands ("#" = not built yet) */
