@@ -7,11 +7,13 @@ import logoTvs from "@/assets/logo-tvs.webp"
 import logoBajaj from "@/assets/logo-bajaj.webp"
 import logoSuzuki from "@/assets/logo-suzuki.webp"
 import logoYamaha from "@/assets/logo-yamaha.webp"
-import logoPiaggio from "@/assets/logo-piaggio.webp"
+import logoPiaggio from "@/assets/logo-piaggio-knockout.webp"
 import logoAprilia from "@/assets/logo-aprilia.webp"
+import logoBmwMono from "@/assets/logo-bmw-mono.webp"
+import logoHonda from "@/assets/logo-honda.webp"
 import logoHero from "@/assets/logo-hero.webp"
 
-const LOGOS = [logoTvs, logoHero, logoBajaj, logoSuzuki, logoYamaha, logoPiaggio, logoAprilia]
+export const LOGOS = [logoTvs, logoHero, logoBajaj, logoSuzuki, logoYamaha, logoPiaggio, logoAprilia, logoBmwMono, logoHonda]
 const BRIGHTEN = "brightness(1.18) saturate(1.22) contrast(1.06)"
 
 function PlayIcon() {
@@ -29,7 +31,8 @@ const FLECKS = [
   { l: "27%", t: "93%", s: 7 }, { l: "15%", t: "92%", s: 4 }, { l: "3%", t: "94%", s: 5 },
 ]
 
-function RiderImage() {
+/** Parallax motocross bike with mud spray — shared with the Reviews page hero. */
+export function RiderImage() {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
   const y = useTransform(scrollYProgress, [0, 1], [55, -55])
@@ -64,7 +67,8 @@ function RiderImage() {
 
 type Rider = (typeof RIDERS)[number]
 
-function RiderCard({ who, tag, quote, img, clip, url }: Rider) {
+/** Hover-to-play testimonial tile — shared with the Reviews & Testimonials page. */
+export function RiderCard({ who, tag, quote, img, clip, url }: Rider) {
   const vref = useRef<HTMLVideoElement>(null)
   const onEnter = () => {
     const v = vref.current
@@ -129,8 +133,8 @@ export function Racing() {
               ledeClassName="max-w-none lg:whitespace-nowrap lg:text-[0.92rem]"
             />
             <Reveal i={2} className="mt-7 flex flex-wrap gap-3.5">
-              <Btn href="#racing" variant="red">Explore our partnerships <Arrow /></Btn>
-              <Btn href="#racing" variant="line-dark">View all testimonial videos →</Btn>
+              <Btn href="/partnerships" variant="red">Explore our partnerships <Arrow /></Btn>
+              <Btn href="/reviews" variant="line-dark">View all testimonial videos →</Btn>
             </Reveal>
           </div>
           <RiderImage />

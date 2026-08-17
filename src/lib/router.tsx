@@ -12,13 +12,18 @@ type RouterCtx = { path: string; navigate: (to: string) => void }
 const Ctx = createContext<RouterCtx>({ path: "/", navigate: () => {} })
 
 export function RouterProvider({ children }: { children: ReactNode }) {
-  const [path, setPath] = useState(() => window.location.pathname)
+  /* track pathname + search so query-only changes also re-render */
+  const [url, setUrl] = useState(() => window.location.pathname + window.location.search)
+  const path = url.split("?")[0]
+  const setPath = (_p: string) => setUrl(window.location.pathname + window.location.search)
 
   const navigate = useCallback((to: string) => {
-    const [rawPath, hash] = to.split("#")
-    const nextPath = rawPath || "/"
-    if (nextPath !== window.location.pathname) {
-      window.history.pushState({}, "", to)
+    const [beforeHash, hash] = to.split("#")
+    const [purePath, query] = beforeHash.split("?")
+    const nextPath = purePath || "/"
+    const search = query ? `?${query}` : ""
+    if (nextPath !== window.location.pathname || search !== window.location.search) {
+      window.history.pushState({}, "", nextPath + search + (hash ? `#${hash}` : ""))
       setPath(nextPath)
       if (hash) {
         // let the new page mount, then scroll to the anchor

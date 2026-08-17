@@ -6,6 +6,7 @@ import { TyreTrack } from "@/components/site/TyreTrack"
 import { PhotoCycle } from "@/components/site/PhotoCycle"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { useRouter } from "@/lib/router"
+import { OPENINGS } from "./CareersOpenings"
 import teamEngineer from "@/assets/careers/team-engineer.webp"
 import teamLab from "@/assets/careers/team-lab.webp"
 import teamStudio from "@/assets/careers/team-studio.webp"
@@ -301,11 +302,12 @@ function LifeHere() {
           title={<>From the shop floor<br />to the test track</>}
           lede="Madurai, Pantnagar, Milan and every road in between — scroll through a day in the company."
           className="max-w-none"
+          ledeClassName="max-w-none lg:whitespace-nowrap"
         />
       </div>
 
-      {/* desktop: pinned horizontal scroll */}
-      <div ref={ref} className="relative hidden h-[420vh] lg:block">
+      {/* desktop: pinned horizontal scroll — pulled up so the cards sit tight under the lede */}
+      <div ref={ref} className="relative -mt-[clamp(24px,8vh,110px)] hidden h-[420vh] lg:block">
         <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
           <div ref={trackRef} className="flex h-[62vh] w-max gap-6 pl-[7vw] will-change-transform">
             {LIFE.map((item, i) => <LifePanel key={item.label} item={item} i={i} />)}
@@ -318,7 +320,10 @@ function LifeHere() {
               <p className="mt-4 max-w-[38ch] text-[0.95rem] font-light leading-relaxed text-slate-300">
                 We hire for curiosity and craft. Send us your CV and tell us where you'd fit.
               </p>
-              <div className="mt-7"><Btn href={APPLY} variant="red">Send your application <Arrow /></Btn></div>
+              <div className="mt-7 flex flex-wrap gap-3.5">
+                <Btn href={APPLY} variant="red">Send your application <Arrow /></Btn>
+                <Btn href="/careers/openings" variant="line">View job listings</Btn>
+              </div>
             </div>
           </div>
 
@@ -409,6 +414,29 @@ function WhatWeOffer() {
 }
 
 /* ------------------------------------------------------------ closing cta ---- */
+/* ============================ Open positions teaser ========================
+   The full listing lives on /careers/openings. */
+function OpeningsTeaser() {
+  return (
+    <section id="openings" className="scroll-mt-24 bg-white py-[clamp(40px,6vh,72px)] text-asphalt">
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+        <Reveal>
+          <div className="flex flex-wrap items-center justify-between gap-5 rounded-2xl border border-black/10 bg-mist p-6 sm:p-7">
+            <div>
+              <span className="font-display text-[0.72rem] font-extrabold uppercase italic tracking-[0.16em] text-eurored">Open positions</span>
+              <h3 className="mt-1.5 font-display text-[1.15rem] font-extrabold uppercase italic leading-tight text-asphalt">
+                {OPENINGS.length} roles open right now
+              </h3>
+              <p className="mt-1 text-[0.88rem] font-light text-slate-600">Filter by region and department, and apply in minutes.</p>
+            </div>
+            <Btn href="/careers/openings" variant="red">View open positions <Arrow /></Btn>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 function ClosingCta() {
   return (
     <section className="relative overflow-hidden py-[clamp(76px,12vh,150px)]">
@@ -427,8 +455,9 @@ function ClosingCta() {
             No opening that fits today? Send your CV anyway — we keep an open list and review every application.
           </p>
         </Reveal>
-        <Reveal i={3} className="mt-8 flex justify-center">
+        <Reveal i={3} className="mt-8 flex flex-wrap justify-center gap-3.5">
           <Btn href={APPLY} variant="red">Send your application <Arrow /></Btn>
+          <Btn href="/careers/openings" variant="line">View current openings</Btn>
         </Reveal>
       </div>
     </section>
@@ -454,6 +483,7 @@ export function Careers() {
       <LifeHere />
       <Cine><WhyEurogrip /></Cine>
       <WhatWeOffer />
+      <OpeningsTeaser />
       <ClosingCta />
       <SiteFooter />
     </main>

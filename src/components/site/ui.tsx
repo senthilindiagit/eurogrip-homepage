@@ -189,11 +189,13 @@ export function Marquee({
   children,
   speed = 30,
   reverse = false,
+  pauseOnHover = true,
   className,
 }: {
   children: ReactNode
   speed?: number
   reverse?: boolean
+  pauseOnHover?: boolean
   className?: string
 }) {
   return (
@@ -201,7 +203,10 @@ export function Marquee({
       {[0, 1].map((k) => (
         <div
           key={k}
-          className="flex shrink-0 items-center justify-around [gap:var(--gap)] animate-marquee group-hover:[animation-play-state:paused]"
+          className={cn(
+            "flex shrink-0 items-center justify-around [gap:var(--gap)] animate-marquee",
+            pauseOnHover && "group-hover:[animation-play-state:paused]"
+          )}
           style={{
             ["--duration" as any]: `${speed}s`,
             animationDirection: reverse ? "reverse" : "normal",

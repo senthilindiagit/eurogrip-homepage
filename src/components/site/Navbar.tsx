@@ -2,13 +2,14 @@ import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import logoWhite from "@/assets/logo-red-white.png"
+import logoAllWhite from "@/assets/logo-white.png"
 import { LanguageSelect, CountrySelectCompact } from "./widgets"
 import { useRouter } from "@/lib/router"
 
 const LINKS: [string, string][] = [
   ["Products", "/#products"],
   ["Technology", "/#technology"],
-  ["Partnerships", "/#racing"],
+  ["Partnerships", "/partnerships"],
   ["Global Presence", "/global-presence"],
   ["About", "/about"],
   ["Newsroom", "/newsroom"],
@@ -17,7 +18,7 @@ const LINKS: [string, string][] = [
 
 /* Routes whose hero starts on a light canvas — the bar needs its solid dark
    treatment immediately, or white nav text lands on white. */
-const LIGHT_TOP = new Set(["/careers", "/careers/apply"])
+const LIGHT_TOP = new Set(["/careers", "/careers/apply", "/careers/openings"])
 /** the newsroom tree is light-topped too */
 const LIGHT_PREFIX = ["/newsroom"]
 
@@ -39,6 +40,9 @@ export function Navbar() {
   }, [])
 
   const solid = scrolled || LIGHT_TOP.has(path) || LIGHT_PREFIX.some((p) => path.startsWith(p))
+  /* the Reviews hero is brand red — the red checks vanish on it, so run the
+     all-white mark there until the bar goes solid dark */
+  const logoSrc = path === "/reviews" && !solid ? logoAllWhite : logoWhite
 
   return (
     <motion.header
@@ -52,12 +56,13 @@ export function Navbar() {
     >
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 sm:px-8">
         <a href="/" onClick={go("/")} aria-label="Eurogrip home" className="shrink-0">
-          <img src={logoWhite} alt="Eurogrip" className={cn("w-auto transition-all", solid ? "h-6" : "h-7")} />
+          <img src={logoSrc} alt="Eurogrip" className={cn("w-auto transition-all", solid ? "h-6" : "h-7")} />
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex">
           {LINKS.map(([label, href]) => {
-            const active = href === path
+            /* a section link stays lit on its inner pages too (/newsroom/events/…) */
+            const active = href === path || (href.startsWith("/") && !href.includes("#") && path.startsWith(href + "/"))
             return (
               <a
                 key={href}
@@ -99,11 +104,14 @@ export function Navbar() {
             transition={{ duration: 0.35, ease: [0.16, 0.84, 0.34, 1] }}
             className="fixed right-0 top-0 z-50 flex h-screen w-[min(320px,84vw)] flex-col justify-center gap-1 bg-midnight/95 p-10 shadow-[-20px_0_60px_rgba(10,25,50,.5)] backdrop-blur-md lg:hidden"
           >
-            {LINKS.map(([label, href]) => (
-              <a key={href} href={href} onClick={(e) => { setOpen(false); go(href)(e) }} className={cn("py-2.5 text-lg font-semibold", href === path ? "text-eurored" : "text-slate-100")}>
-                {label}
-              </a>
-            ))}
+            {LINKS.map(([label, href]) => {
+              const active = href === path || (href.startsWith("/") && !href.includes("#") && path.startsWith(href + "/"))
+              return (
+                <a key={href} href={href} onClick={(e) => { setOpen(false); go(href)(e) }} className={cn("py-2.5 text-lg font-semibold", active ? "text-eurored" : "text-slate-100")}>
+                  {label}
+                </a>
+              )
+            })}
             <div className="mt-3"><CountrySelectCompact /></div>
             <div className="mt-5 border-t border-white/10 pt-5"><LanguageSelect /></div>
           </motion.nav>

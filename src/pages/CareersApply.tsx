@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { useRouter } from "@/lib/router"
-import { ApplyForm } from "@/components/site/ApplyForm"
+import { ApplyForm, type AppliedRole } from "@/components/site/ApplyForm"
 import { Reveal } from "@/components/site/ui"
 
 /**
@@ -12,6 +12,13 @@ export function CareersApply() {
   const { path, navigate } = useRouter()
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }) }, [path])
+
+  /* ?role=…&dept=…&place=… carried over from an opening's Apply button */
+  const params = new URLSearchParams(window.location.search)
+  const roleTitle = params.get("role")
+  const appliedRole: AppliedRole | undefined = roleTitle
+    ? { title: roleTitle, dept: params.get("dept") ?? undefined, place: params.get("place") ?? undefined }
+    : undefined
 
   return (
     <main>
@@ -26,7 +33,7 @@ export function CareersApply() {
               <span className="text-asphalt">Apply</span>
             </nav>
           </Reveal>
-          <ApplyForm />
+          <ApplyForm appliedRole={appliedRole} />
         </div>
       </section>
       <SiteFooter />

@@ -4,7 +4,6 @@ import { Reveal, SectionHead, Btn, Arrow, Eyebrow } from "@/components/site/ui"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { MediaLightbox } from "@/components/site/MediaLightbox"
 import { NewsCard, fmtDate, opensAsPage, storyHref } from "@/components/site/NewsCard"
-import { TyreTrack } from "@/components/site/TyreTrack"
 import { useRouter } from "@/lib/router"
 import {
   NEWS_SORTED, byType, TYPE_LABEL, TYPE_SLUG, YOUTUBE,
@@ -28,9 +27,8 @@ function NewsroomHero({ lead, onOpen }: { lead: NewsItem; onOpen: (i: NewsItem) 
   const page = opensAsPage(lead)
 
   return (
-    <section className="relative overflow-hidden bg-[#f4f7fb] pt-[clamp(110px,17vh,160px)] text-asphalt">
+    <section className="relative overflow-hidden bg-[#f4f7fb] pb-[clamp(40px,6vh,72px)] pt-[clamp(110px,17vh,160px)] text-asphalt">
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(115deg, rgba(10,110,216,.07) 0%, transparent 46%, rgba(237,28,36,.05) 100%)" }} />
-      <TyreTrack opacity={0.07} delay={0.7} className="-left-[30%] bottom-[-34%] w-[86%] lg:-left-[16%] lg:w-[52%]" />
 
       <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8">
         <Reveal>
@@ -113,13 +111,21 @@ function NewsroomHero({ lead, onOpen }: { lead: NewsItem; onOpen: (i: NewsItem) 
 }
 
 /* ============================== rails ============================== */
+/* each category rail gets its own subtle tint so the sections read apart */
+const RAIL_BG: Record<NewsType, string> = {
+  "press-release": "bg-white",
+  event: "bg-mist",
+  newsletter: "bg-[#f3f7fd]",
+  coverage: "bg-[#edf1f8]",
+}
+
 function Rail({
   type, items, onOpen,
 }: { type: NewsType; items: NewsItem[]; onOpen: (i: NewsItem) => void }) {
   const { navigate } = useRouter()
   const href = `/newsroom/${TYPE_SLUG[type]}`
   return (
-    <section className="border-t border-black/10 py-[clamp(48px,8vh,90px)]">
+    <section className={`${RAIL_BG[type]} border-t border-black/5 py-[clamp(48px,8vh,90px)]`}>
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -150,7 +156,7 @@ function Rail({
 /* ============================== video ============================== */
 function VideoStrip() {
   return (
-    <section className="bg-gradient-to-b from-steel-2 to-steel py-[clamp(56px,9vh,110px)]">
+    <section className="py-[clamp(56px,9vh,110px)]" style={{ background: "linear-gradient(115deg, #0a6ed8 0%, #0b3f80 90%)" }}>
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="grid items-center gap-[clamp(24px,4vw,56px)] lg:grid-cols-[1fr_auto]">
           <SectionHead

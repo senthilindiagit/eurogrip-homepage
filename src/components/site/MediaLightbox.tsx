@@ -174,6 +174,16 @@ export function MediaLightbox({ item, onClose }: { item: NewsItem; onClose: () =
               className="max-h-full max-w-full rounded-lg shadow-[0_40px_120px_-40px_rgba(0,0,0,.9)]"
               onClick={(e) => e.stopPropagation()}
             />
+          ) : pdfHref && !item.images?.length ? (
+            /* multi-page documents: embed the PDF itself so every page is
+               readable, not just the page-1 render */
+            <iframe
+              key={pdfHref}
+              src={`${pdfHref}#view=FitH`}
+              title={item.title}
+              className="h-full w-full rounded-lg border border-white/10 bg-white shadow-[0_40px_120px_-40px_rgba(0,0,0,.9)]"
+              onClick={(e) => e.stopPropagation()}
+            />
           ) : slides.length ? (
             <>
               {/* keyed but with no exit, so the next frame mounts immediately

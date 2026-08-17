@@ -5,7 +5,7 @@ import { Reveal, SectionHead, Btn, Arrow, Counter, Eyebrow } from "@/components/
 import { Cine } from "@/components/site/Cine"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { useRouter } from "@/lib/router"
-import rangeWorld from "@/assets/about/range-world.webp"
+import rangeUsa from "@/assets/about/range-usa.webp"
 import worldDots from "@/assets/about/world-dots.webp"
 const whatWeDoReel = "/whatwedo-reel.mp4"
 import tvsMobilityLogo from "@/assets/about/tvs-mobility-logo.svg"
@@ -29,7 +29,7 @@ const ENTER = [0.16, 0.84, 0.34, 1] as const
 const HERO_STATS = [
   { to: 44, suffix: "+", label: "Years of expertise" },
   { to: 130, suffix: "+", label: "Countries served" },
-  { to: 2, suffix: "", label: "R&D centres" },
+  { to: 1000, suffix: "+", label: "Product range" }, // per Corp Info.pptx slide 4
 ]
 
 function AboutHero() {
@@ -217,8 +217,8 @@ function VehicleCollage() {
   return (
     <Reveal>
       <img
-        src={rangeWorld}
-        alt="The Eurogrip range across the world — motorcycles, three-wheelers, light trucks, tractors, forklifts and off-the-road machines before the Taj Mahal, Colosseum, Statue of Liberty, Big Ben, Christ the Redeemer and Eiffel Tower"
+        src={rangeUsa}
+        alt="The Eurogrip tyre range — sport, touring, off-road, trail and scooter tyres lined up against an American skyline"
         className="w-full"
         style={{ WebkitMaskImage: feather, maskImage: feather }}
       />
@@ -235,7 +235,7 @@ function WhoWeAre() {
           <div>
             <VehicleCollage />
             <Reveal className="mt-4 text-[0.8rem] font-light text-slate-500">
-              One engineering philosophy — across every machine that rides.
+              Engineered for every road. Built for every rider.
             </Reveal>
           </div>
 

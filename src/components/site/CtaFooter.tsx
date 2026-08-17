@@ -8,11 +8,11 @@ import ctaBg from "@/assets/yt-masterclass.webp"
 /* [label, href] — hrefs the tiny router understands ("#" = not built yet) */
 const FOOT: Record<string, [string, string][]> = {
   Explore: [
-    ["Products", "/#products"], ["Technology", "/#technology"], ["Racing & Partnerships", "/#racing"],
+    ["Products", "/#products"], ["Technology", "/#technology"], ["Racing & Partnerships", "/partnerships"],
   ],
   Company: [
     ["Global Presence", "/global-presence"], ["About Eurogrip", "/about"],
-    ["Newsroom", "/newsroom"], ["Careers", "/careers"],
+    ["Newsroom", "/newsroom"], ["Reviews & Testimonials", "/reviews"], ["Careers", "/careers"],
   ],
   Connect: [
     ["Partner with Us", "/contact"], ["Become a Distributor", "/contact"],

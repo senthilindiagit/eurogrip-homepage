@@ -1,6 +1,9 @@
 import { useRef, useState } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { Reveal, Eyebrow } from "./ui"
+import { Link } from "@/lib/router"
+
+export type AppliedRole = { title: string; dept?: string; place?: string }
 
 const field =
   "w-full rounded-md border border-black/15 bg-white px-3.5 py-2.5 text-[0.92rem] text-asphalt placeholder:text-slate-400 focus:border-racing focus:outline-none focus:ring-2 focus:ring-racing/20"
@@ -22,7 +25,7 @@ const PROMISES = [
  * Open-application form with CV upload. Self-contained so any page can drop
  * it in — currently the dedicated /careers/apply page.
  */
-export function ApplyForm() {
+export function ApplyForm({ appliedRole }: { appliedRole?: AppliedRole }) {
   const [sent, setSent] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [fileError, setFileError] = useState<string | null>(null)
@@ -49,12 +52,14 @@ export function ApplyForm() {
         </Reveal>
         <Reveal i={2}>
           <p className="mt-4 max-w-[42ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-600">
-            We keep an open application list. Send your details and CV — if there's a fit now or later, our talent team will reach out.
+            {appliedRole
+              ? <>You're applying for a listed opening — send your details and CV and our talent team will take it from there.</>
+              : <>We keep an open application list. Send your details and CV — if there's a fit now or later, our talent team will reach out.</>}
           </p>
         </Reveal>
         <Reveal i={3}>
           <ul className="mt-7 space-y-3">
-            {PROMISES.map((t) => (
+            {(appliedRole ? PROMISES.filter((t) => t !== "Graduates and interns welcome") : PROMISES).map((t) => (
               <li key={t} className="flex items-center gap-3 text-[0.9rem] font-light text-slate-700">
                 <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-eurored text-white">
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.4"><path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -64,6 +69,22 @@ export function ApplyForm() {
             ))}
           </ul>
         </Reveal>
+        {/* generic form — point candidates at the live openings */}
+        {!appliedRole && (
+          <Reveal i={4}>
+            <Link
+              href="/careers/openings"
+              className="group mt-8 block rounded-2xl border border-black/10 bg-white p-5 shadow-[0_24px_55px_-40px_rgba(16,35,70,.45)] transition-all duration-300 hover:-translate-y-0.5 hover:border-racing/40"
+            >
+              <span className="font-display text-[0.68rem] font-extrabold uppercase italic tracking-[0.16em] text-eurored">We're hiring</span>
+              <div className="mt-1 font-display text-[1.05rem] font-extrabold uppercase italic leading-tight text-asphalt">Browse open positions</div>
+              <p className="mt-1 text-[0.86rem] font-light text-slate-600">Filter by region and department — find the exact role before you apply.</p>
+              <span className="mt-2.5 inline-flex items-center gap-1.5 font-display text-[0.78rem] font-extrabold uppercase italic tracking-wide text-racing transition-colors group-hover:text-eurored">
+                View openings <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </span>
+            </Link>
+          </Reveal>
+        )}
       </div>
 
       {/* form card */}
@@ -94,7 +115,20 @@ export function ApplyForm() {
                 onSubmit={(e) => { e.preventDefault(); if (!file) { setFileError("Please attach your CV."); return } setSent(true) }}
                 className="grid gap-4 sm:grid-cols-2"
               >
-                <div className="sm:col-span-2"><Eyebrow>Open application</Eyebrow></div>
+                <div className="sm:col-span-2"><Eyebrow>{appliedRole ? "Application" : "Open application"}</Eyebrow></div>
+
+                {/* which position this application is for */}
+                {appliedRole && (
+                  <div className="rounded-xl border border-racing/30 bg-racing/[0.06] px-4 py-3 sm:col-span-2">
+                    <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-racing">Applying for</span>
+                    <span className="mt-0.5 block font-display text-[1.02rem] font-extrabold uppercase italic leading-tight text-asphalt">{appliedRole.title}</span>
+                    {(appliedRole.dept || appliedRole.place) && (
+                      <span className="mt-0.5 block text-[0.8rem] font-light text-slate-600">
+                        {[appliedRole.dept, appliedRole.place].filter(Boolean).join(" · ")}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 <div>
                   <label htmlFor="c-fname" className={label}>First name *</label>
@@ -112,24 +146,30 @@ export function ApplyForm() {
                   <label htmlFor="c-phone" className={label}>Phone</label>
                   <input id="c-phone" type="tel" className={field} placeholder="+91 00000 00000" />
                 </div>
-                <div>
-                  <label htmlFor="c-dept" className={label}>Area of interest *</label>
-                  <select id="c-dept" required defaultValue="" className={field}>
-                    <option value="" disabled>Select an area…</option>
-                    {DEPARTMENTS.map((d) => <option key={d} value={d}>{d}</option>)}
-                  </select>
-                </div>
-                <div>
+                {/* area & location only make sense on the open application —
+                    a listed role already carries its department and location */}
+                {!appliedRole && (
+                  <div>
+                    <label htmlFor="c-dept" className={label}>Area of interest *</label>
+                    <select id="c-dept" required defaultValue="" className={field}>
+                      <option value="" disabled>Select an area…</option>
+                      {DEPARTMENTS.map((d) => <option key={d} value={d}>{d}</option>)}
+                    </select>
+                  </div>
+                )}
+                <div className={appliedRole ? "sm:col-span-2" : undefined}>
                   <label htmlFor="c-exp" className={label}>Years of experience</label>
                   <select id="c-exp" defaultValue="" className={field}>
                     <option value="">Select…</option>
                     {["Student / fresher", "0–2 years", "3–5 years", "6–10 years", "10+ years"].map((x) => <option key={x} value={x}>{x}</option>)}
                   </select>
                 </div>
-                <div className="sm:col-span-2">
-                  <label htmlFor="c-loc" className={label}>Preferred location</label>
-                  <input id="c-loc" className={field} placeholder="Madurai, Pantnagar, Milan…" />
-                </div>
+                {!appliedRole && (
+                  <div className="sm:col-span-2">
+                    <label htmlFor="c-loc" className={label}>Preferred location</label>
+                    <input id="c-loc" className={field} placeholder="Madurai, Pantnagar, Milan…" />
+                  </div>
+                )}
 
                 {/* resume upload */}
                 <div className="sm:col-span-2">

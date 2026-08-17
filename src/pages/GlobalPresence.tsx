@@ -4,15 +4,21 @@ import { GlobeInteractive } from "@/components/ui/cobe-globe-interactive"
 import { Reveal, SectionHead, Btn, Arrow, Eyebrow, Counter, Marquee } from "@/components/site/ui"
 import { Cine } from "@/components/site/Cine"
 import { SiteFooter } from "@/components/site/CtaFooter"
-import { useRouter } from "@/lib/router"
+import { useRouter, Link } from "@/lib/router"
 import { MARKETS } from "@/lib/site-data"
+import { NEWS_SORTED } from "@/lib/newsroom"
+import { fmtDate, storyHref } from "@/components/site/NewsCard"
 import worldDots from "@/assets/about/world-dots.webp"
-import factory from "@/assets/about/factory.webp"
-import aboutHero from "@/assets/about/about-hero.webp"
-import rdMilano from "@/assets/about/rd-milano.webp"
 import lifeTrack from "@/assets/careers/life-2.webp"
 import wetTrack from "@/assets/careers/real-tech-4.webp"
 import roadRide from "@/assets/careers/real-eicma.webp"
+import certDot from "@/assets/certs/cert-dot.webp"
+import certInmetro from "@/assets/certs/cert-inmetro.webp"
+import certSni from "@/assets/certs/cert-sni.webp"
+import certBis from "@/assets/certs/cert-bis.webp"
+import certGso from "@/assets/certs/cert-gso.webp"
+import certSabs from "@/assets/certs/cert-sabs.webp"
+import certReach from "@/assets/certs/cert-reach.webp"
 
 const ENTER = [0.16, 0.84, 0.34, 1] as const
 
@@ -94,29 +100,19 @@ const STATS = [
   { to: 3, suffix: "", label: "Road-test geographies" },
 ]
 
-/* the places the work actually happens */
-const NETWORK = [
-  {
-    img: factory,
-    alt: "Cured tyres racked on the factory floor",
-    place: "Madurai, India",
-    role: "Headquarters · R&D · Plant",
-    body: "Where TVS Srichakra was incorporated in 1982. The R&D centre and the main plant sit together, so a compound change can be modelled and built in the same week.",
-  },
-  {
-    img: aboutHero,
-    alt: "Tyre building and curing lines inside the plant",
-    place: "Pantnagar, India",
-    role: "Manufacturing",
-    body: "Our second plant in Uttarakhand. Between the two sites we build around three million tyres a month across two-, three-wheeler and off-highway categories.",
-  },
-  {
-    img: rdMilano,
-    alt: "The Italian team with riders at an off-road test session",
-    place: "Milan, Italy",
-    role: "Design centre · Field testing",
-    body: "Our design centre was established here in 2019 alongside the brand relaunch. The Italian team shapes the premium range and runs field testing with riders on European terrain.",
-  },
+/* latest trade fairs & rider events, straight from the newsroom data */
+const EVENTS = NEWS_SORTED.filter((n) => n.type === "event").slice(0, 3)
+
+/* the marks our tyres carry into each market — from Corp Info deck */
+const CERTS = [
+  { img: null, abbr: "E4", name: "ECE", body: "UN ECE homologation" },
+  { img: certDot, abbr: "DOT", name: "FMVSS (DOT)", body: "United States" },
+  { img: certInmetro, abbr: "INMETRO", name: "Brazilian Standard", body: "Brazil" },
+  { img: certSni, abbr: "SNI", name: "Indonesia Standards", body: "Indonesia" },
+  { img: certBis, abbr: "BIS", name: "Bureau of Indian Standards", body: "India" },
+  { img: certGso, abbr: "GSO", name: "Gulf Standard Organization", body: "Gulf states" },
+  { img: certSabs, abbr: "SABS", name: "South Africa Bureau of Standards", body: "South Africa" },
+  { img: certReach, abbr: "REACH", name: "REACH Compliance", body: "Registration, Evaluation, Authorization & Restriction of Chemicals" },
 ]
 
 /* what the three road-test geographies actually put a tyre through */
@@ -179,7 +175,7 @@ function GlobeHero() {
             <Reveal><Eyebrow className="text-sky-300 [&::before]:bg-sky-300">Global presence</Eyebrow></Reveal>
             <Reveal i={1}>
               <h1 className="italic-display mt-4 text-white leading-[0.94] text-[clamp(1.9rem,5vw,4rem)]">
-                Eighty-five countries.<br />One standard.
+                130 countries.<br />One standard.
               </h1>
             </Reveal>
             <Reveal i={2}>
@@ -309,42 +305,88 @@ function Numbers() {
   )
 }
 
-/* ----------------------------------------------------------- the network --- */
-function Network() {
+/* --------------------------------------------------------- events & fairs -- */
+function EventsFairs() {
   return (
     <section className="bg-white py-[clamp(64px,10vh,130px)] text-asphalt">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <SectionHead
+            light
+            eyebrow="Events & fairs"
+            title={<>Where the world<br />meets Eurogrip</>}
+            lede="Trade fairs, motor shows and rider festivals across the globe — the stands, the launches and the people who stopped by."
+          />
+          <Reveal i={2}>
+            <Btn href="/newsroom/events" variant="blue">All events <Arrow /></Btn>
+          </Reveal>
+        </div>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {EVENTS.map((e, i) => (
+            <Reveal key={e.id} i={i % 3}>
+              <Link href={storyHref(e)} className="group block h-full">
+                <article className="h-full overflow-hidden rounded-2xl border border-black/10 bg-mist shadow-[0_30px_70px_-45px_rgba(11,38,74,.5)] transition-all duration-500 group-hover:-translate-y-1.5 group-hover:border-racing/40">
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={e.cover}
+                      alt={e.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{ background: "linear-gradient(180deg, transparent 45%, rgba(13,26,48,.82) 100%)" }}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-5">
+                      <span className="font-display text-[0.68rem] font-extrabold uppercase italic tracking-[0.14em] text-eurored">
+                        {e.place} · {fmtDate(e.date)}
+                      </span>
+                      <h3 className="mt-1 font-display text-[1.15rem] font-black uppercase italic leading-none text-white">
+                        {e.title}
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="p-5 text-[0.9rem] font-light leading-relaxed text-slate-600">{e.summary}</p>
+                </article>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ------------------------------------------------- certified worldwide ----- */
+function E4Mark() {
+  return (
+    <svg viewBox="0 0 64 64" className="h-12 w-12" aria-hidden="true">
+      <circle cx="32" cy="32" r="29" fill="none" stroke="#11151b" strokeWidth="3" />
+      <text x="32" y="42" textAnchor="middle" fontFamily="Georgia, serif" fontSize="27" fill="#11151b">E4</text>
+    </svg>
+  )
+}
+
+function Certified() {
+  return (
+    <section className="bg-mist py-[clamp(64px,10vh,130px)] text-asphalt">
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <SectionHead
           light
-          eyebrow="The network"
-          title={<>Three places,<br />one production line</>}
-          lede="Design, engineering and manufacturing sit on two continents — close enough to argue, far enough to know what the world's roads actually demand."
+          eyebrow="Certified worldwide"
+          title={<>Globally tested &amp;<br />certified products</>}
+          lede="Every market has its own bar. Eurogrip tyres are homologated and certified to the standards of the regions they ride in."
         />
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {NETWORK.map((n, i) => (
-            <Reveal key={n.place} i={i}>
-              <article className="group h-full overflow-hidden rounded-2xl border border-black/10 bg-mist shadow-[0_30px_70px_-45px_rgba(11,38,74,.5)]">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={n.img}
-                    alt={n.alt}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: "linear-gradient(180deg, transparent 45%, rgba(13,26,48,.82) 100%)" }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-5">
-                    <span className="font-display text-[0.68rem] font-extrabold uppercase italic tracking-[0.14em] text-eurored">
-                      {n.role}
-                    </span>
-                    <h3 className="mt-1 font-display text-[1.15rem] font-black uppercase italic leading-none text-white">
-                      {n.place}
-                    </h3>
-                  </div>
-                </div>
-                <p className="p-5 text-[0.9rem] font-light leading-relaxed text-slate-600">{n.body}</p>
-              </article>
+        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
+          {CERTS.map((c, i) => (
+            <Reveal key={c.name} i={i % 4}>
+              <div className="group flex h-full flex-col items-center rounded-2xl border border-black/10 bg-white p-6 text-center shadow-[0_24px_55px_-40px_rgba(16,35,70,.45)] transition-all duration-300 hover:-translate-y-1 hover:border-racing/40">
+                <span className="grid h-16 w-16 place-items-center">
+                  {c.img ? <img src={c.img} alt={c.name} loading="lazy" className="max-h-14 w-auto" /> : <E4Mark />}
+                </span>
+                <h3 className="mt-3.5 font-display text-[0.9rem] font-extrabold uppercase italic leading-tight text-asphalt">{c.name}</h3>
+                <p className="mt-1.5 text-[0.76rem] font-light leading-snug text-slate-500">{c.body}</p>
+              </div>
             </Reveal>
           ))}
         </div>
@@ -453,9 +495,10 @@ export function GlobalPresence() {
       <GlobeHero />
       <Cine>
         <Numbers />
-        <Network />
+        <EventsFairs />
       </Cine>
       <Proving />
+      <Cine><Certified /></Cine>
       <Distribute />
       <SiteFooter />
     </main>

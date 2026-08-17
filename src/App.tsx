@@ -5,7 +5,10 @@ import { About } from "./pages/About"
 import { Contact } from "./pages/Contact"
 import { Careers } from "./pages/Careers"
 import { CareersApply } from "./pages/CareersApply"
+import { CareersOpenings } from "./pages/CareersOpenings"
 import { GlobalPresence } from "./pages/GlobalPresence"
+import { Reviews } from "./pages/Reviews"
+import { Partnerships } from "./pages/Partnerships"
 import { Newsroom } from "./pages/Newsroom"
 import { NewsroomList } from "./pages/NewsroomList"
 import { NewsroomStory } from "./pages/NewsroomStory"
@@ -34,7 +37,10 @@ function Outlet() {
   if (path === "/contact") return <Contact />
   if (path === "/careers") return <Careers />
   if (path === "/careers/apply") return <CareersApply />
+  if (path === "/careers/openings") return <CareersOpenings />
   if (path === "/global-presence") return <GlobalPresence />
+  if (path === "/reviews") return <Reviews />
+  if (path === "/partnerships") return <Partnerships />
   if (path === "/newsroom" || path.startsWith("/newsroom/")) return newsroomRoute(path)
   return <Home />
 }
