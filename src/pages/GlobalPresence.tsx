@@ -328,7 +328,7 @@ function EventsFairs() {
                 <article className="h-full overflow-hidden rounded-2xl border border-black/10 bg-mist shadow-[0_30px_70px_-45px_rgba(11,38,74,.5)] transition-all duration-500 group-hover:-translate-y-1.5 group-hover:border-racing/40">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img
-                      src={e.cover}
+                      src={e.cover ?? undefined}
                       alt={e.title}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
