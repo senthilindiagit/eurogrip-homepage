@@ -1,13 +1,13 @@
 export const PRODUCTS = [
   {
     title: "Two-Wheeler Tyres",
-    description: "Sport, street, scooter and off-road — grip for every rider.",
+    description: "Sport, street, scooter, off-road and more.",
     iconPath: "M5 17a4 4 0 108 0M11 17a4 4 0 108 0M5 17h6",
     previews: [{ label: "Sport" }, { label: "Scooter" }],
   },
   {
     title: "Three-Wheeler Tyres",
-    description: "Durability and load stability for autos and cargo.",
+    description: "Durability and load stability.",
     iconPath: "M4 17a3 3 0 106 0M14 17a3 3 0 106 0M4 17h4m6 0h-2V8h6l2 4",
     previews: [{ label: "Cargo" }, { label: "Passenger" }],
   },
@@ -25,13 +25,13 @@ export const PRODUCTS = [
   },
   {
     title: "Industrial Tyres",
-    description: "Forklifts, handlers and plant — built for relentless duty.",
+    description: "Forklifts, handlers — built for relentless endurance.",
     iconPath: "M4 18V8h7v10M11 12h6v6M4 18h13M7 6V4",
     previews: [{ label: "Forklift" }, { label: "Solid" }],
   },
   {
     title: "OTR Tyres",
-    description: "Off-the-road giants for mining and construction.",
+    description: "Giants for mining and construction.",
     iconPath: "M6 16a5 5 0 1010 0 5 5 0 10-10 0M2 16h3m13 0h3M11 5l1 3",
     previews: [{ label: "Loader" }, { label: "Grader" }],
   },

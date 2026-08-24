@@ -43,14 +43,14 @@ export function ProductRange() {
         <SectionHead
           light
           eyebrow="The range"
-          title={<span className="whitespace-nowrap text-[clamp(1.2rem,3.6vw,2.9rem)]">One specialist. Six worlds of grip.</span>}
-          lede={<>Six specialist ranges, engineered for the way each machine works. <em>Hover a category to preview it.</em></>}
+          title={<span className="whitespace-nowrap text-[clamp(1.2rem,3.6vw,2.9rem)]">One specialist. A worldclass range.</span>}
+          lede={<>Every tyre, engineered for the way each machine works. <em>Hover a category to preview it.</em></>}
           className="mb-[clamp(40px,6vh,64px)] max-w-none"
         />
         <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((p, i) => (
             <Reveal key={p.title} i={i % 3}>
-              <ProductRangeCard index={i + 1} {...p} icon={ICONS[i]} popImage={POP[i]} popScale={POP_SCALE[i]} popFrom="top" />
+              <ProductRangeCard index={i + 1} linkLabel="Know more" {...p} icon={ICONS[i]} popImage={POP[i]} popScale={POP_SCALE[i]} popFrom="top" />
             </Reveal>
           ))}
         </div>

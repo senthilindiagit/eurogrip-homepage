@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Counter, Btn, Arrow } from "./ui"
 
-const WORDS = ["every road", "the long haul", "130 countries", "the racetrack", "the worst weather"]
+const WORDS = ["over 125 countries", "roads", "off-roads", "racetracks"]
 const ENTER = [0.16, 0.84, 0.34, 1] as const
 const D = 0.15 // small settle delay before the hero text arrives
 
@@ -19,10 +19,10 @@ export function Hero() {
   }, [])
 
   const stats = [
-    { to: 44, suffix: "+", label: "Years of expertise" },
-    { to: 130, suffix: "+", label: "Countries served" },
-    { to: 6, suffix: "", label: "Product categories" },
+    { to: 44, suffix: "+", label: "Years of tyre expertise" },
     { to: 2, suffix: "", label: "Global R&D centres" },
+    { to: 2, suffix: "", label: "Manufacturing facilities" },
+    { to: 125, suffix: "+", label: "Countries" },
   ]
 
   return (
@@ -58,11 +58,11 @@ export function Hero() {
       <motion.div style={{ y: contentY }} className="relative z-20 mx-auto w-full max-w-[1280px] px-5 sm:px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: ENTER, delay: D }}>
           <span className="inline-flex items-center gap-2 font-display italic font-extrabold uppercase tracking-[0.16em] text-[0.78rem] text-eurored">
-            <span className="h-[2px] w-6 bg-eurored" /> Specialist Tyre Technology · Est. 1982
+            <span className="h-[2px] w-6 bg-eurored" /> Four Decades of Tyre Technology
           </span>
         </motion.div>
 
-        <h1 className="italic-display mt-4 mb-4 text-white leading-[0.92] text-[clamp(1.9rem,5vw,4rem)] drop-shadow-[0_2px_20px_rgba(6,18,38,.6)]">
+        <h1 className="italic-display mt-4 mb-4 text-white leading-[0.92] text-[clamp(2rem,4.6vw,3.6rem)] drop-shadow-[0_2px_20px_rgba(6,18,38,.6)]">
           <motion.span className="block whitespace-nowrap" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.08 }}>
             Engineered
           </motion.span>
@@ -92,7 +92,7 @@ export function Hero() {
           className="max-w-[44ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-slate-200"
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.24 }}
         >
-          European engineering and a racer’s instinct — built into every tyre, in over 130 countries.
+          European design & engineering, built into every tyre.
         </motion.p>
 
         <motion.div className="mt-7 flex flex-wrap gap-3.5" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: D + 0.32 }}>

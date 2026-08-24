@@ -28,7 +28,7 @@ const ENTER = [0.16, 0.84, 0.34, 1] as const
 /* ============================ Hero ============================ */
 const HERO_STATS = [
   { to: 44, suffix: "+", label: "Years of expertise" },
-  { to: 130, suffix: "+", label: "Countries served" },
+  { to: 125, suffix: "+", label: "Countries served" },
   { to: 1000, suffix: "+", label: "Product range" }, // per Corp Info.pptx slide 4
 ]
 
@@ -88,7 +88,7 @@ function AboutHero() {
             className="mt-5 max-w-[46ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-slate-200"
             initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.34 }}
           >
-            The international two-wheeler, three-wheeler and off-highway tyre brand of TVS Srichakra — four decades of engineering, trusted by riders across 130+ countries.
+            The international two-wheeler, three-wheeler and off-highway tyre brand of TVS Srichakra — four decades of engineering, trusted by riders across 125+ countries.
           </motion.p>
           <motion.div
             className="mt-8"
@@ -193,7 +193,7 @@ function ParentRibbon() {
 /* ============================ Who we are ============================ */
 const WHO_STATS = [
   { to: 44, suffix: "+", label: "Years of expertise" },
-  { to: 130, suffix: "+", label: "Countries served" },
+  { to: 125, suffix: "+", label: "Countries served" },
   { to: 2, suffix: "", label: "Global R&D centres" },
   { to: 25000, suffix: "+", label: "People across the group", compact: true },
 ]
@@ -249,7 +249,7 @@ function WhoWeAre() {
             </Reveal>
             <Reveal i={2}>
               <p className="mt-4 max-w-[52ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-600">
-                Eurogrip is the tyre brand of TVS Srichakra Limited — a leading manufacturer of two-wheeler, three-wheeler and off-highway tyres since 1982, headquartered in Madurai and trusted by riders across 130+ countries.
+                Eurogrip is the tyre brand of TVS Srichakra Limited — a leading manufacturer of two-wheeler, three-wheeler and off-highway tyres since 1982, headquartered in Madurai and trusted by riders across 125+ countries.
               </p>
             </Reveal>
             <Reveal i={3} className="mt-7 flex gap-4">

@@ -129,7 +129,7 @@ export function Racing() {
               light
               eyebrow="Racing &amp; Partnerships"
               title={<>Proven by riders.<br />Not just by us.</>}
-              lede="Championship grids, OEM fitments, everyday riders — the proof is in the people who trust it."
+              lede="Championships, OEM fitments, everyday riders — the proof is in the people who trust it."
               ledeClassName="max-w-none lg:whitespace-nowrap lg:text-[0.92rem]"
             />
             <Reveal i={2} className="mt-7 flex flex-wrap gap-3.5">
@@ -149,7 +149,7 @@ export function Racing() {
         </div>
 
         <div className="mt-12 border-t border-black/10 pt-8">
-          <div className="mb-6 text-center text-[0.74rem] uppercase tracking-[0.12em] text-slate-500">OEM partners &amp; trusted fitments</div>
+          <div className="mb-6 text-center text-[0.74rem] uppercase tracking-[0.12em] text-slate-500">Original fitment for many of the most popular applications, worldwide</div>
           <Marquee speed={30}>
             {LOGOS.map((src, i) => (
               <img key={i} src={src} alt="" className="h-8 w-auto object-contain opacity-40 transition-opacity duration-300 hover:opacity-80" style={{ filter: "brightness(0)" }} />

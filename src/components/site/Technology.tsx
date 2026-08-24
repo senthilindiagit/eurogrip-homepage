@@ -51,7 +51,7 @@ export function Technology() {
           title={
             <span className="block text-[clamp(1.6rem,3.4vw,2.6rem)] leading-[1.04]">
               <span className="whitespace-nowrap">Seven signature technologies.</span><br />
-              <span className="whitespace-nowrap">One promise on the road.</span>
+              <span className="whitespace-nowrap">For the promise of performance.</span>
             </span>
           }
           lede="The engineering platforms behind every Eurogrip tyre — proven in simulation and on the road."

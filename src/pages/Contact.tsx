@@ -415,7 +415,7 @@ function GlobalShowcase() {
         </Reveal>
         <Reveal i={2}>
           <p className="mx-auto mt-4 max-w-[56ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-200">
-            Eurogrip tyres reach riders and fleets across 130+ countries through a distribution network built over four decades.
+            Eurogrip tyres reach riders and fleets across 125+ countries through a distribution network built over four decades.
           </p>
         </Reveal>
         <Reveal i={3} className="mt-[clamp(30px,5vh,48px)] flex justify-center">

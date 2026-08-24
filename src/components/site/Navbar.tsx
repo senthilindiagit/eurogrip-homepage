@@ -7,11 +7,11 @@ import { LanguageSelect, CountrySelectCompact } from "./widgets"
 import { useRouter } from "@/lib/router"
 
 const LINKS: [string, string][] = [
+  ["About", "/about"],
   ["Products", "/#products"],
   ["Technology", "/#technology"],
   ["Partnerships", "/partnerships"],
   ["Global Presence", "/global-presence"],
-  ["About", "/about"],
   ["Newsroom", "/newsroom"],
   ["Contact", "/contact"],
 ]

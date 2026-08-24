@@ -5,7 +5,7 @@ import { Reveal, Eyebrow, Btn, Arrow } from "./ui"
 
 const ITEMS = [
   { o: "Out", b: "live", p: "High performance, long life, durability — a Eurogrip tyre outlives the journey." },
-  { o: "Out", b: "perform", p: "Engineered by global R&D centres to outperform in any road condition." },
+  { o: "Out", b: "perform", p: "Engineered by global R&D centres to outperform in any ride condition." },
   { o: "Out", b: "do", p: "Ready for the next trip, the next turn, the next challenge." },
 ]
 
@@ -106,11 +106,14 @@ export function Promise() {
           <div className="max-w-[780px]">
             <Reveal><Eyebrow>The brand promise</Eyebrow></Reveal>
             <Reveal i={1}>
-              <h2 className="italic-display mt-2 text-asphalt text-[clamp(1.7rem,3.8vw,2.9rem)]">Hold a higher standard</h2>
+              <h2 className="italic-display mt-2 text-asphalt text-[clamp(1.45rem,3.05vw,2.3rem)] leading-[1.06]">
+                Tyre technology that makes you
+                <br className="hidden sm:block" /> the most confident rider
+              </h2>
             </Reveal>
             <Reveal i={2}>
               <p className="mt-4 max-w-[58ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-600">
-                Every journey pushes us further. That promise lives in three words.
+                Living up to the brand philosophy.
               </p>
             </Reveal>
             <Reveal i={3} className="mt-7">

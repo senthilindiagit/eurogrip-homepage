@@ -1,9 +1,8 @@
 import { Reveal, Counter, Btn, Arrow } from "./ui"
 
 const STATS = [
-  { n: "1982", label: "Founded as a tyre specialist", count: false },
-  { n: "130", suffix: "+", label: "Export markets", count: true },
-  { n: "2", label: "Global R&D centres", count: true },
+  { n: "1982", label: "Founded", count: false },
+  { n: "125", suffix: "+", label: "Worldwide markets today", count: true },
   { n: "TVS Mobility", label: "Group company", count: false },
 ]
 
@@ -22,7 +21,7 @@ export function AboutGroup() {
           </Reveal>
           <Reveal i={2}>
             <p className="mt-4 max-w-[54ch] text-[0.95rem] font-light leading-relaxed text-slate-600">
-              Eurogrip is the flagship tyre brand of TVS Srichakra Limited, part of the TVS Mobility Group — a two-wheeler tyre specialist grown into a global manufacturer, driven by relentless R&amp;D and one belief: hold yourself to a higher standard.
+              Eurogrip is a brand of TVS Srichakra Limited, part of the TVS Mobility Group — a two-wheeler tyre specialist going global on many fronts. Driven by relentless R&amp;D with the highest standards in technology.
             </p>
           </Reveal>
           <Reveal i={3} className="mt-8">

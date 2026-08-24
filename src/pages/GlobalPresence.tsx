@@ -94,7 +94,7 @@ const REGIONS: Region[] = [
 ]
 
 const STATS = [
-  { to: 130, suffix: "+", label: "Countries served" },
+  { to: 125, suffix: "+", label: "Countries served" },
   { to: 5, suffix: "", label: "Continents reached" },
   { to: 1000, suffix: "+", label: "Distribution partners" },
   { to: 3, suffix: "", label: "Road-test geographies" },
@@ -175,7 +175,7 @@ function GlobeHero() {
             <Reveal><Eyebrow className="text-sky-300 [&::before]:bg-sky-300">Global presence</Eyebrow></Reveal>
             <Reveal i={1}>
               <h1 className="italic-display mt-4 text-white leading-[0.94] text-[clamp(1.9rem,5vw,4rem)]">
-                130 countries.<br />One standard.
+                125 countries.<br />One standard.
               </h1>
             </Reveal>
             <Reveal i={2}>

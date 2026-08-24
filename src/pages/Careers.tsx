@@ -31,7 +31,7 @@ const DISCIPLINES = [
 ]
 
 const PILLARS = [
-  { k: "Engineer globally", body: "Work across our Madurai R&D centre and Milan design studio — one team, two continents, products that ship to 130+ countries.", icon: "globe" },
+  { k: "Engineer globally", body: "Work across our Madurai R&D centre and Milan design studio — one team, two continents, products that ship to 125+ countries.", icon: "globe" },
   { k: "Own real scale", body: "Three million tyres a month across two plants. What you build is measured in millions of kilometres ridden.", icon: "gauge" },
   { k: "Learn relentlessly", body: "Backed by the TVS legacy's institutions and a culture of skilling — from the shop floor to the test track.", icon: "spark" },
   { k: "Build for riders", body: "We make something people genuinely love. Every compound and contour ends up under someone's journey.", icon: "heart" },

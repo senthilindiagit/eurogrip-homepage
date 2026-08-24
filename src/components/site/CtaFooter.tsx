@@ -101,7 +101,7 @@ export function ContactCta() {
           <Reveal i={1}><h2 className="italic-display mt-3 text-white text-[clamp(1.9rem,4.4vw,3.3rem)]">Grow with Eurogrip</h2></Reveal>
           <Reveal i={2}>
             <p className="mx-auto mt-4 max-w-[52ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-sky-100">
-              Become a distributor, explore OEM opportunities, or bring Eurogrip to your market.
+              Become a distributor, explore OE opportunities, or bring Eurogrip to your market.
             </p>
           </Reveal>
           <Reveal i={3} className="mt-8 flex flex-wrap justify-center gap-3.5">
