@@ -18,22 +18,21 @@ export const PRODUCTS = [
     previews: [{ label: "Highway" }, { label: "Mixed" }],
   },
   {
-    title: "Agricultural Tyres",
-    description: "Deep-lug traction for fields and farms.",
+    /* Umbrella category — agricultural, industrial & construction and OTR sit
+       under it. The full line-up lives on tvseurogripoht.com. */
+    title: "Off Highway Tyres",
+    description: "Agricultural, industrial & construction, and OTR.",
     iconPath: "M6 16a4 4 0 108 0M3 16h2m11 0h5M9 4v8",
-    previews: [{ label: "Tractor Rear" }, { label: "Front" }],
+    href: "https://www.tvseurogripoht.com/",
+    previews: [{ label: "Agricultural" }, { label: "OTR" }],
   },
   {
-    title: "Industrial Tyres",
-    description: "Forklifts, handlers — built for relentless endurance.",
+    /* Powered by TVS Eurogrip — its own brand site at tvssupergriptires.com */
+    title: "Supergrip Tyres",
+    description: "Solid resilients and pneumatics for material handling, ports and mining.",
     iconPath: "M4 18V8h7v10M11 12h6v6M4 18h13M7 6V4",
-    previews: [{ label: "Forklift" }, { label: "Solid" }],
-  },
-  {
-    title: "OTR Tyres",
-    description: "Giants for mining and construction.",
-    iconPath: "M6 16a5 5 0 1010 0 5 5 0 10-10 0M2 16h3m13 0h3M11 5l1 3",
-    previews: [{ label: "Loader" }, { label: "Grader" }],
+    href: "https://tvssupergriptires.com/",
+    previews: [{ label: "Solid" }, { label: "Pneumatic" }],
   },
 ]
 

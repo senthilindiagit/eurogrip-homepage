@@ -149,9 +149,14 @@ export default function ProductRangeCard({
         { label: "Profile", background: tileBrand },
       ];
 
+  // categories that live on a sibling brand site open in a new tab
+  const isExternal = /^https?:\/\//i.test(href);
+
   return (
     <a
       href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
       className={`egp-card ${className}`}
       style={{ ["--egp-accent" as any]: accent, ["--egp-brand" as any]: brand, ["--pop-scale" as any]: popScale }}
     >
