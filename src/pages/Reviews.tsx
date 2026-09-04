@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { AnimatePresence, motion } from "framer-motion"
-import { Reveal } from "@/components/site/ui"
+import { Reveal, SectionHead } from "@/components/site/ui"
 import { PageHero } from "@/components/site/PageHero"
 import { Cine } from "@/components/site/Cine"
 import { SiteFooter } from "@/components/site/CtaFooter"
@@ -29,6 +29,8 @@ type Review = {
   cover: string | null
   /** youtube videos linked from the review PDF */
   videos?: { id: string; label: string }[]
+  /** a film we host ourselves, rather than a YouTube id */
+  film?: { src: string; label: string }
   /** the publication's own article / profile, linked from the PDF */
   links?: { label: string; href: string }[]
   pdfs?: { label: string; href: string }[]
@@ -208,11 +210,123 @@ const TESTIMONIALS: Review[] = [
   },
 ]
 
+/* ------------------------------------------------------- owner testimonials --
+   Off-highway customer films from the client's Testimonials folder. Product
+   names, speaker names and countries are taken from each film's own title and
+   name cards - note the folder is labelled "AR 800" but all four of those films
+   announce themselves as Tigertrac AR600 R-1W.
+
+   The AR600 films carry burned-in English subtitles, so those cards quote them
+   directly. The FL909 films have no subtitles, so those cards describe what is
+   shown instead of putting words in anyone's mouth. None of the films is dated,
+   so they sit in their own section rather than in the date-ordered list. ---- */
+const OWNER_FILMS: Review[] = [
+  {
+    slug: "oht-ar600-austria",
+    pub: "Dairy farmer",
+    country: "Austria",
+    product: "Tigertrac AR600",
+    period: "",
+    sort: "",
+    vehicle: "John Deere 6R",
+    blurb: "\u201cI am an Austrian dairy farmer and live in a mountainous area in Upper Austria. I used to have bias tyres and have now opted for the TVS Eurogrip Tigertrac radial tyre. It also runs very smoothly on the road, even at 50 km/h.\u201d",
+    cover: "/reviews/testimonials/ar600-austria.webp",
+    film: { src: "/reviews/testimonials/ar600-austria.mp4", label: "Watch testimonial" },
+  },
+  {
+    slug: "oht-ar600-claas",
+    pub: "Tigertrac AR600 owner",
+    country: "",
+    product: "Tigertrac AR600",
+    period: "",
+    sort: "",
+    vehicle: "Claas Arion \u00b7 4,200 hours",
+    blurb: "\u201cI have been using it for about 4,200 hours and it is only half worn out, so the price/performance ratio is of course good. I am pleasantly surprised at how little the turf is damaged in the tight bends of the meadow.\u201d",
+    cover: "/reviews/testimonials/ar600-claas.webp",
+    film: { src: "/reviews/testimonials/ar600-claas.mp4", label: "Watch testimonial" },
+  },
+  {
+    slug: "oht-ar600-poland",
+    pub: "Dariusz Bazyluk",
+    country: "Poland",
+    product: "Tigertrac AR600",
+    period: "",
+    sort: "",
+    vehicle: "Farmer",
+    blurb: "\u201cTVS Eurogrip tyres on my tractor perform very well. Advantages that I see: low noise, smooth driving on road, high traction and good self-cleaning \u2014 better than competitors.\u201d",
+    cover: "/reviews/testimonials/ar600-poland.webp",
+    film: { src: "/reviews/testimonials/ar600-poland.mp4", label: "Watch testimonial" },
+  },
+  {
+    slug: "oht-ar600-steyr",
+    pub: "Tigertrac AR600 owner",
+    country: "",
+    product: "Tigertrac AR600",
+    period: "",
+    sort: "",
+    vehicle: "Steyr 4110 Profi \u00b7 4,800 hours",
+    blurb: "\u201cIt is equipped with TVS Eurogrip Tigertrac tyres, which we have had since 2016, and has already completed 4,800 operating hours. The road grip is very good, and it is also very good in the field \u2014 we expect to drive another 2,000 hours.\u201d",
+    cover: "/reviews/testimonials/ar600-steyr.webp",
+    film: { src: "/reviews/testimonials/ar600-steyr.mp4", label: "Watch testimonial" },
+  },
+  {
+    slug: "oht-fl909-austria",
+    pub: "Rudolf Reiter",
+    country: "Austria",
+    product: "Tigertrac FL909",
+    period: "",
+    sort: "",
+    vehicle: "Tandem trailer \u00b7 manure spreading",
+    blurb: "A mixed farm in Austria running the FL909 steel-belted flotation radial on tandem trailer work, in the yard and out on the road.",
+    cover: "/reviews/testimonials/fl909-austria.webp",
+    film: { src: "/reviews/testimonials/fl909-austria.mp4", label: "Watch testimonial" },
+  },
+  {
+    slug: "oht-fl909-germany",
+    pub: "Gefken & Sohn GbR",
+    country: "Germany",
+    product: "Tigertrac FL909",
+    period: "",
+    sort: "",
+    vehicle: "Dump trailer \u00b7 road and yard",
+    blurb: "Heavy dump-trailer haulage on and off the road, on the FL909 flotation radial.",
+    cover: "/reviews/testimonials/fl909-germany.webp",
+    film: { src: "/reviews/testimonials/fl909-germany.mp4", label: "Watch testimonial" },
+  },
+  {
+    slug: "oht-fl909-spain",
+    pub: "Juan Luis",
+    country: "Spain",
+    product: "Tigertrac FL909",
+    period: "",
+    sort: "",
+    vehicle: "Slurry tanker",
+    blurb: "Slurry tanker work in Spain \u2014 the film shows the robust steel-belted construction the FL909 is built around.",
+    cover: "/reviews/testimonials/fl909-spain.webp",
+    film: { src: "/reviews/testimonials/fl909-spain.mp4", label: "Watch testimonial" },
+  },
+  {
+    slug: "oht-fl909-uk",
+    pub: "Tigertrac FL909 owner",
+    country: "United Kingdom",
+    product: "Tigertrac FL909",
+    period: "",
+    sort: "",
+    vehicle: "Bailey grain trailer \u00b7 harvest",
+    blurb: "Grain-trailer haulage through a UK harvest, showing the block-on-lug design for on and off-road transport and the footprint that keeps soil compaction low.",
+    cover: "/reviews/testimonials/fl909-uk.webp",
+    film: { src: "/reviews/testimonials/fl909-uk.mp4", label: "Watch testimonial" },
+  },
+]
+
 /* one list, strictly date-ordered, newest first */
 const ITEMS: Review[] = [...REVIEWS, ...TESTIMONIALS].sort((a, b) => b.sort.localeCompare(a.sort))
 
 /* --------------------------------------------------------------- lightbox -- */
-function VideoLightbox({ videoId, onClose }: { videoId: string; onClose: () => void }) {
+/** what the player was handed: a YouTube id, or a file we host */
+type PlayTarget = { kind: "yt" | "file"; src: string }
+
+function VideoLightbox({ target, onClose }: { target: PlayTarget; onClose: () => void }) {
   return createPortal(
     <motion.div
       className="fixed inset-0 z-[200] grid place-items-center bg-black/85 p-5 backdrop-blur-sm"
@@ -233,13 +347,24 @@ function VideoLightbox({ videoId, onClose }: { videoId: string; onClose: () => v
           Close ✕
         </button>
         <div className="aspect-video overflow-hidden rounded-lg border border-white/15 bg-black shadow-2xl">
-          <iframe
-            className="h-full w-full"
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
-            title="Eurogrip review video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          {target.kind === "file" ? (
+            <video
+              src={target.src}
+              controls
+              autoPlay
+              playsInline
+              preload="metadata"
+              className="h-full w-full bg-black"
+            />
+          ) : (
+            <iframe
+              className="h-full w-full"
+              src={`https://www.youtube.com/embed/${target.src}?autoplay=1&rel=0`}
+              title="Eurogrip review video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )}
         </div>
       </motion.div>
     </motion.div>,
@@ -248,7 +373,12 @@ function VideoLightbox({ videoId, onClose }: { videoId: string; onClose: () => v
 }
 
 /* ------------------------------------------------------------------- card -- */
-function ReviewCard({ r, i, onPlay }: { r: Review; i: number; onPlay: (id: string) => void }) {
+function ReviewCard({ r, i, onPlay }: { r: Review; i: number; onPlay: (t: PlayTarget) => void }) {
+  const play: PlayTarget | null = r.film
+    ? { kind: "file", src: r.film.src }
+    : r.videos?.length
+      ? { kind: "yt", src: r.videos[0].id }
+      : null
   return (
     <Reveal i={i % 3}>
       <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(11,38,74,.5)] transition-all duration-500 hover:-translate-y-1.5 hover:border-racing/40">
@@ -270,19 +400,21 @@ function ReviewCard({ r, i, onPlay }: { r: Review; i: number; onPlay: (id: strin
           )}
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 55%, rgba(13,26,48,.8) 100%)" }} />
           <div className="absolute left-4 top-4 flex flex-wrap gap-1.5">
-            <span className="rounded-[2px] bg-eurored px-2.5 py-1 font-display text-[0.68rem] font-extrabold uppercase italic tracking-wide text-white">
-              {r.period}
-            </span>
+            {r.period && (
+              <span className="rounded-[2px] bg-eurored px-2.5 py-1 font-display text-[0.68rem] font-extrabold uppercase italic tracking-wide text-white">
+                {r.period}
+              </span>
+            )}
             {r.country && (
               <span className="rounded-[2px] bg-midnight/85 px-2.5 py-1 font-display text-[0.68rem] font-extrabold uppercase italic tracking-wide text-white backdrop-blur-sm">
                 {r.country}
               </span>
             )}
           </div>
-          {r.videos && r.videos.length > 0 && (
+          {play && (
             <button
               type="button"
-              onClick={() => onPlay(r.videos![0].id)}
+              onClick={() => onPlay(play)}
               aria-label={`Play ${r.pub} video review`}
               className="absolute inset-0 grid place-items-center"
             >
@@ -300,18 +432,27 @@ function ReviewCard({ r, i, onPlay }: { r: Review; i: number; onPlay: (id: strin
           {r.vehicle && <span className="text-[0.74rem] uppercase tracking-[0.06em] text-slate-500">{r.vehicle}</span>}
           <p className="text-[0.88rem] font-light leading-relaxed text-slate-600">{r.blurb}</p>
           <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-2 pt-2">
+            {r.film && (
+              <button
+                type="button"
+                onClick={() => onPlay({ kind: "file", src: r.film!.src })}
+                className="font-display text-[0.78rem] font-extrabold uppercase italic tracking-wide text-eurored transition-colors hover:text-racing"
+              >
+                {r.film.label} ▸
+              </button>
+            )}
             {r.videos?.map((v) => (
               <button
                 key={v.id}
                 type="button"
-                onClick={() => onPlay(v.id)}
+                onClick={() => onPlay({ kind: "yt", src: v.id })}
                 className="font-display text-[0.78rem] font-extrabold uppercase italic tracking-wide text-eurored transition-colors hover:text-racing"
               >
                 {v.label} ▸
               </button>
             ))}
             {/* PDF summaries only where there's no video review to watch */}
-            {!r.videos?.length && r.pdfs?.map((p) => (
+            {!play && r.pdfs?.map((p) => (
               <a
                 key={p.href}
                 href={p.href}
@@ -344,7 +485,7 @@ function ReviewCard({ r, i, onPlay }: { r: Review; i: number; onPlay: (id: strin
 /* ------------------------------------------------------------------- page -- */
 export function Reviews() {
   const { path } = useRouter()
-  const [video, setVideo] = useState<string | null>(null)
+  const [video, setVideo] = useState<PlayTarget | null>(null)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior })
@@ -386,10 +527,27 @@ export function Reviews() {
         </div>
       </section>
 
+      {/* Owner films sit apart: they are off-highway customers rather than
+          motorcycle press, and none of them carries a date to sort by. */}
+      <section className="border-t border-black/10 bg-white py-[clamp(48px,8vh,100px)] text-asphalt">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <SectionHead
+            light
+            eyebrow="In their own words"
+            title={<>Owners on<br />off-highway tyres</>}
+            lede="Farmers and contractors across Europe on the Tigertrac AR600 tractor radial and the FL909 flotation radial — hours run, wear, road manners and how the ground comes out of it."
+            className="mb-[clamp(28px,4.5vh,48px)] max-w-none"
+          />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {OWNER_FILMS.map((r, i) => <ReviewCard key={r.slug} r={r} i={i} onPlay={setVideo} />)}
+          </div>
+        </div>
+      </section>
+
       <Cine><SiteFooter /></Cine>
 
       <AnimatePresence>
-        {video && <VideoLightbox videoId={video} onClose={() => setVideo(null)} />}
+        {video && <VideoLightbox target={video} onClose={() => setVideo(null)} />}
       </AnimatePresence>
     </main>
   )
