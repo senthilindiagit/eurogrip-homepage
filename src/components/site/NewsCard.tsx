@@ -2,6 +2,71 @@ import { motion, useReducedMotion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useRouter } from "@/lib/router"
 import { TYPE_LABEL, TYPE_SLUG, type NewsItem } from "@/lib/newsroom"
+import logoWhite from "@/assets/logo-white.png"
+
+/**
+ * Masthead used in place of a cover photo for every newsletter.
+ *
+ * A newsletter's first page is a dense multi-column layout, so a thumbnail of
+ * it crops to unreadable fragments — and every issue crops differently. A
+ * nameplate carrying the logo, the issue and the year identifies the issue at a
+ * glance and gives the whole set one consistent look.
+ */
+export function NewsletterMasthead({ item }: { item: NewsItem }) {
+  /* ids are newsletter-<year>-<issue>; fall back to the title, then the date */
+  const m = /^newsletter-(\d{4})-(\d+)/.exec(item.id)
+  const fromTitle = /Issue\s+(\d+),\s*(\d{4})/i.exec(item.title)
+  const year = m?.[1] ?? fromTitle?.[2] ?? item.date.slice(0, 4)
+  const issue = m?.[2] ?? fromTitle?.[1] ?? ""
+
+  return (
+    <div
+      className="relative flex h-full flex-col justify-between overflow-hidden p-5"
+      style={{
+        background: "radial-gradient(125% 100% at 24% 0%, #2b5896 0%, #14315e 55%, #0b1e3c 100%)",
+        /* the lockup is sized in container units below, so it stays on one line
+           at every card width — the wordmark alone is 9.7:1 */
+        containerType: "inline-size",
+      }}
+    >
+      {/* soft diagonal light, kept clear of the media badge in the top corner */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "linear-gradient(118deg, rgba(255,255,255,.10) 0%, transparent 42%)" }}
+      />
+
+      <div className="relative">
+        <span aria-hidden className="block h-[3px] w-14 bg-gradient-to-r from-racing to-eurored" />
+        {/* EUROGRIP NEWS as one lockup, on one line */}
+        <div className="mt-3.5 flex flex-nowrap items-center" style={{ gap: "2.2cqw" }}>
+          <img
+            src={logoWhite}
+            alt="Eurogrip"
+            className="h-auto shrink-0"
+            style={{ width: "62cqw", maxWidth: "300px" }}
+          />
+          <span
+            className="shrink-0 font-display font-black uppercase italic leading-none tracking-[0.05em] text-white"
+            style={{ fontSize: "7.6cqw" }}
+          >
+            News
+          </span>
+        </div>
+      </div>
+
+      <div className="relative">
+        <span aria-hidden className="block h-px w-full bg-white/20" />
+        <div className="mt-2.5 flex items-end justify-between">
+          <span className="font-display text-[0.72rem] font-extrabold uppercase italic tracking-[0.16em] text-sky-300">
+            {issue ? `Issue ${issue}` : "Newsletter"}
+          </span>
+          <span className="font-display text-[1.1rem] font-black italic leading-none text-white/90">{year}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 /** how an item wants to be opened — a page of its own, or the overlay */
 export function opensAsPage(item: NewsItem) {
@@ -49,12 +114,15 @@ export function NewsCard({
   onOpen,
   size = "default",
   showType = true,
+  shortCover = false,
 }: {
   item: NewsItem
   i?: number
   onOpen: (item: NewsItem) => void
   size?: "default" | "wide"
   showType?: boolean
+  /** shallow cover plate — for masthead covers that carry no photograph */
+  shortCover?: boolean
 }) {
   const reduce = useReducedMotion()
   const { navigate } = useRouter()
@@ -76,8 +144,17 @@ export function NewsCard({
         onClick={(e) => { if (!e.metaKey && !e.ctrlKey) { e.preventDefault(); activate() } }}
         className="flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white text-left shadow-[0_26px_60px_-45px_rgba(11,38,74,.55)] transition-shadow hover:shadow-[0_34px_70px_-40px_rgba(11,38,74,.5)]"
       >
-        <div className={cn("relative overflow-hidden bg-mist", size === "wide" ? "aspect-[16/9]" : "aspect-[16/10]")}>
-          {item.cover ? (
+        <div
+          className={cn(
+            "relative overflow-hidden bg-mist",
+            /* a masthead needs no photo space, so the newsletter list asks for a
+               shallow plate — everywhere else the card keeps its usual ratio */
+            shortCover ? "h-[160px]" : size === "wide" ? "aspect-[16/9]" : "aspect-[16/10]"
+          )}
+        >
+          {item.type === "newsletter" ? (
+            <NewsletterMasthead item={item} />
+          ) : item.cover ? (
             <img
               src={item.cover}
               alt=""
@@ -85,8 +162,24 @@ export function NewsCard({
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
             />
           ) : (
-            <div className="grid h-full place-items-center text-slate-400">
-              <span className="font-display text-[0.75rem] font-extrabold uppercase italic">Eurogrip</span>
+            /* No photo of its own — some press reprints share one stock shot on
+               the source site, and a wrong or repeated picture reads worse than
+               none. Name the source instead, on the brand plate. */
+            <div
+              className="grid h-full place-items-center px-5 text-center"
+              style={{ background: "radial-gradient(120% 100% at 30% 0%, #2b5896 0%, #1a3157 55%, #13223c 100%)" }}
+            >
+              <div>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto text-sky-300/70" aria-hidden="true">
+                  <path d="M4 5h13v14H4zM17 9h3v8a2 2 0 01-2 2M7 9h7M7 13h7M7 16h4" />
+                </svg>
+                <span className="mt-2.5 block font-display text-[0.95rem] font-black uppercase italic leading-tight text-white">
+                  {item.place ?? "Eurogrip"}
+                </span>
+                <span className="mt-1 block text-[0.66rem] uppercase tracking-[0.14em] text-sky-300">
+                  {item.type === "coverage" ? "As reported" : "Newsroom"}
+                </span>
+              </div>
             </div>
           )}
           <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3">
