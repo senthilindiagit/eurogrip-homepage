@@ -510,9 +510,11 @@ export function Reviews() {
         </div>
         <PageHero
           crumbs={[{ label: "Home", href: "/" }, { label: "Reviews" }]}
-          eyebrow="Media reviews"
+          eyebrow="Tests & verdicts"
           title={<>Reviews &amp;<br />testimonials</>}
-          lede="Leading European motorcycle media put our tyres through their paces — on road, off-road and on track. The tests, the verdicts and the full write-ups."
+          /* the page now carries owner films as well as press tests, so the
+             lede has to speak for both */
+          lede="Leading motorcycle media test our tyres on road, off-road and on track — and riders, farmers and contractors give their own verdict. The tests, the films, the write-ups."
           aside={<RiderImage />}
           pad="pb-[clamp(44px,7vh,80px)] pt-[clamp(104px,15vh,140px)]"
         />
