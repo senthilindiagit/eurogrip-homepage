@@ -53,9 +53,69 @@ function ShareRow({ item }: { item: NewsItem }) {
   )
 }
 
+/**
+ * Photo gallery for a story that carries images.
+ *
+ * A story page wins over the lightbox when an item has body copy, so without
+ * this the photos on an event write-up would never be seen. Clicking a tile
+ * opens the same carousel the cards use, at that photo.
+ */
+function StoryGallery({ item, onOpen }: { item: NewsItem; onOpen: (i: number) => void }) {
+  const imgs = item.images ?? []
+  const [all, setAll] = useState(false)
+  const CAP = 12
+  const shown = all ? imgs : imgs.slice(0, CAP)
+  const hidden = imgs.length - shown.length
+
+  return (
+    <section className="mt-10 border-t border-black/10 pt-8">
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 className="font-display text-[1.05rem] font-black uppercase italic leading-tight text-asphalt">
+          Photo gallery
+        </h2>
+        <span className="text-[0.8rem] font-light text-slate-500">{imgs.length} photos</span>
+      </div>
+
+      <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+        {shown.map((src, i) => (
+          <button
+            key={src}
+            onClick={() => onOpen(i)}
+            aria-label={`Open photo ${i + 1} of ${imgs.length}`}
+            className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-mist ring-1 ring-black/10 transition-all hover:ring-2 hover:ring-racing/50"
+          >
+            <img
+              src={src}
+              alt={item.captions?.[i] ?? ""}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+            />
+            <span className="absolute inset-0 bg-asphalt/0 transition-colors group-hover:bg-asphalt/15" />
+            {item.captions?.[i] && (
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-asphalt/85 to-transparent px-3 pb-2 pt-6 text-left font-display text-[0.68rem] font-extrabold uppercase italic leading-tight tracking-[0.04em] text-white">
+                {item.captions[i]}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {hidden > 0 && (
+        <button
+          onClick={() => setAll(true)}
+          className="mt-4 font-display text-[0.8rem] font-extrabold uppercase italic tracking-[0.06em] text-racing transition-colors hover:text-eurored"
+        >
+          Show all {imgs.length} photos →
+        </button>
+      )}
+    </section>
+  )
+}
+
 export function NewsroomStory({ item }: { item: NewsItem }) {
   const { path, navigate } = useRouter()
   const [open, setOpen] = useState<NewsItem | null>(null)
+  const [from, setFrom] = useState(0)
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }) }, [path])
 
@@ -174,6 +234,10 @@ export function NewsroomStory({ item }: { item: NewsItem }) {
             </div>
           )}
 
+          {item.images && item.images.length > 0 && (
+            <StoryGallery item={item} onOpen={(i) => { setFrom(i); setOpen(item) }} />
+          )}
+
           <div className="mt-9"><ShareRow item={item} /></div>
 
           <div className="mt-8">
@@ -196,7 +260,13 @@ export function NewsroomStory({ item }: { item: NewsItem }) {
       )}
 
       <SiteFooter />
-      {open && <MediaLightbox item={open} onClose={() => setOpen(null)} />}
+      {open && (
+        <MediaLightbox
+          item={open}
+          startIndex={open.id === item.id ? from : 0}
+          onClose={() => { setOpen(null); setFrom(0) }}
+        />
+      )}
     </main>
   )
 }

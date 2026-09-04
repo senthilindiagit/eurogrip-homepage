@@ -55,20 +55,30 @@ function ShareButton({ item }: { item: NewsItem }) {
   )
 }
 
-export function MediaLightbox({ item, onClose }: { item: NewsItem; onClose: () => void }) {
+export function MediaLightbox({
+  item,
+  onClose,
+  startIndex = 0,
+}: {
+  item: NewsItem
+  onClose: () => void
+  /** open the carousel on a specific photo — used by the story-page gallery */
+  startIndex?: number
+}) {
   const reduce = useReducedMotion()
   const langs = useMemo(() => Object.keys(item.pages ?? item.pdf ?? {}), [item])
   const [lang, setLang] = useState(() => (langs.includes("EN") ? "EN" : langs[0]))
 
   const slides: Slide[] = useMemo(() => {
-    if (item.images?.length) return item.images.map((src) => ({ src, kind: "image" as const }))
+    if (item.images?.length)
+      return item.images.map((src, n) => ({ src, kind: "image" as const, label: item.captions?.[n] }))
     const page = item.pages?.[lang]
     if (page) return [{ src: page, kind: "page" as const, label: lang }]
     // press releases carry no page set — fall back to the document render
     return item.document ? [{ src: item.document, kind: "page" as const }] : []
   }, [item, lang])
 
-  const [i, setI] = useState(0)
+  const [i, setI] = useState(() => Math.min(Math.max(startIndex, 0), Math.max(slides.length - 1, 0)))
   const many = slides.length > 1
   const go = useCallback(
     (d: number) => setI((p) => (p + d + slides.length) % slides.length),
@@ -116,6 +126,9 @@ export function MediaLightbox({ item, onClose }: { item: NewsItem; onClose: () =
               {new Date(item.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
               {item.place ? ` · ${item.place}` : ""}
               {many ? ` · ${i + 1} / ${slides.length}` : ""}
+              {slides[i]?.kind === "image" && slides[i].label ? (
+                <span className="text-slate-200"> · {slides[i].label}</span>
+              ) : null}
             </p>
           </div>
 
@@ -232,6 +245,8 @@ export function MediaLightbox({ item, onClose }: { item: NewsItem; onClose: () =
             {slides.map((s, n) => (
               <button
                 key={s.src}
+                /* keep the active thumb in view — galleries here run to 60+ photos */
+                ref={n === i ? (el) => el?.scrollIntoView({ block: "nearest", inline: "center" }) : undefined}
                 onClick={() => setI(n)}
                 aria-label={`Go to image ${n + 1}`}
                 aria-current={n === i}
