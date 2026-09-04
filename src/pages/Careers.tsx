@@ -32,7 +32,7 @@ const DISCIPLINES = [
 
 const PILLARS = [
   { k: "Engineer globally", body: "Work across our Madurai R&D centre and Milan design studio — one team, two continents, products that ship to 125+ countries.", icon: "globe" },
-  { k: "Own real scale", body: "Three million tyres a month across two plants. What you build is measured in millions of kilometres ridden.", icon: "gauge" },
+  { k: "Own real scale", body: "Thirty-four million tyres of installed capacity across two plants. What you build is measured in millions of kilometres ridden.", icon: "gauge" },
   { k: "Learn relentlessly", body: "Backed by the TVS legacy's institutions and a culture of skilling — from the shop floor to the test track.", icon: "spark" },
   { k: "Build for riders", body: "We make something people genuinely love. Every compound and contour ends up under someone's journey.", icon: "heart" },
 ]
@@ -43,12 +43,12 @@ const OFFERS = [
   { t: "Safety first, always", d: "ISO 45001 practices and a genuine zero-compromise safety culture." },
   { t: "Health & wellbeing", d: "Medical cover for you and your family, plus wellbeing support." },
   { t: "Recognition", d: "Awards, TPM excellence programmes and visible ownership of outcomes." },
-  { t: "A 25,000-strong family", d: "Part of the TVS Mobility group — stability with a startup's ambition." },
+  { t: "A 50,000-strong family", d: "Part of the TVS Mobility group — stability with a startup's ambition." },
 ]
 
 /* Large scroll-driven gallery — the "Life here" story. */
 const LIFE = [
-  { src: life1, label: "The floor", place: "Madurai, India", copy: "Three million tyres a month start as a conversation on the line." },
+  { src: life1, label: "The floor", place: "Madurai, India", copy: "Thirty-four million tyres of capacity, and every one starts as a conversation on the line." },
   { src: life2, label: "The proving ground", place: "Test track", copy: "Every platform earns its name outdoors, in the hands of testers." },
   { src: life3, label: "The craft", place: "Workshop", copy: "Four decades of know-how, handed over one tyre at a time." },
   { src: teamStudio, label: "The studio", place: "Design", copy: "Tread patterns modelled and argued over before a mould exists." },
@@ -57,8 +57,8 @@ const LIFE = [
 
 /* popout card over the hero imagery */
 const HERO_STATS: { compact?: string; to?: number; suffix?: string; label: string }[] = [
-  { compact: "25,000+", label: "People across the group" },
-  { to: 25, suffix: "+", label: "Countries we operate in" },
+  { compact: "50,000+", label: "People across the group" },
+  { to: 125, suffix: "+", label: "Countries we operate in" },
 ]
 
 /* one test day, in sequence — read the data, fit it, check it, ride it */

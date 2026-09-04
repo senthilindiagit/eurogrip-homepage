@@ -36,11 +36,12 @@ export function Hero() {
       <motion.video
         style={{ scale: videoScale }}
         className="absolute inset-0 h-full w-full object-cover"
-        src="/eurogrip-brand-video.mp4"
+        src="/hero-banner.mp4"
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
       />
       {/* legibility scrim over the video — brand-blue tint, not black */}
       <div

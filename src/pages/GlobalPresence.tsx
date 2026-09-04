@@ -53,7 +53,7 @@ const REGIONS: Region[] = [
     blurb:
       "Home ground. Two plants, the R&D centre and a distribution network four decades deep, with a significant share of both OEM and replacement demand.",
     markets: ["India — Madurai HQ", "India — Pantnagar"],
-    note: "Three million tyres a month",
+    note: "34 Mn installed capacity",
   },
   {
     id: "europe",

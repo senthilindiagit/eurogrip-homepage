@@ -3,6 +3,7 @@ import { createPortal } from "react-dom"
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { Reveal, SectionHead, Btn, Arrow, Counter, Eyebrow } from "@/components/site/ui"
 import { Cine } from "@/components/site/Cine"
+import { TreadRing } from "@/components/site/TreadRing"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { useRouter } from "@/lib/router"
 import rangeUsa from "@/assets/about/range-usa.webp"
@@ -11,17 +12,21 @@ const whatWeDoReel = "/whatwedo-reel.mp4"
 import tvsMobilityLogo from "@/assets/about/tvs-mobility-logo.svg"
 import initSustainability from "@/assets/about/init-sustainability.webp"
 import initSafety from "@/assets/about/about-hero.webp"
-import initRiders from "@/assets/race-bike.webp"
+import initRiders from "@/assets/partners/dhoni-ambassador.webp"
 import initPeople from "@/assets/about/init-people.webp"
 import j1982 from "@/assets/about/journey/j-1982.webp"
 import j1991 from "@/assets/about/journey/j-1991.webp"
-import j2005 from "@/assets/about/journey/j-2005.webp"
 import j2008 from "@/assets/about/journey/j-2008.webp"
 import j2015 from "@/assets/about/journey/j-2015.webp"
 import j2019 from "@/assets/about/journey/j-2019.webp"
-import j2022 from "@/assets/about/journey/j-2022.webp"
-import j2024 from "@/assets/about/journey/j-2024.webp"
-import j2026 from "@/assets/about/journey/j-2026.webp"
+import otrCut from "@/assets/about/journey/j-2021-oht.webp"
+import jMoped from "@/assets/about/journey/j-1982-moped.webp"
+import jIso9001 from "@/assets/about/journey/j-1996-iso9001.webp"
+import jIso14001 from "@/assets/about/journey/j-2000-iso14001.webp"
+import jTpm from "@/assets/about/journey/j-2003-tpm.webp"
+import jPlant from "@/assets/about/journey/j-2008-plant.webp"
+import jAward09 from "@/assets/about/journey/j-2009-award.webp"
+import jTyre15 from "@/assets/about/journey/j-2015-tyre.webp"
 
 const ENTER = [0.16, 0.84, 0.34, 1] as const
 
@@ -82,13 +87,13 @@ function AboutHero() {
           <h1 className="italic-display mt-5 text-white leading-[0.94] text-[clamp(2rem,5vw,4rem)]">
             {line("Born in India.", 0.05)}
             {line("Designed in Italy.", 0.14)}
-            <span className="text-eurored">{line("Proven everywhere.", 0.23)}</span>
+            <span className="text-eurored">{line("Available worldwide.", 0.23)}</span>
           </h1>
           <motion.p
             className="mt-5 max-w-[46ch] text-[clamp(0.95rem,1.3vw,1.1rem)] font-light leading-relaxed text-slate-200"
             initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: ENTER, delay: 0.34 }}
           >
-            The international two-wheeler, three-wheeler and off-highway tyre brand of TVS Srichakra — four decades of engineering, trusted by riders across 125+ countries.
+            The international two-wheeler, three-wheeler and off-highway tyre brand of TVS Srichakra — four decades of engineering, trusted across the world.
           </motion.p>
           <motion.div
             className="mt-8"
@@ -133,14 +138,15 @@ function AboutHero() {
   )
 }
 
-/* ==================== "Our Parent" ribbon (overlaps hero) ==================== */
+/* ==================== "Our Legacy" ribbon (overlaps hero) ==================== */
 /* Client feedback 2026-08-06: the TVS Mobility affiliation is key information —
    it leads the page now, replacing the pillars ribbon. */
+/* These are the TVS MOBILITY group figures — not TVS Srichakra's. The two are
+   confirmed separately: Srichakra is USD 2 bn+ / 25,000+ people (see WHO_STATS). */
 const GROUP_STATS = [
-  { v: "USD 2 bn+", l: "Annual revenue" },
-  { v: "25,000+", l: "Employees" },
-  { v: "25+", l: "Countries" },
-  { v: "6", l: "Continents" },
+  { v: "USD 5 bn", l: "Group" },
+  { v: "50,000+", l: "Employees" },
+  { v: "125+", l: "Countries" },
 ]
 
 function ParentRibbon() {
@@ -155,7 +161,7 @@ function ParentRibbon() {
           <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-racing via-sky-400 to-eurored" />
           <div className="relative p-6 sm:p-8">
             {/* title — single line */}
-            <Eyebrow>Our Parent</Eyebrow>
+            <Eyebrow>Our Legacy</Eyebrow>
             <h2 className="italic-display mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-white text-[clamp(1.3rem,2.5vw,2rem)] leading-[1.06]">
               Part of the
               <img src={tvsMobilityLogo} alt="TVS Mobility" className="h-[0.95em] w-auto" />
@@ -173,7 +179,7 @@ function ParentRibbon() {
               </div>
             </div>
             {/* group stats in one line */}
-            <div className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-6 sm:grid-cols-4">
+            <div className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-6 sm:grid-cols-3">
               {GROUP_STATS.map((s, i) => (
                 <Reveal key={s.l} i={i}>
                   <div>
@@ -191,11 +197,13 @@ function ParentRibbon() {
 }
 
 /* ============================ Who we are ============================ */
-const WHO_STATS = [
-  { to: 44, suffix: "+", label: "Years of expertise" },
-  { to: 125, suffix: "+", label: "Countries served" },
+/* TVS Srichakra / Eurogrip figures. Installed capacity sits in the What We Do
+   strip instead, so it isn't repeated here. */
+const WHO_STATS: { to?: number; suffix?: string; label: string; v?: string }[] = [
+  { v: "USD 2 bn+", label: "Revenue" },
   { to: 2, suffix: "", label: "Global R&D centres" },
-  { to: 25000, suffix: "+", label: "People across the group", compact: true },
+  { v: "25,000+", label: "People at TVS Srichakra" },
+  { to: 2, suffix: "", label: "Manufacturing facilities" },
 ]
 
 function VmIcon({ mission }: { mission?: boolean }) {
@@ -210,33 +218,49 @@ function VmIcon({ mission }: { mission?: boolean }) {
   )
 }
 
-function VehicleCollage() {
-  // Frameless montage — the cloud backdrop dissolves into the section via an
-  // edge-feather mask, so the vehicles read as floating in the page, not in a box.
-  const feather = "radial-gradient(125% 118% at 50% 50%, #000 74%, rgba(0,0,0,0.4) 90%, transparent 100%)"
+function WhoWeAreReel({ onPlay }: { onPlay: () => void }) {
+  // Sits in the slot the range montage used to hold, so it keeps that
+  // section's near-4:3 footprint rather than the reel's native 16:9.
   return (
     <Reveal>
-      <img
-        src={rangeUsa}
-        alt="The Eurogrip tyre range — sport, touring, off-road, trail and scooter tyres lined up against an American skyline"
-        className="w-full"
-        style={{ WebkitMaskImage: feather, maskImage: feather }}
-      />
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-black/10 shadow-[0_34px_80px_-45px_rgba(11,38,74,.55)]">
+        <video
+          src={whatWeDoReel}
+          autoPlay muted loop playsInline preload="metadata"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d1a30]/45 via-[#0d1a30]/10 to-[#0d1a30]/20" />
+        <button
+          onClick={onPlay}
+          aria-label="Play the Eurogrip brand video"
+          className="group absolute inset-0 grid place-items-center"
+        >
+          <span className="flex items-center gap-3.5 rounded-full bg-white/95 py-2.5 pl-2.5 pr-6 shadow-[0_20px_45px_-18px_rgba(11,38,74,.6)] backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-0.5">
+            <span className="relative grid h-12 w-12 place-items-center">
+              <span className="absolute inset-0 rounded-full bg-eurored/35 opacity-0 transition-opacity group-hover:animate-ping group-hover:opacity-100" />
+              <span className="relative grid h-12 w-12 place-items-center rounded-full bg-eurored shadow-[0_10px_26px_-8px_rgba(237,28,36,.75)] transition-transform duration-300 group-hover:scale-110">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff" className="ml-0.5"><path d="M8 5v14l11-7z" /></svg>
+              </span>
+            </span>
+            <span className="font-display text-[0.86rem] font-extrabold uppercase italic tracking-wide text-asphalt">
+              Play Brand Video
+            </span>
+          </span>
+        </button>
+      </div>
     </Reveal>
   )
 }
 
 function WhoWeAre() {
+  const [film, setFilm] = useState(false)
   return (
     <section id="who-we-are" className="scroll-mt-24 bg-gradient-to-b from-[#f7fafd] to-mist py-[clamp(70px,11vh,140px)] text-asphalt">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="grid items-center gap-[clamp(32px,5vw,72px)] lg:grid-cols-2">
-          {/* left — vehicle collage */}
+          {/* left — brand reel */}
           <div>
-            <VehicleCollage />
-            <Reveal className="mt-4 text-[0.8rem] font-light text-slate-500">
-              Engineered for every road. Built for every rider.
-            </Reveal>
+            <WhoWeAreReel onPlay={() => setFilm(true)} />
           </div>
 
           {/* right — heading + mission + vision */}
@@ -244,12 +268,12 @@ function WhoWeAre() {
             <Reveal><Eyebrow>Who We Are</Eyebrow></Reveal>
             <Reveal i={1}>
               <h2 className="italic-display mt-3 text-asphalt text-[clamp(1.7rem,3.8vw,2.9rem)] leading-[1.02]">
-                Four decades of<br />engineering excellence
+                Four decades of excellence<br />in Tyre Engineering
               </h2>
             </Reveal>
             <Reveal i={2}>
               <p className="mt-4 max-w-[52ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-600">
-                Eurogrip is the tyre brand of TVS Srichakra Limited — a leading manufacturer of two-wheeler, three-wheeler and off-highway tyres since 1982, headquartered in Madurai and trusted by riders across 125+ countries.
+                Eurogrip is the tyre brand of TVS Srichakra Limited — a leading manufacturer of two-wheeler, three-wheeler and off-highway tyres since 1982, headquartered in Madurai, India.
               </p>
             </Reveal>
             <Reveal i={3} className="mt-7 flex gap-4">
@@ -277,10 +301,10 @@ function WhoWeAre() {
         <div className="mt-[clamp(48px,7vh,80px)] grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
           {WHO_STATS.map((s, i) => (
             <Reveal key={s.label} i={i} className="border-t-2 border-racing pt-4">
-              {s.compact ? (
-                <div className="font-display text-[clamp(1.55rem,2.9vw,2.3rem)] font-black italic leading-none text-racing">25,000+</div>
+              {s.v ? (
+                <div className="font-display text-[clamp(1.55rem,2.9vw,2.3rem)] font-black italic leading-none text-racing">{s.v}</div>
               ) : (
-                <Counter to={s.to} suffix={s.suffix} className="font-display text-[clamp(1.55rem,2.9vw,2.3rem)] font-black italic leading-none text-racing" />
+                <Counter to={s.to!} suffix={s.suffix} className="font-display text-[clamp(1.55rem,2.9vw,2.3rem)] font-black italic leading-none text-racing" />
               )}
               <div className="mt-2 text-[0.74rem] uppercase tracking-wide text-slate-500">{s.label}</div>
             </Reveal>
@@ -313,6 +337,7 @@ function WhoWeAre() {
           </div>
         </div>
       </div>
+      <BrandFilmLightbox open={film} onClose={() => setFilm(false)} />
     </section>
   )
 }
@@ -323,9 +348,8 @@ const PROCESS = [
   { n: "02", t: "FEA & simulation", d: "Tread and structure modelled and simulated before a mould exists." },
   { n: "03", t: "Prototyping", d: "Built and indoor-tested at the Madurai plant." },
   { n: "04", t: "Track testing", d: "Independent testers push prototypes to the limit on proving grounds." },
-  { n: "05", t: "Road testing", d: "Durability and versatility across real roads and conditions." },
-  { n: "06", t: "Certification", d: "REACH and legal certifications obtained." },
-  { n: "07", t: "Mass production & QC", d: "Every tyre visually and dynamically checked before it ships." },
+  { n: "05", t: "Road testing", d: "Performance and versatility across real roads and conditions." },
+  { n: "06", t: "Production & QC", d: "Every tyre is visually inspected before it is rolled out for shipment." },
 ]
 
 function WhatWeDo() {
@@ -342,14 +366,14 @@ function WhatWeDo() {
             </Reveal>
             <Reveal i={2}>
               <p className="mt-4 max-w-[52ch] text-[clamp(0.92rem,1.25vw,1.05rem)] font-light leading-relaxed text-slate-300">
-                Eurogrip tyres are developed by our design centre in Milan, Italy alongside the R&amp;D centre in Madurai, India — then built at our plants in Madurai (Tamil Nadu) and Pantnagar (Uttarakhand). Every platform is tested in Indian, European and Japanese road conditions before it earns the Eurogrip name.
+                Eurogrip tyres are developed by our design centre in Milan, Italy alongside the R&amp;D centre in Madurai, India — then built at our plants in Madurai (Tamil Nadu) and Pantnagar (Uttarakhand). Every nuance is tested in Indian, European and Japanese road conditions before it earns the <strong className="font-semibold text-white">Eurogrip</strong> name.
               </p>
             </Reveal>
             {/* capability stats */}
             <Reveal i={3} className="mt-6 grid grid-cols-3 gap-4 border-t border-white/10 pt-5">
               {[
-                { v: "3 mn+", l: "Tyres a month" },
-                { v: "2", l: "Manufacturing plants" },
+                { v: "34 Mn", l: "Installed capacity of tyres" },
+                { v: "1000+", l: "Product range" },
                 { v: "3", l: "Road-test geographies" },
               ].map((s) => (
                 <div key={s.l}>
@@ -363,16 +387,26 @@ function WhatWeDo() {
             </Reveal>
           </div>
           <Reveal i={1}>
-            <div className="relative aspect-video overflow-hidden rounded-lg border border-white/10 shadow-[0_30px_70px_-35px_rgba(0,0,0,.7)]">
-              <video src={whatWeDoReel} autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d1a30]/45 via-transparent to-transparent" />
+            <div>
+              {/* frame matches the artwork's own 1600x1258 ratio, so it fills
+                  edge to edge with nothing cropped off the skyline */}
+              <div className="relative aspect-[1600/1258] overflow-hidden rounded-lg border border-white/10 shadow-[0_30px_70px_-35px_rgba(0,0,0,.7)]">
+                <img
+                  src={rangeUsa}
+                  alt="The Eurogrip tyre range — sport, touring, off-road, trail and scooter tyres lined up against an American skyline"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+              <p className="mt-4 text-[0.8rem] font-light text-slate-400">
+                Engineered for every road. Built for every rider.
+              </p>
             </div>
           </Reveal>
         </div>
 
         {/* process step-flow */}
         <div className="mt-[clamp(40px,6vh,64px)]">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {PROCESS.map((p, i) => (
               <Reveal key={p.n} i={i % 4}>
                 <div className="group relative h-full rounded-lg border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-eurored/40 hover:bg-white/[0.06]">
@@ -393,6 +427,59 @@ function WhatWeDo() {
 }
 
 /* ============================ Journey timeline ============================ */
+/* The 2026 brand film, kept at its full length with the soundtrack intact —
+   the other copies on the site are deliberately muted background loops. */
+const BRAND_FILM = "/brand-film-sound.mp4"
+
+function BrandFilmLightbox({ open, onClose }: { open: boolean; onClose: () => void }) {
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
+    window.addEventListener("keydown", onKey)
+    document.body.style.overflow = "hidden"
+    return () => {
+      window.removeEventListener("keydown", onKey)
+      document.body.style.overflow = ""
+    }
+  }, [open, onClose])
+
+  return createPortal(
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="fixed inset-0 z-[200] grid place-items-center bg-black/85 p-5 backdrop-blur-sm"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          onClick={onClose}
+          role="dialog" aria-modal="true" aria-label="Eurogrip brand video"
+        >
+          <motion.div
+            initial={{ scale: 0.92, y: 24, opacity: 0 }}
+            animate={{ scale: 1, y: 0, opacity: 1 }}
+            exit={{ scale: 0.95, y: 12, opacity: 0 }}
+            transition={{ duration: 0.45, ease: ENTER }}
+            className="relative w-full max-w-[1000px]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={onClose}
+              aria-label="Close video"
+              className="absolute -top-11 right-0 grid h-9 w-9 place-items-center rounded-full border border-white/25 text-white transition-colors hover:border-white hover:bg-white/10"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 1l12 12M13 1L1 13" /></svg>
+            </button>
+            <video
+              src={BRAND_FILM}
+              autoPlay controls playsInline
+              className="aspect-video w-full rounded-md border border-white/15 bg-black shadow-[0_40px_120px_-30px_rgba(0,0,0,.9)]"
+            />
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body
+  )
+}
+
 const JOURNEY_VIDEO_ID = "4uR5XYXVPT8"
 const JOURNEY_VIDEO_START = 160
 
@@ -447,16 +534,27 @@ function VideoLightbox({ open, onClose, videoId, start = 0 }: { open: boolean; o
   )
 }
 
-const MILESTONES = [
-  { y: "1982", img: j1982, t: "TVS Srichakra incorporated in Madurai, Tamil Nadu — the first tyre rolls out." },
-  { y: "1991", img: j1991, t: "Exports begin — the first Indian-made tyres head to international markets." },
-  { y: "2005", img: j2005, t: "First OEM partnerships — Piaggio & Aprilia." },
-  { y: "2008", img: j2008, t: "Second manufacturing plant opens at Pantnagar, Uttarakhand." },
-  { y: "2015", img: j2015, t: "Motorcycle radials launched, opening the premium performance segment." },
-  { y: "2019", img: j2019, t: "Brand relaunched as TVS Eurogrip in August; steel radials introduced. Design centre established in Milan, Italy." },
-  { y: "2022", img: j2022, t: "Principal sponsor of Chennai Super Kings for three seasons (2022–24), front of jersey." },
-  { y: "2024", img: j2024, t: "All two- & three-wheeler products aligned under EUROGRIP worldwide; M S Dhoni joins as Brand Ambassador in October." },
-  { y: "2026", img: j2026, t: "eurogriptyres.com global platform launches." },
+/**
+ * Client-supplied corporate timeline (About content doc, "Use This" graphic).
+ * Ordered chronologically — the source artwork places 2005 after 2009, which
+ * reads as a layout artifact rather than intent.
+ * `img` is deliberately optional: the certification and award years have no
+ * photography, so those milestones fall back to the tread-ring treatment used
+ * in the client's own graphic rather than borrowing an unrelated picture.
+ */
+const MILESTONES: { y: string; points: string[]; imgs?: string[] }[] = [
+  { y: "1982", imgs: [jMoped, j1982], points: ["TVS Srichakra incorporated in Madurai, Tamil Nadu — the first tyre (moped) rolled out."] },
+  { y: "1983", points: ["Public offer."] },
+  { y: "1991", imgs: [j1991], points: ["Started exports."] },
+  { y: "1996", imgs: [jIso9001], points: ["ISO certification."] },
+  { y: "2000", imgs: [jIso14001], points: ["ISO 14001 Environmental Management System."] },
+  { y: "2003", imgs: [jTpm], points: ["TPM Excellence Award."] },
+  { y: "2008", imgs: [jIso14001, jPlant], points: ["ISO 14001 Environmental Management System.", "New plant at Uttarakhand."] },
+  { y: "2009", imgs: [jAward09], points: ["Manufacturing Excellence Award."] },
+  { y: "2015", imgs: [j2015, jTyre15], points: ["Launched motorcycle radials."] },
+  { y: "2018", imgs: [j2019], points: ["Introduction of steel radials."] },
+  { y: "2019", imgs: [j2008], points: ["Launch of Product Development Centre — Milan."] },
+  { y: "2021", imgs: [otrCut], points: ["Commencement of OHT expansion."] },
 ]
 
 function Journey() {
@@ -483,7 +581,7 @@ function Journey() {
             light
             eyebrow="Our Journey"
             title={<>The road so far</>}
-            lede="Three decades from a single tyre to a global specialist brand — built on TV Sundram Iyengar's founding legacy of trust, value and service."
+            lede="It's been over four decades, and today we're a global tyre specialist — built on TV Sundram Iyengar's founding legacy of trust, value and service."
             className="max-w-none"
           />
           {/* play CTA — opens the journey film */}
@@ -514,16 +612,53 @@ function Journey() {
         >
           <div className="relative flex min-h-[240px] items-center justify-center md:min-h-[300px]">
             <AnimatePresence mode="wait">
-              <motion.img
-                key={m.y}
-                src={m.img}
-                alt={`Eurogrip ${m.y}`}
-                className="max-h-[300px] w-auto max-w-full object-contain drop-shadow-[0_30px_40px_rgba(16,35,70,.25)]"
-                initial={reduce ? false : { opacity: 0, scale: 0.9, x: 30 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                exit={reduce ? undefined : { opacity: 0, scale: 0.95, x: -20 }}
-                transition={{ duration: 0.5, ease: ENTER }}
-              />
+              {m.imgs?.length ? (
+                /* a milestone can carry more than one cutout — they sit as a
+                   small overlapping pair rather than side by side */
+                <motion.div
+                  key={m.y}
+                  className="flex items-end justify-center"
+                  initial={reduce ? false : { opacity: 0, scale: 0.9, x: 30 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, scale: 0.95, x: -20 }}
+                  transition={{ duration: 0.5, ease: ENTER }}
+                >
+                  {m.imgs.map((src, n) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt={`Eurogrip ${m.y}`}
+                      className={
+                        n === 0
+                          ? "max-h-[300px] w-auto max-w-full object-contain drop-shadow-[0_30px_40px_rgba(16,35,70,.25)]"
+                          : "ml-3 max-h-[210px] w-auto max-w-[52%] object-contain drop-shadow-[0_24px_34px_rgba(16,35,70,.22)] sm:ml-5"
+                      }
+                    />
+                  ))}
+                </motion.div>
+              ) : (
+                /* no photography for the certifications and awards — use the
+                   tread ring from the client's own timeline artwork instead */
+                <motion.div
+                  key={m.y}
+                  className="relative grid h-[min(300px,62vw)] w-[min(300px,62vw)] place-items-center"
+                  initial={reduce ? false : { opacity: 0, scale: 0.9, rotate: -12 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5, ease: ENTER }}
+                >
+                  <TreadRing
+                    className="absolute inset-0 h-full w-full"
+                    blocks={40}
+                    block="rgba(10,110,216,.22)"
+                    accent="#ed1c24"
+                    stroke="rgba(16,35,70,.16)"
+                  />
+                  <span className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black italic leading-none text-racing">
+                    {m.y}
+                  </span>
+                </motion.div>
+              )}
             </AnimatePresence>
             {/* oversized year watermark */}
             <span aria-hidden className="pointer-events-none absolute -z-0 select-none font-display text-[clamp(6rem,14vw,12rem)] font-black italic leading-none text-racing/[0.06]">
@@ -539,13 +674,25 @@ function Journey() {
               transition={{ duration: 0.45, ease: ENTER }}
             >
               <div className="font-display text-[clamp(2.6rem,6vw,4.5rem)] font-black italic leading-none text-racing">{m.y}</div>
-              <p className="mt-4 max-w-[42ch] text-[clamp(1rem,1.5vw,1.2rem)] font-light leading-relaxed text-slate-700">{m.t}</p>
+              {m.points.length === 1 ? (
+                <p className="mt-4 max-w-[42ch] text-[clamp(1rem,1.5vw,1.2rem)] font-light leading-relaxed text-slate-700">{m.points[0]}</p>
+              ) : (
+                <ul className="mt-4 max-w-[42ch] space-y-2.5">
+                  {m.points.map((pt) => (
+                    <li key={pt} className="flex gap-3 text-[clamp(0.95rem,1.4vw,1.12rem)] font-light leading-relaxed text-slate-700">
+                      <span className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-eurored" />
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* horizontal timeline track */}
-        <div className="relative mt-[clamp(28px,4vh,48px)] pt-2">
+        <div className="relative mt-[clamp(28px,4vh,48px)] overflow-x-auto pt-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="relative min-w-[560px]">
           <div className="absolute left-0 right-0 top-[15px] h-[2px] bg-black/10" />
           <div className="absolute left-0 top-[15px] h-[2px] bg-gradient-to-r from-racing to-eurored transition-all duration-500" style={{ width: `${progress}%` }} />
           <div className="relative flex justify-between">
@@ -566,6 +713,7 @@ function Journey() {
                 </button>
               )
             })}
+          </div>
           </div>
         </div>
       </div>
@@ -855,7 +1003,17 @@ function Leadership() {
 }
 
 /* ============================ Culture & Initiatives ============================ */
-const INITIATIVES = [
+const INITIATIVES: {
+  key: string
+  title: string
+  stat: string
+  statLabel: string
+  img: string
+  body: string
+  points: string[]
+  /** focal point for the card crop — the default centre is fine for most */
+  pos?: string
+}[] = [
   {
     key: "Sustainability",
     title: "Sustainability & Environment",
@@ -880,6 +1038,8 @@ const INITIATIVES = [
     stat: "M S Dhoni",
     statLabel: "Brand Ambassador since 2024",
     img: initRiders,
+    // portrait source in a landscape card — hold the top so the face stays in
+    pos: "object-top",
     body: "Principal sponsor of Chennai Super Kings across 2022–24, and since October 2024 M S Dhoni carries the brand as Brand Ambassador — alongside Tread Talks and rider road-trip diaries.",
     points: ["CSK principal sponsor 2022–24", "M S Dhoni · Brand Ambassador", "Tread Talks & rider diaries"],
   },
@@ -889,8 +1049,8 @@ const INITIATIVES = [
     stat: "50,000",
     statLabel: "learners reached",
     img: initPeople,
-    body: "Investing in people — 25,000+ across the group, with the TVS legacy's institutions reaching around 50,000 learners.",
-    points: ["25,000+ group employees", "Nine institutions", "Skilling & scholarships"],
+    body: "Investing in people — 25,000+ at TVS Srichakra and 50,000+ across the TVS Mobility group, with the TVS legacy's institutions reaching around 50,000 learners.",
+    points: ["25,000+ at TVS Srichakra", "Nine institutions", "Skilling & scholarships"],
   },
 ]
 
@@ -898,7 +1058,7 @@ function InitiativeCard({ it }: { it: (typeof INITIATIVES)[number] }) {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(16,35,70,.5)] transition-transform duration-500 hover:-translate-y-1.5">
       <div className="relative h-52 overflow-hidden">
-        <img src={it.img} alt={it.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+        <img src={it.img} alt={it.title} loading="lazy" className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${it.pos ?? ""}`} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(13,26,48,.15) 0%, transparent 35%, rgba(13,26,48,.85))" }} />
         <div className="absolute left-5 top-5 rounded-lg bg-eurored px-3.5 py-2 shadow-[0_12px_30px_-12px_rgba(237,28,36,.7)]">
           <div className="font-display text-[1.5rem] font-black italic leading-none text-white">{it.stat}</div>

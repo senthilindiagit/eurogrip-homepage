@@ -9,8 +9,9 @@ const ITEMS = [
   { o: "Out", b: "do", p: "Ready for the next trip, the next turn, the next challenge." },
 ]
 
-/* the original 2026 brand film — the hero banner uses the newer cut */
-const VIDEO = "/brand-film.mp4"
+/* the 2026 brand film with its soundtrack — the hero banner and the other
+   background loops on the site are deliberately muted */
+const VIDEO = "/brand-film-sound.mp4"
 
 /* Rendered via portal so the fixed overlay escapes the Cine 3D transform. */
 function FilmLightbox({ open, onClose }: { open: boolean; onClose: () => void }) {
