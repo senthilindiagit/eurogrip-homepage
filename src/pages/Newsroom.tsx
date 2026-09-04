@@ -3,7 +3,10 @@ import { motion, useReducedMotion } from "framer-motion"
 import { Reveal, SectionHead, Btn, Arrow, Eyebrow } from "@/components/site/ui"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { MediaLightbox } from "@/components/site/MediaLightbox"
-import { NewsCard, fmtDate, opensAsPage, storyHref } from "@/components/site/NewsCard"
+import { NewsCard, NewsletterMasthead, fmtDate, opensAsPage, storyHref } from "@/components/site/NewsCard"
+import { CoverageCard, ClippingLightbox } from "@/components/site/CoverageCard"
+import { COVERAGE_LATEST, COVERAGE_TOTAL } from "@/lib/coverage-latest"
+import type { CoverageItem } from "@/lib/coverage-types"
 import { useRouter } from "@/lib/router"
 import {
   NEWS_SORTED, byType, TYPE_LABEL, TYPE_SLUG, YOUTUBE,
@@ -17,7 +20,7 @@ const RAIL_BLURB: Record<NewsType, string> = {
   "press-release": "Official announcements — product launches, OEM partnerships and show news.",
   event: "Trade fairs, festivals and race weekends, with the photos and films from each.",
   newsletter: "Eurogrip News, issue by issue, in five languages.",
-  coverage: "Campaigns and press coverage compiled month by month.",
+  coverage: "Every article, review and mention — the pieces themselves, not the monthly compilations.",
 }
 
 /* ============================== hero ============================== */
@@ -77,9 +80,11 @@ function NewsroomHero({ lead, onOpen }: { lead: NewsItem; onOpen: (i: NewsItem) 
               className="group block overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_40px_90px_-55px_rgba(11,38,74,.6)]"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-mist">
-                {lead.cover && (
+                {lead.type === "newsletter" ? (
+                  <NewsletterMasthead item={lead} />
+                ) : lead.cover ? (
                   <img src={lead.cover} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
-                )}
+                ) : null}
                 <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(13,26,48,.9) 100%)" }} />
                 <span className="absolute left-4 top-4 rounded-full bg-eurored px-3 py-1 font-display text-[0.68rem] font-extrabold uppercase italic tracking-[0.1em] text-white">
                   Latest
@@ -153,6 +158,40 @@ function Rail({
   )
 }
 
+/* press coverage reads from the article archive, so the cards on the landing
+   are the same ones the coverage page shows */
+function CoverageRail({ onOpen }: { onOpen: (item: CoverageItem, index: number) => void }) {
+  const { navigate } = useRouter()
+  const href = "/newsroom/coverage"
+  return (
+    <section className={`${RAIL_BG.coverage} border-t border-black/5 py-[clamp(48px,8vh,90px)]`}>
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="font-display text-[clamp(1.2rem,2.2vw,1.75rem)] font-black uppercase italic leading-none text-asphalt">
+              {TYPE_LABEL.coverage}
+            </h2>
+            <p className="mt-2 max-w-[54ch] text-[0.9rem] font-light text-slate-600">{RAIL_BLURB.coverage}</p>
+          </div>
+          <a
+            href={href}
+            onClick={(e) => { if (!e.metaKey && !e.ctrlKey) { e.preventDefault(); navigate(href) } }}
+            className="font-display text-[0.78rem] font-extrabold uppercase italic tracking-wide text-racing transition-colors hover:text-eurored"
+          >
+            All {COVERAGE_TOTAL.toLocaleString("en-GB")} →
+          </a>
+        </div>
+
+        <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {COVERAGE_LATEST.slice(0, 3).map((c, i) => (
+            <CoverageCard key={c.id} item={c} i={i} onOpen={onOpen} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ============================== video ============================== */
 function VideoStrip() {
   return (
@@ -177,6 +216,7 @@ function VideoStrip() {
 export function Newsroom() {
   const { path } = useRouter()
   const [open, setOpen] = useState<NewsItem | null>(null)
+  const [cov, setCov] = useState<{ item: CoverageItem; index: number } | null>(null)
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }) }, [path])
 
@@ -209,15 +249,25 @@ export function Newsroom() {
         </div>
       </section>
 
-      {ORDER.map((t) => {
-        const items = byType(t)
-        return items.length ? <Rail key={t} type={t} items={items} onOpen={setOpen} /> : null
-      })}
+      {ORDER.map((t) =>
+        /* coverage shows the actual press articles, not the newsroom items */
+        t === "coverage" ? (
+          <CoverageRail key={t} onOpen={(item, index) => setCov({ item, index })} />
+        ) : (
+          (() => {
+            const items = byType(t)
+            return items.length ? <Rail key={t} type={t} items={items} onOpen={setOpen} /> : null
+          })()
+        )
+      )}
 
       <VideoStrip />
       <SiteFooter />
 
       {open && <MediaLightbox item={open} onClose={() => setOpen(null)} />}
+      {cov && (
+        <ClippingLightbox item={cov.item} startIndex={cov.index} onClose={() => setCov(null)} />
+      )}
     </main>
   )
 }

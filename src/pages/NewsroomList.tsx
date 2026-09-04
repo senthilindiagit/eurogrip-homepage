@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { Reveal, Eyebrow } from "@/components/site/ui"
+import { useDropdown } from "@/components/site/widgets"
+import { FilterSelect } from "@/components/site/FilterSelect"
 import { SiteFooter } from "@/components/site/CtaFooter"
 import { MediaLightbox } from "@/components/site/MediaLightbox"
 import { NewsCard, opensAsPage } from "@/components/site/NewsCard"
@@ -33,6 +35,52 @@ function Pill({
     >
       {children}
     </button>
+  )
+}
+
+/**
+ * Tag filter menu.
+ *
+ * A controlled panel rather than a native <details>, which stays open until
+ * its own summary is clicked again — it ignores both a click outside and the
+ * selection itself.
+ */
+function TagMenu({
+  tags, tag, onPick,
+}: { tags: string[]; tag: string | null; onPick: (t: string | null) => void }) {
+  /* same dismiss behaviour as the header selectors */
+  const { open, setOpen, ref } = useDropdown()
+  const pick = (t: string | null) => { onPick(t); setOpen(false) }
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-haspopup="true"
+        className={`flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-display text-[0.72rem] font-extrabold uppercase italic tracking-[0.07em] transition-colors ${
+          open || tag ? "border-asphalt text-asphalt" : "border-black/15 text-slate-600 hover:border-asphalt hover:text-asphalt"
+        }`}
+      >
+        {tag ?? "Tags"}
+        <svg
+          width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          strokeWidth="2.4" strokeLinecap="round"
+          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="absolute left-0 z-40 mt-2 flex max-h-[260px] w-[min(320px,80vw)] flex-wrap gap-1.5 overflow-y-auto rounded-xl border border-black/10 bg-white p-3 shadow-[0_30px_70px_-40px_rgba(11,38,74,.5)]">
+          <Pill on={!tag} onClick={() => pick(null)}>All</Pill>
+          {tags.map((t) => (
+            <Pill key={t} on={tag === t} onClick={() => pick(tag === t ? null : t)}>{t}</Pill>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -119,40 +167,50 @@ export function NewsroomList({ type }: { type: NewsType }) {
       {/* filters */}
       <section className="sticky top-[58px] z-30 border-y border-black/10 bg-white/92 py-3.5 backdrop-blur-md">
         <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-5 gap-y-3 px-5 sm:px-8">
+          {/* three or fewer choices read fine as pills; more become a dropdown */}
           {years.length > 1 && (
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className="mr-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-slate-400">Year</span>
-              <Pill on={!year} onClick={() => setYear(null)}>All</Pill>
-              {years.map((y) => (
-                <Pill key={y} on={year === y} onClick={() => setYear(year === y ? null : y)}>{y}</Pill>
-              ))}
-            </div>
+            years.length > 3 ? (
+              <FilterSelect
+                label="Year"
+                allLabel="All years"
+                value={year}
+                options={years.map((y) => ({ value: y, label: y }))}
+                onPick={setYear}
+                minWidth="min-w-[130px]"
+              />
+            ) : (
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="mr-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-slate-400">Year</span>
+                <Pill on={!year} onClick={() => setYear(null)}>All</Pill>
+                {years.map((y) => (
+                  <Pill key={y} on={year === y} onClick={() => setYear(year === y ? null : y)}>{y}</Pill>
+                ))}
+              </div>
+            )
           )}
 
           {regions.length > 1 && (
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className="mr-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-slate-400">Region</span>
-              <Pill on={!region} onClick={() => setRegion(null)}>All</Pill>
-              {regions.map((r) => (
-                <Pill key={r} on={region === r} onClick={() => setRegion(region === r ? null : r)}>{REGION_LABEL[r]}</Pill>
-              ))}
-            </div>
-          )}
-
-          {tags.length > 1 && (
-            <details className="group relative">
-              <summary className="flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-black/15 px-3.5 py-1.5 font-display text-[0.72rem] font-extrabold uppercase italic tracking-[0.07em] text-slate-600 transition-colors hover:border-asphalt hover:text-asphalt">
-                {tag ?? "Tags"}
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M6 9l6 6 6-6" /></svg>
-              </summary>
-              <div className="absolute left-0 z-40 mt-2 flex max-h-[260px] w-[min(320px,80vw)] flex-wrap gap-1.5 overflow-y-auto rounded-xl border border-black/10 bg-white p-3 shadow-[0_30px_70px_-40px_rgba(11,38,74,.5)]">
-                <Pill on={!tag} onClick={() => setTag(null)}>All</Pill>
-                {tags.map((t) => (
-                  <Pill key={t} on={tag === t} onClick={() => setTag(tag === t ? null : t)}>{t}</Pill>
+            regions.length > 3 ? (
+              <FilterSelect
+                label="Region"
+                allLabel="All regions"
+                value={region}
+                options={regions.map((r) => ({ value: r, label: REGION_LABEL[r] }))}
+                onPick={setRegion}
+                minWidth="min-w-[170px]"
+              />
+            ) : (
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="mr-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-slate-400">Region</span>
+                <Pill on={!region} onClick={() => setRegion(null)}>All</Pill>
+                {regions.map((r) => (
+                  <Pill key={r} on={region === r} onClick={() => setRegion(region === r ? null : r)}>{REGION_LABEL[r]}</Pill>
                 ))}
               </div>
-            </details>
+            )
           )}
+
+          {tags.length > 1 && <TagMenu tags={tags} tag={tag} onPick={setTag} />}
 
           <span className="ml-auto text-[0.78rem] text-slate-500">
             {shown.length} {shown.length === 1 ? "item" : "items"}
@@ -183,7 +241,15 @@ export function NewsroomList({ type }: { type: NewsType }) {
                     exit={reduce ? undefined : { opacity: 0, scale: 0.97 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <NewsCard item={n} i={i} onOpen={setOpen} showType={false} />
+                    {/* the newsletter masthead is a nameplate, not a photo — it
+                        only needs a shallow plate on this list */}
+                    <NewsCard
+                      item={n}
+                      i={i}
+                      onOpen={setOpen}
+                      showType={false}
+                      shortCover={n.type === "newsletter"}
+                    />
                   </motion.div>
                 ))}
               </AnimatePresence>

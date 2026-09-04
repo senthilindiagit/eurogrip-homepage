@@ -30,16 +30,35 @@ function Chevron({ open }: { open?: boolean }) {
   )
 }
 
-function useDropdown() {
+/**
+ * Shared behaviour for every dropdown on the site: a press outside closes it,
+ * so does Escape, and the press that dismisses it does not also activate
+ * whatever sits underneath. Exported so panels elsewhere behave identically.
+ */
+export function useDropdown() {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!open) return
-    const onClick = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false) }
+    const onDown = (e: PointerEvent) => {
+      if (ref.current?.contains(e.target as Node)) return
+      setOpen(false)
+      /* Swallow only the click this very press produces — same target, next
+         tick — so dismissing the panel can't also activate what is underneath,
+         while a genuine later click is never eaten. */
+      const target = e.target
+      const swallow = (ev: MouseEvent) => {
+        if (ev.target !== target) return
+        ev.preventDefault()
+        ev.stopPropagation()
+      }
+      document.addEventListener("click", swallow, true)
+      window.setTimeout(() => document.removeEventListener("click", swallow, true), 300)
+    }
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false) }
-    document.addEventListener("mousedown", onClick)
+    document.addEventListener("pointerdown", onDown)
     document.addEventListener("keydown", onKey)
-    return () => { document.removeEventListener("mousedown", onClick); document.removeEventListener("keydown", onKey) }
+    return () => { document.removeEventListener("pointerdown", onDown); document.removeEventListener("keydown", onKey) }
   }, [open])
   return { open, setOpen, ref }
 }
