@@ -8,7 +8,7 @@ import { useRouter } from "@/lib/router"
 
 const LINKS: [string, string][] = [
   ["About", "/about"],
-  ["Products", "/#products"],
+  ["Products", "/products"],
   ["Technology", "/#technology"],
   ["Partnerships", "/partnerships"],
   ["Global Presence", "/global-presence"],
