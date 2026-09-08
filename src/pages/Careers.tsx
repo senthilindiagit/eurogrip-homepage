@@ -43,7 +43,7 @@ const OFFERS = [
   { t: "Safety first, always", d: "ISO 45001 practices and a genuine zero-compromise safety culture." },
   { t: "Health & wellbeing", d: "Medical cover for you and your family, plus wellbeing support." },
   { t: "Recognition", d: "Awards, TPM excellence programmes and visible ownership of outcomes." },
-  { t: "A 50,000-strong family", d: "Part of the TVS Mobility group — stability with a startup's ambition." },
+  { t: "A 50,000-strong family", d: "Part of the TVS MOBILITY group — stability with a startup's ambition." },
 ]
 
 /* Large scroll-driven gallery — the "Life here" story. */

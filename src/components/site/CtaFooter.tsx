@@ -104,9 +104,10 @@ export function ContactCta() {
               Become a distributor, explore OE opportunities, or bring Eurogrip to your market.
             </p>
           </Reveal>
-          <Reveal i={3} className="mt-8 flex flex-wrap justify-center gap-3.5">
+          {/* one call to action, not two: both went to /contact, so the second
+              only split the click (client direction) */}
+          <Reveal i={3} className="mt-8 flex justify-center">
             <Btn href="/contact" variant="red">Partner with us <Arrow /></Btn>
-            <Btn href="/contact" variant="line">Contact us</Btn>
           </Reveal>
         </div>
       </section>
@@ -125,7 +126,7 @@ export function SiteFooter() {
             <div className="col-span-2 md:col-span-1">
               <img src={logoWhite} alt="Eurogrip" className="mb-4 h-7 w-auto" />
               <p className="max-w-[34ch] text-[0.9rem] text-slate-400">
-                Specialist tyre technology, engineered to outperform. A TVS Mobility Group company.
+                Specialist tyre technology, engineered to outperform. A TVS MOBILITY Group company.
               </p>
               <div className="mt-6">
                 <h5 className="mb-3 font-display text-[0.72rem] font-extrabold uppercase italic tracking-[0.1em] text-white">Follow us</h5>

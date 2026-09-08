@@ -139,7 +139,7 @@ function AboutHero() {
 }
 
 /* ==================== "Our Legacy" ribbon (overlaps hero) ==================== */
-/* Client feedback 2026-08-06: the TVS Mobility affiliation is key information —
+/* Client feedback 2026-08-06: the TVS MOBILITY affiliation is key information —
    it leads the page now, replacing the pillars ribbon. */
 /* These are the TVS MOBILITY group figures — not TVS Srichakra's. The two are
    confirmed separately: Srichakra is USD 2 bn+ / 25,000+ people (see WHO_STATS). */
@@ -164,18 +164,18 @@ function ParentRibbon() {
             <Eyebrow>Our Legacy</Eyebrow>
             <h2 className="italic-display mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-white text-[clamp(1.3rem,2.5vw,2rem)] leading-[1.06]">
               Part of the
-              <img src={tvsMobilityLogo} alt="TVS Mobility" className="h-[0.95em] w-auto" />
+              <img src={tvsMobilityLogo} alt="TVS MOBILITY" className="h-[0.95em] w-auto" />
               Group
             </h2>
             {/* content below the title, CTA on the right */}
             <div className="mt-4 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
               <p className="text-[0.92rem] font-light leading-relaxed text-slate-200">
-                TVS Srichakra is part of the TVS Mobility group — an automotive conglomerate
+                TVS Srichakra is part of the TVS MOBILITY group — an automotive conglomerate
                 <br className="hidden sm:block" />
                 rooted in the century-old legacy of TV Sundram Iyengar, spanning four business verticals.
               </p>
               <div className="shrink-0">
-                <Btn href="https://www.tvsmobility.in" variant="line">Visit TVS Mobility <Arrow /></Btn>
+                <Btn href="https://www.tvsmobility.in" variant="line">Visit TVS MOBILITY <Arrow /></Btn>
               </div>
             </div>
             {/* group stats in one line */}
@@ -1049,7 +1049,7 @@ const INITIATIVES: {
     stat: "50,000",
     statLabel: "learners reached",
     img: initPeople,
-    body: "Investing in people — 25,000+ at TVS Srichakra and 50,000+ across the TVS Mobility group, with the TVS legacy's institutions reaching around 50,000 learners.",
+    body: "Investing in people — 25,000+ at TVS Srichakra and 50,000+ across the TVS MOBILITY group, with the TVS legacy's institutions reaching around 50,000 learners.",
     points: ["25,000+ at TVS Srichakra", "Nine institutions", "Skilling & scholarships"],
   },
 ]

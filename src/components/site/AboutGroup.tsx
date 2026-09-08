@@ -3,7 +3,7 @@ import { Reveal, Counter, Btn, Arrow } from "./ui"
 const STATS = [
   { n: "1982", label: "Founded", count: false },
   { n: "125", suffix: "+", label: "Worldwide markets today", count: true },
-  { n: "TVS Mobility", label: "Group company", count: false },
+  { n: "TVS MOBILITY", label: "Group company", count: false },
 ]
 
 export function AboutGroup() {
@@ -13,7 +13,7 @@ export function AboutGroup() {
         <div>
           <Reveal>
             <span className="font-display text-[0.8rem] font-extrabold uppercase italic tracking-[0.1em] text-racing">
-              A TVS Mobility Group company
+              A TVS MOBILITY Group company
             </span>
           </Reveal>
           <Reveal i={1}>
@@ -21,7 +21,7 @@ export function AboutGroup() {
           </Reveal>
           <Reveal i={2}>
             <p className="mt-4 max-w-[54ch] text-[0.95rem] font-light leading-relaxed text-slate-600">
-              Eurogrip is a brand of TVS Srichakra Limited, part of the TVS Mobility Group — a two-wheeler tyre specialist going global on many fronts. Driven by relentless R&amp;D with the highest standards in technology.
+              Eurogrip is a brand of TVS Srichakra Limited, part of the TVS MOBILITY Group — a two-wheeler tyre specialist going global on many fronts. Driven by relentless R&amp;D with the highest standards in technology.
             </p>
           </Reveal>
           <Reveal i={3} className="mt-8">
