@@ -325,6 +325,18 @@ export const ITEMS: Review[] = [...REVIEWS, ...TESTIMONIALS].sort((a, b) => b.so
 const byDate = (a: Review, b: Review) => b.sort.localeCompare(a.sort)
 const notIndia = (r: Review) => r.country !== "India"
 
+/**
+ * Everything with a cover, for the drifting wall on the products page: the
+ * media reviews, the rider testimonials and the owner films together. Shuffled
+ * deterministically rather than left in date order, so the columns interleave
+ * press and owners instead of stacking all the films at one end.
+ */
+export const WALL_REVIEWS: Review[] = [...REVIEWS, ...TESTIMONIALS, ...OWNER_FILMS]
+  .filter((r) => r.cover)
+  .map((r, i) => ({ r, k: (i * 7) % 19 }))
+  .sort((a, b) => a.k - b.k)
+  .map(({ r }) => r)
+
 export const LATEST_REVIEWS: Review[] = [
   [...REVIEWS].filter(notIndia).sort(byDate)[0],
   [...TESTIMONIALS].filter(notIndia).sort(byDate)[0],

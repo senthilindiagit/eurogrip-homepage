@@ -190,27 +190,43 @@ export function Marquee({
   speed = 30,
   reverse = false,
   pauseOnHover = true,
+  vertical = false,
   className,
 }: {
   children: ReactNode
   speed?: number
   reverse?: boolean
   pauseOnHover?: boolean
+  /** drift up the column instead of along the row */
+  vertical?: boolean
   className?: string
 }) {
+  /* Two identical passes, and the keyframe moves one by its own height (or
+     width) plus the gap — which is what makes the loop seamless. The second
+     pass is aria-hidden so a screen reader hears the list once. */
   return (
-    <div className={cn("group flex overflow-hidden [--gap:3rem]", className)}>
+    <div
+      className={cn(
+        "group flex overflow-hidden",
+        vertical ? "flex-col [--gap:1rem]" : "[--gap:3rem]",
+        className
+      )}
+    >
       {[0, 1].map((k) => (
         <div
           key={k}
           className={cn(
-            "flex shrink-0 items-center justify-around [gap:var(--gap)] animate-marquee",
-            pauseOnHover && "group-hover:[animation-play-state:paused]"
+            "flex shrink-0 justify-around [gap:var(--gap)]",
+            vertical ? "flex-col animate-marquee-vertical" : "items-center animate-marquee",
+            pauseOnHover && "group-hover:[animation-play-state:paused]",
+            /* a wall of cards drifting past is exactly what reduced motion is
+               asking us not to do; it still reads as a wall standing still */
+            "motion-reduce:animate-none"
           )}
           style={{
             ["--duration" as any]: `${speed}s`,
             animationDirection: reverse ? "reverse" : "normal",
-            paddingRight: "var(--gap)",
+            [vertical ? "paddingBottom" : "paddingRight"]: "var(--gap)",
           }}
           aria-hidden={k === 1}
         >
