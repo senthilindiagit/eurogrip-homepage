@@ -4,6 +4,8 @@ import { GlobeInteractive } from "@/components/ui/cobe-globe-interactive"
 import { Reveal, SectionHead, Btn, Arrow, Eyebrow, Counter, Marquee } from "@/components/site/ui"
 import { Cine } from "@/components/site/Cine"
 import { SiteFooter } from "@/components/site/CtaFooter"
+import { ReviewCard, VideoLightbox, type PlayTarget } from "@/components/site/ReviewCard"
+import { LATEST_REVIEWS } from "@/lib/reviews"
 import { useRouter, Link } from "@/lib/router"
 import { MARKETS } from "@/lib/site-data"
 import { NEWS_SORTED } from "@/lib/newsroom"
@@ -395,6 +397,36 @@ function Certified() {
   )
 }
 
+/* ------------------------------------------------- reviews & testimonials --- */
+/**
+ * The newest three from the reviews page, in the same card. Certification says
+ * the tyres meet each market's bar; this says what the market made of them.
+ */
+function Verdicts({ onPlay }: { onPlay: (t: PlayTarget) => void }) {
+  return (
+    <section className="bg-white py-[clamp(64px,10vh,130px)] text-asphalt">
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <SectionHead
+            light
+            eyebrow="Reviews & testimonials"
+            title={<>Tested by the press,<br />proved in the field</>}
+            lede="Motorcycle media test our tyres on road, off-road and on track — and riders, farmers and contractors give their own verdict."
+          />
+          <Reveal i={2}>
+            <Btn href="/reviews" variant="blue">View all reviews <Arrow /></Btn>
+          </Reveal>
+        </div>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {LATEST_REVIEWS.map((r, i) => (
+            <ReviewCard key={r.slug} r={r} i={i} onPlay={onPlay} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* -------------------------------------------------------------- proving ---- */
 function Proving() {
   return (
@@ -486,9 +518,18 @@ function Distribute() {
 
 export function GlobalPresence() {
   const { path } = useRouter()
+  const [video, setVideo] = useState<PlayTarget | null>(null)
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior })
   }, [path])
+
+  useEffect(() => {
+    if (!video) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setVideo(null)
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [video])
 
   return (
     <main>
@@ -499,8 +540,13 @@ export function GlobalPresence() {
       </Cine>
       <Proving />
       <Cine><Certified /></Cine>
+      <Cine><Verdicts onPlay={setVideo} /></Cine>
       <Distribute />
       <SiteFooter />
+
+      <AnimatePresence>
+        {video && <VideoLightbox target={video} onClose={() => setVideo(null)} />}
+      </AnimatePresence>
     </main>
   )
 }
