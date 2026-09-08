@@ -13,7 +13,24 @@ import logoBmwMono from "@/assets/logo-bmw-mono.webp"
 import logoHonda from "@/assets/logo-honda.webp"
 import logoHero from "@/assets/logo-hero.webp"
 
-export const LOGOS = [logoTvs, logoHero, logoBajaj, logoSuzuki, logoYamaha, logoPiaggio, logoAprilia, logoBmwMono, logoHonda]
+/**
+ * The OEM fitment marquee, alphabetical by brand (client direction).
+ *
+ * Named and sorted in code rather than hand-ordered, so adding a marque cannot
+ * quietly put the list out of order — and the names double as the alt text,
+ * which the bare array of imports this replaced had no way to provide.
+ */
+export const LOGOS: { name: string; src: string }[] = [
+  { name: "Aprilia", src: logoAprilia },
+  { name: "Bajaj", src: logoBajaj },
+  { name: "BMW Motorrad", src: logoBmwMono },
+  { name: "Hero", src: logoHero },
+  { name: "Honda", src: logoHonda },
+  { name: "Piaggio", src: logoPiaggio },
+  { name: "Suzuki", src: logoSuzuki },
+  { name: "TVS", src: logoTvs },
+  { name: "Yamaha", src: logoYamaha },
+].sort((a, b) => a.name.localeCompare(b.name))
 const BRIGHTEN = "brightness(1.18) saturate(1.22) contrast(1.06)"
 
 function PlayIcon() {
@@ -151,8 +168,8 @@ export function Racing() {
         <div className="mt-12 border-t border-black/10 pt-8">
           <div className="mb-6 text-center text-[0.74rem] uppercase tracking-[0.12em] text-slate-500">Original fitment for many of the most popular applications, worldwide</div>
           <Marquee speed={30}>
-            {LOGOS.map((src, i) => (
-              <img key={i} src={src} alt="" className="h-8 w-auto object-contain opacity-40 transition-opacity duration-300 hover:opacity-80" style={{ filter: "brightness(0)" }} />
+            {LOGOS.map((l) => (
+              <img key={l.name} src={l.src} alt={l.name} className="h-8 w-auto object-contain opacity-40 transition-opacity duration-300 hover:opacity-80" style={{ filter: "brightness(0)" }} />
             ))}
           </Marquee>
         </div>

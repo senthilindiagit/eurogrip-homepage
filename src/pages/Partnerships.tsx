@@ -351,8 +351,8 @@ export function Partnerships() {
           <div className="mt-12 border-t border-black/10 pt-8">
             <div className="mb-6 text-center text-[0.74rem] uppercase tracking-[0.12em] text-slate-500">OEM partners &amp; trusted fitments — and many more</div>
             <Marquee speed={30}>
-              {LOGOS.map((src, i) => (
-                <img key={i} src={src} alt="" className="h-8 w-auto object-contain opacity-40 transition-opacity duration-300 hover:opacity-80" style={{ filter: "brightness(0)" }} />
+              {LOGOS.map((l) => (
+                <img key={l.name} src={l.src} alt={l.name} className="h-8 w-auto object-contain opacity-40 transition-opacity duration-300 hover:opacity-80" style={{ filter: "brightness(0)" }} />
               ))}
             </Marquee>
           </div>
