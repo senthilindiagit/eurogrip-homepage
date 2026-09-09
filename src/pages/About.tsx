@@ -383,7 +383,7 @@ function WhatWeDo() {
               ))}
             </Reveal>
             <Reveal i={4} className="mt-7">
-              <Btn href="/#technology" variant="red">Explore technology <Arrow /></Btn>
+              <Btn href="/technology" variant="red">Explore technology <Arrow /></Btn>
             </Reveal>
           </div>
           <Reveal i={1}>

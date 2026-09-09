@@ -18,10 +18,13 @@ import { NewsroomStory } from "./pages/NewsroomStory"
 const NewsroomCoverage = lazy(() =>
   import("./pages/NewsroomCoverage").then((m) => ({ default: m.NewsroomCoverage }))
 )
-/* Products carries GSAP + ScrollTrigger for the pinned journey — around 155 kB
-   that no other route needs. */
+/* Products and Technology both carry GSAP + ScrollTrigger — around 155 kB that
+   no other route needs. */
 const Products = lazy(() =>
   import("./pages/Products").then((m) => ({ default: m.Products }))
+)
+const Technology = lazy(() =>
+  import("./pages/Technology").then((m) => ({ default: m.Technology }))
 )
 import { NEWS_SORTED, TYPE_SLUG, type NewsType } from "./lib/newsroom"
 
@@ -63,6 +66,12 @@ function PageLoading() {
 function Outlet() {
   const { path } = useRouter()
   if (path === "/about") return <About />
+  if (path === "/technology")
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <Technology />
+      </Suspense>
+    )
   if (path === "/contact") return <Contact />
   if (path === "/products")
     return (
