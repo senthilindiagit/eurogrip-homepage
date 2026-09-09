@@ -11,8 +11,6 @@ import { MARKETS } from "@/lib/site-data"
 import { NEWS_SORTED } from "@/lib/newsroom"
 import { fmtDate, storyHref } from "@/components/site/NewsCard"
 import worldDots from "@/assets/about/world-dots.webp"
-import lifeTrack from "@/assets/careers/life-2.webp"
-import wetTrack from "@/assets/careers/real-tech-4.webp"
 import roadRide from "@/assets/careers/real-eicma.webp"
 import certDot from "@/assets/certs/cert-dot.webp"
 import certInmetro from "@/assets/certs/cert-inmetro.webp"
@@ -118,27 +116,6 @@ const CERTS = [
 ]
 
 /* what the three road-test geographies actually put a tyre through */
-const PROVING = [
-  {
-    img: wetTrack,
-    alt: "A rider on a standing-wet test track",
-    k: "Wet & broken surfaces",
-    d: "Monsoon water, standing wet and poor surfaces. India's everyday roads are the hardest durability test we have.",
-  },
-  {
-    img: roadRide,
-    alt: "Riders at speed on a European back road",
-    k: "Speed & distance",
-    d: "Motorway stability, cold-weather grip and long-haul wear — the European benchmark, run out of the Milan centre.",
-  },
-  {
-    img: lifeTrack,
-    alt: "Engineers reading test data trackside at dusk",
-    k: "Refinement & consistency",
-    d: "The Japanese standard: noise, comfort and unit-to-unit consistency, measured against OEM expectations.",
-  },
-]
-
 /* ======================= HERO — the interactive globe ======================
    The region rail drives the globe: pick a region and it swings round to it
    while the panel swaps. Drag the globe at any point to take over.
@@ -427,47 +404,6 @@ function Verdicts({ onPlay }: { onPlay: (t: PlayTarget) => void }) {
   )
 }
 
-/* -------------------------------------------------------------- proving ---- */
-function Proving() {
-  return (
-    <section className="bg-gradient-to-b from-steel-2 to-steel py-[clamp(64px,10vh,130px)]">
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-        <SectionHead
-          eyebrow="Proving ground"
-          title={<>Tested where<br />it's hardest</>}
-          lede="Every platform is measured against Indian, European and Japanese road conditions before it earns the Eurogrip name."
-        />
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {PROVING.map((p, i) => (
-            <Reveal key={p.k} i={i}>
-              <div className="group relative h-[clamp(240px,32vw,340px)] overflow-hidden rounded-2xl border border-white/10">
-                <img
-                  src={p.img}
-                  alt={p.alt}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{ background: "linear-gradient(180deg, rgba(13,26,48,.25) 0%, transparent 34%, rgba(13,26,48,.93) 100%)" }}
-                />
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <span className="font-display text-[0.68rem] font-extrabold uppercase italic tracking-[0.14em] text-eurored">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-1 font-display text-[clamp(1.1rem,1.9vw,1.5rem)] font-black uppercase italic leading-none text-white">
-                    {p.k}
-                  </h3>
-                  <p className="mt-2.5 text-[0.88rem] font-light leading-relaxed text-slate-300">{p.d}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 /* ------------------------------------------------------------- distribute -- */
 function Distribute() {
   return (
@@ -538,7 +474,6 @@ export function GlobalPresence() {
         <Numbers />
         <EventsFairs />
       </Cine>
-      <Proving />
       <Cine><Certified /></Cine>
       <Cine><Verdicts onPlay={setVideo} /></Cine>
       <Distribute />
