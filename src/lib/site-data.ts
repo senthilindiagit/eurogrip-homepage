@@ -37,51 +37,6 @@ export const PRODUCTS = [
 ]
 
 /* The 7 Signature Technologies — Exports Sales Pitch Deck pp.29-34 + Bee Wild range deck pp.4-5 */
-export const TECH = [
-  {
-    code: "DuCT",
-    title: "Dual Compound Technology",
-    body: "Cap-and-base construction — a middle compound layer binds the tyre's structure to the tread pattern.",
-    benefit: "Improved stability, grip and durability — 20% better than single-compound tyres",
-  },
-  {
-    code: "TriP",
-    title: "Tri-Polymer Compound",
-    body: "A special blend of silica-rich fillers with High Structure Carbon, varied from centre ribbon to shoulders.",
-    benefit: "Balanced grip on wet, cold, dry and hot tarmac alike",
-  },
-  {
-    code: "D2T",
-    title: "Deep Tread Design",
-    body: "Computer-aided, finely tuned knob design balancing off-road traction against wearing and tearing.",
-    benefit: "Versatility across terrains, with increased durability",
-  },
-  {
-    code: "DrBond",
-    title: "Dry Bonding",
-    body: "Reinforcement technology that locks tread and casing layers together into one inseparable structure.",
-    benefit: "Strength that holds under heat, load and time",
-  },
-  {
-    code: "OpT-Pad",
-    title: "Optimised Tread Pattern",
-    body: "FEA-aided tread and contact-patch optimisation for even pressure distribution at every lean angle.",
-    benefit: "Improved water drainage, durability and wear regularity",
-  },
-  {
-    code: "A-SeT",
-    title: "Air Seal Technology",
-    body: "An air-seal inner liner that maintains tyre pressure for extended periods — under 10% drop across a month of testing.",
-    benefit: "The same grip throughout the life of the tyre",
-  },
-  {
-    code: "RoBusT",
-    title: "Roll Balanced Construction",
-    body: "Carcass layers and cord parameters finely tuned for dynamic performance, even on heavyweight motorcycles.",
-    benefit: "Better stability, agility and control at high speed",
-  },
-]
-
 import riderSaggar from "@/assets/rider-saggar.webp"
 import clipSaggar from "@/assets/rider-saggar.mp4"
 import riderGracias from "@/assets/rider-gracias.webp"

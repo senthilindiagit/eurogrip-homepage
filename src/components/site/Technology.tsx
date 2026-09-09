@@ -1,40 +1,38 @@
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-import { TECH } from "@/lib/site-data"
+import { TECHNOLOGIES, TECH_COUNT, TECH_FAMILIES } from "@/lib/technology"
 import { Reveal, SectionHead, Btn, Arrow } from "./ui"
 import techBanner from "@/assets/tech-banner.mp4"
-import icDuct from "@/assets/tech/tech-duct.webp"
-import icTrip from "@/assets/tech/tech-trip.webp"
-import icD2t from "@/assets/tech/tech-d2t.webp"
-import icDrbond from "@/assets/tech/tech-drbond.webp"
-import icOptpad from "@/assets/tech/tech-optpad.webp"
-import icAset from "@/assets/tech/tech-aset.webp"
-import icRobust from "@/assets/tech/tech-robust.webp"
-
-const ICONS: Record<string, string> = {
-  DuCT: icDuct,
-  TriP: icTrip,
-  D2T: icD2t,
-  DrBond: icDrbond,
-  "OpT-Pad": icOptpad,
-  "A-SeT": icAset,
-  RoBusT: icRobust,
-}
 
 const ENTER = [0.16, 0.84, 0.34, 1] as const
 const DWELL = 5000 // ms each technology stays up before auto-advancing
 
+/**
+ * The homepage technology showcase.
+ *
+ * Rebuilt to drop the seven acronyms — DuCT, TriP, D2T and the rest. The client
+ * was explicit on the 2026-08-06 call that short forms are not allowed, and
+ * that included the oversized code sitting behind the panel as a watermark. It
+ * now runs on the twelve plain-English technologies in lib/technology, the same
+ * data the /technology page uses.
+ *
+ * The client also asked us to come back on what should fill the space the
+ * watermark left. The answer here is their own artwork: the cutaway diagram for
+ * whichever technology is up, blown up large and faint behind the copy. It fills
+ * the space with the thing being described rather than with a label for it, and
+ * it costs nothing extra to load because the same file is already the icon.
+ */
 export function Technology() {
   const reduce = useReducedMotion()
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
   const [manual, setManual] = useState(false)
-  const t = TECH[active]
+  const t = TECHNOLOGIES[active]
 
   // showroom auto-rotate; pauses on hover and stops once the visitor drives
   useEffect(() => {
     if (reduce || paused || manual) return
-    const id = setInterval(() => setActive((i) => (i + 1) % TECH.length), DWELL)
+    const id = setInterval(() => setActive((i) => (i + 1) % TECHNOLOGIES.length), DWELL)
     return () => clearInterval(id)
   }, [reduce, paused, manual])
 
@@ -50,11 +48,11 @@ export function Technology() {
           eyebrow="Inside the tyre"
           title={
             <span className="block text-[clamp(1.6rem,3.4vw,2.6rem)] leading-[1.04]">
-              <span className="whitespace-nowrap">Seven signature technologies.</span><br />
+              <span className="whitespace-nowrap">{TECH_COUNT} technologies, {TECH_FAMILIES.length} families.</span><br />
               <span className="whitespace-nowrap">For the promise of performance.</span>
             </span>
           }
-          lede="The engineering platforms behind every Eurogrip tyre — proven in simulation and on the road."
+          lede="The engineering behind every Eurogrip tyre — simulated before it is built, then proven on track and on the road."
           ledeClassName="max-w-none lg:whitespace-nowrap lg:text-[0.92rem]"
           className="mb-8 max-w-none"
         />
@@ -62,26 +60,26 @@ export function Technology() {
         <Reveal>
           <div className="grid items-stretch gap-4 sm:gap-5 lg:grid-cols-[1fr_minmax(240px,320px)]">
           <div
-            className="grid overflow-hidden rounded-lg border border-white/10 bg-[#1f2f47]/70 lg:grid-cols-[minmax(240px,300px)_1fr]"
+            className="grid overflow-hidden rounded-lg border border-white/10 bg-[#1f2f47]/70 lg:grid-cols-[minmax(240px,286px)_1fr]"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
-            {/* rail — the seven technologies */}
+            {/* rail — the twelve technologies */}
             <div
               role="tablist"
-              aria-label="Eurogrip signature technologies"
+              aria-label="Eurogrip technologies"
               aria-orientation="vertical"
               className="flex overflow-x-auto border-b border-white/10 lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-r"
             >
-              {TECH.map((item, i) => {
+              {TECHNOLOGIES.map((item, i) => {
                 const on = i === active
                 return (
                   <button
-                    key={item.code}
+                    key={item.id}
                     role="tab"
                     aria-selected={on}
                     onClick={() => select(i)}
-                    className={`group relative flex shrink-0 items-center gap-3 px-4 py-3 text-left transition-colors lg:flex-1 lg:px-5 ${
+                    className={`group relative flex shrink-0 items-center gap-3 px-4 py-2.5 text-left transition-colors lg:flex-1 lg:px-5 ${
                       on ? "bg-white/[0.07]" : "hover:bg-white/[0.04]"
                     }`}
                   >
@@ -90,13 +88,12 @@ export function Technology() {
                     <span className={`font-display text-[0.72rem] font-black italic ${on ? "text-eurored" : "text-slate-500"}`}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="min-w-0">
-                      <span className={`block font-display text-[0.88rem] font-extrabold italic leading-none ${on ? "text-white" : "text-slate-300"}`}>
-                        {item.code}
-                      </span>
-                      <span className={`mt-0.5 hidden whitespace-nowrap text-[0.72rem] uppercase tracking-[0.06em] lg:block ${on ? "text-slate-300" : "text-slate-500"}`}>
-                        {item.title}
-                      </span>
+                    <span
+                      className={`min-w-0 font-display text-[0.8rem] font-extrabold uppercase italic leading-tight lg:whitespace-normal ${
+                        on ? "text-white" : "text-slate-300"
+                      }`}
+                    >
+                      {item.name}
                     </span>
                   </button>
                 )
@@ -105,34 +102,41 @@ export function Technology() {
 
             {/* detail panel */}
             <div role="tabpanel" className="relative min-h-[300px] p-6 sm:p-9">
-              {/* faint oversized code as backdrop texture */}
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={t.code}
+                  /* keyed on the id, not the index, so a rename cannot desync it */
+                  key={t.id}
                   initial={reduce ? false : { opacity: 0, x: 28 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={reduce ? undefined : { opacity: 0, x: -18 }}
                   transition={{ duration: 0.45, ease: ENTER }}
                   className="relative flex h-full flex-col justify-center"
                 >
-                  <span aria-hidden className="pointer-events-none absolute -right-2 -top-6 select-none font-display text-[clamp(4rem,9vw,7rem)] font-black italic leading-none text-white/[0.05]">
-                    {t.code}
-                  </span>
-                  <div className="flex items-start gap-5">
+                  {/* the client's own cutaway, large and faint, where the
+                      acronym watermark used to sit */}
+                  <img
+                    src={t.img}
+                    aria-hidden
+                    alt=""
+                    className="pointer-events-none absolute -right-6 top-1/2 w-[min(58%,290px)] -translate-y-1/2 select-none opacity-[0.13] mix-blend-screen"
+                  />
+                  <div className="relative flex items-start gap-5">
                     <motion.span
-                      className="relative block h-20 w-20 shrink-0 overflow-hidden rounded-full border border-white/25 bg-white shadow-[0_14px_34px_-12px_rgba(0,0,0,.6)] sm:h-24 sm:w-24"
+                      className="relative grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-full border border-white/25 bg-white shadow-[0_14px_34px_-12px_rgba(0,0,0,.6)] sm:h-24 sm:w-24"
                       initial={reduce ? false : { rotate: -90, scale: 0.6 }}
                       animate={{ rotate: 0, scale: 1 }}
                       transition={{ type: "spring", stiffness: 180, damping: 16 }}
                     >
-                      <img src={ICONS[t.code]} alt="" className="h-full w-full scale-[1.12] object-cover" />
+                      <img src={t.img} alt="" className="h-[78%] w-[78%] object-contain" />
                     </motion.span>
                     <div className="min-w-0">
-                      <div className="font-display text-[1rem] font-black italic leading-none text-eurored">{t.code}</div>
+                      <div className="font-display text-[0.68rem] font-extrabold uppercase italic tracking-[0.14em] text-eurored">
+                        {t.family}
+                      </div>
                       <h4 className="mt-1 font-display text-[clamp(1.05rem,1.8vw,1.3rem)] font-extrabold uppercase italic leading-tight text-white">
-                        {t.title}
+                        {t.name}
                       </h4>
-                      <p className="mt-2.5 max-w-[52ch] text-[0.88rem] font-light leading-relaxed text-slate-300">{t.body}</p>
+                      <p className="mt-2.5 max-w-[52ch] text-[0.88rem] font-light leading-relaxed text-slate-300">{t.feature}</p>
                       <motion.p
                         className="mt-3.5 inline-flex items-start gap-2 border-l-2 border-eurored pl-2.5 text-[0.88rem] font-semibold leading-snug text-white/90"
                         initial={reduce ? false : { opacity: 0, x: -14 }}
@@ -171,8 +175,8 @@ export function Technology() {
         </Reveal>
 
         <Reveal className="mt-7 flex flex-wrap gap-3.5">
-          <Btn href="#technology" variant="blue">Explore technology <Arrow /></Btn>
-          <Btn href="#news" variant="line">Technology, explained →</Btn>
+          <Btn href="/technology" variant="blue">Explore technology <Arrow /></Btn>
+          <Btn href="/products" variant="line">See the range <Arrow /></Btn>
         </Reveal>
       </div>
     </section>
