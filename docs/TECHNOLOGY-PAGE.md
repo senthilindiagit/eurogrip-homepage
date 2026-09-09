@@ -4,7 +4,7 @@
 asset build scripts in `scripts/technology/`. Lazy-loaded, because it carries
 GSAP.
 
-Seven sections: a full-bleed hero on a real tread macro, the two design centres
+Seven sections: a full-bleed hero on the client's tyre-closeup film, the two design centres
 as photographs, the twelve technologies as a sticky scroll sequence, an
 interactive tread inspector, the two casing families, the eight-step pipeline
 with the line drawn by the scroll, and the proving ground. Every fact on it
@@ -135,11 +135,12 @@ to break the headline over four lines.
 Four notes came back on the redesign, all of them layout rather than content.
 
 * **The banner was ugly.** It was the dusty tread macro, which went grey under a
-  scrim. Now it is `Eurogrip-03` — a GS hard over into a bend, the strongest
-  frame in the press set. It needed **two** scrims, not one: the vertical one
-  for the navbar and the section join, and a *horizontal* one so the copy column
-  has its own dark ground. Without the second, the headline landed straight on
-  the bike and the eyebrow pill vanished into the fork.
+  scrim. It went first to `Eurogrip-03`, a GS hard over into a bend, and then —
+  at the client's direction — to their own **"Tyre closeup" film**, which is what
+  ships. See *The hero film* below. Either way it needed **two** scrims, not one:
+  the vertical one for the navbar and the section join, and a *horizontal* one so
+  the copy column has its own dark ground. Without the second, the headline
+  landed straight on the subject and the eyebrow pill vanished into it.
 * **Overlaps.** Two, both fixed. The oversized index in the sticky stage sat
   behind the diagram and read as a rendering fault — it now has its own row
   above it (measured: 8px clear, no intersection). And the red role line on the
@@ -160,6 +161,47 @@ Four notes came back on the redesign, all of them layout rather than content.
   4/4 landing on rubber at both 1440 and 375.
 * **The centres section had no title.** It now carries "Where it is designed /
   Two centres, one tyre" above the diptych.
+
+## The hero film
+
+The hero is the client's own **"Tyre closeup"** — tread macros and the Eurogrip
+sidewall moulding — encoded by `scripts/media/web_video.py`. The same script
+encodes the homepage banner from their "Video banner V5". Both masters are
+1920x1080 at 15.6 Mbps and unshippable as they stand (104MB and 26MB).
+
+Worth carrying from that script:
+
+* **Width was checked, not assumed.** At 1280 the fine knurling on a "BEE WILD"
+  sidewall mushes, and the hero is scaled 1.16x by the scroll transform on top of
+  being full-bleed. 1600px at CRF 33 is indistinguishable from the master at 1:1
+  on that same detail frame, and lands the 53s banner at 10.8MB — parity with the
+  10MB file it replaced.
+* **Audio is stripped, not muted.** A banner must be muted to autoplay at all, so
+  the AAC track was pure weight.
+* **`+faststart`**, or a hero video is a blank rectangle until the last byte
+  arrives.
+* **The poster is the film's own first frame**, not a nicer one from further in,
+  or the hero visibly jumps when playback starts. It is also what stands in under
+  `prefers-reduced-motion`, where `autoPlay` is off.
+
+**It also settles the licensing question on the most prominent asset.** The hero
+was a press photograph; it is now the client's own footage. The clearance note
+below still applies to the tread crown, the sidewall, the proving background and
+the road-test shot.
+
+**The scrims had to come *down* for the film.** Values tuned for a sunlit riding
+photograph turned a dark film to near-black. And on the homepage they had to come
+*up*: that banner runs through bright agricultural scenes, and measured against
+the copy region the brightest frame sits at 0.178 luminance, which took white
+text to 7.6:1 and the red rotating word to 1.7:1. At the new values white holds
+above 11:1 across the whole loop.
+
+**Brand red cannot pass over imagery, at any scrim.** Measured, `#ed1c24` tops
+out at about 3.4:1 even against solid brand navy, and no amount of darkening
+moves it. Large red text clears the 3:1 bar for large type; the small red eyebrow
+cannot clear 4.5:1 and now leans on its own text-shadow instead. If that line has
+to pass properly it needs to be white, with red kept for the dash — a brand
+decision, not a rendering one, and it predates these videos.
 
 ## The scroll work
 
@@ -198,12 +240,13 @@ rather than animating anything.
 * **The client's own**: `Corporate Media/Factory/*` (the plant at Madurai) and
   `Corporate Media/R&D Milano/*` (a test session in Italy — a HEIC, converted
   with `sips`, since Pillow will not open it here).
-* **Not the client's**: the tread macros, the sidewall and the riding shots come
-  out of `content/reviews/`, shot by the journalists who reviewed the tyres
-  (RoadBook, Cervone). The subject is Eurogrip's product; the photographs are
-  not Eurogrip's to license by default. **This needs clearance before the page
-  goes live** — it is the same class of problem as the generated artwork on the
-  products page, and the hero depends on one of them.
+* **Not the client's**: the tread crown, the sidewall, the proving background and
+  the road-test shot come out of `content/reviews/`, shot by the journalists who
+  reviewed the tyres (RoadBook, Cervone). The subject is Eurogrip's product; the
+  photographs are not Eurogrip's to license by default, and **this still needs
+  clearance** — the same class of problem as the generated artwork on the products
+  page. The hero no longer depends on one of them, since it became the client's
+  own film.
 
 Several are portrait-flagged in EXIF and come out on their side without
 `ImageOps.exif_transpose`.

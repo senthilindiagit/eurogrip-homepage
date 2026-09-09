@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { useReducedMotion } from "framer-motion"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Reveal, SectionHead, Btn, Arrow, Eyebrow } from "@/components/site/ui"
@@ -8,7 +9,6 @@ import {
   TECHNOLOGIES, TECH_COUNT, CENTRES, CAPABILITIES, PIPELINE, CASINGS,
   COMPOUND_ZONES, VENUES, TEST_SHOTS,
 } from "@/lib/technology"
-import heroRide from "@/assets/technology/hero-ride.webp"
 import treadCrown from "@/assets/technology/tread-crown.webp"
 import sidewall from "@/assets/technology/sidewall.webp"
 import factoryAerial from "@/assets/technology/factory-aerial.webp"
@@ -32,27 +32,43 @@ const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matc
 
 /* ---------------------------------------------------------------- hero ---- */
 /**
- * The strongest frame in the client's press set: a GS hard over into a corner.
- * It replaced a dusty tread macro, which went grey and murky once a scrim was
- * laid over it. This one has its own band of dark tarmac along the bottom, so
- * the headline sits on the picture instead of fighting it.
+ * The client's "Tyre closeup" film, full-bleed. It replaced a still — first a
+ * dusty tread macro, which went grey under a scrim, then a press riding shot —
+ * and being the client's own footage it settles the licensing question on the
+ * page's most prominent asset at the same time.
  */
 function Hero() {
+  const reduce = useReducedMotion()
   return (
     <section data-tech-hero className="relative isolate flex min-h-[92vh] items-end overflow-hidden bg-midnight">
-      <img
+      {/* The client's own "Tyre closeup" film — tread macros and the Eurogrip
+          sidewall moulding. It replaced a press photograph, which also takes the
+          licensing question off the most prominent image on the page.
+          The poster is the film's own first frame, so there is no jump when
+          playback starts, and it is what stands in when motion is turned off. */}
+      <video
         data-hero-img
-        src={heroRide}
-        alt="An adventure motorcycle on Eurogrip Trailhound tyres, hard over into a bend on a mountain road"
+        src="/tech-hero.mp4"
+        poster="/tech-hero-poster.webp"
+        autoPlay={!reduce}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-label="Close detail of Eurogrip tread patterns and sidewall moulding"
         className="absolute inset-0 h-full w-full scale-[1.12] object-cover will-change-transform"
       />
       {/* Two scrims, doing two jobs. The vertical one keeps the fixed navbar
           legible at the top and beds the section into the next one at the
-          bottom. The horizontal one gives the copy column its own dark ground:
-          without it the headline lands straight on the bike and the two fight,
-          and the eyebrow pill disappears into the fork. */}
-      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,18,34,.72)_0%,rgba(9,18,34,.16)_28%,rgba(9,18,34,.5)_66%,rgba(9,18,34,.96)_100%)]" />
-      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,18,34,.9)_0%,rgba(9,18,34,.68)_30%,rgba(9,18,34,.12)_62%,rgba(9,18,34,0)_100%)]" />
+          bottom. The horizontal one gives the copy column its own dark ground —
+          which matters more with a film than a still, because every frame is a
+          different picture and the type has to hold on all of them. Both are
+          lighter than they were for the still they replaced: this film runs dark
+          on its own, and the values that suited a sunlit riding shot turned the
+          whole banner to near-black. Checked against the film's brightest
+          frame, not just its darkest. */}
+      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,18,34,.62)_0%,rgba(9,18,34,.1)_30%,rgba(9,18,34,.42)_66%,rgba(9,18,34,.94)_100%)]" />
+      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,18,34,.8)_0%,rgba(9,18,34,.5)_32%,rgba(9,18,34,.08)_64%,rgba(9,18,34,0)_100%)]" />
       <div data-hero-copy className="relative mx-auto w-full max-w-[1280px] px-5 pb-[clamp(56px,10vh,120px)] pt-[clamp(120px,20vh,200px)] sm:px-8">
         <nav aria-label="Breadcrumb" className="mb-5 flex items-center gap-2 text-[0.78rem] font-medium text-slate-300">
           <Link href="/" className="transition-colors hover:text-white">Home</Link>
