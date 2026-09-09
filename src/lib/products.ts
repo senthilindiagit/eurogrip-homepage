@@ -46,6 +46,8 @@ export type Category = {
    * so nothing we arrange out of separate cutouts will beat it.
    */
   lineup?: string
+  /** the category's vehicle line-up, for the hero carousel */
+  slide?: string
   /**
    * What the category covers, as vehicles you can see. Where this exists the
    * journey shows a grid of cutouts with their names instead of the `covers`
@@ -135,10 +137,24 @@ import tyre2w from "@/assets/tyre.webp"
    neutralised, and a contact shadow rebuilt under each of the five tyres —
    see docs/PRODUCTS-PAGE.md */
 import lineup2w from "@/assets/products/lineup-two-wheeler.webp"
-/* the three-wheeler range staged from the client's own product cutouts —
-   Badshah, Street King and Jaya, the same three patterns as their site's
-   three-wheeler banner but at four times the resolution */
+/* the three-wheeler range: Jaya, Badshah and Street King, as the client shot
+   them. This replaced a version staged out of three separate product cutouts —
+   the supplied plate is lit as one photograph and matches the other four */
 import lineup3w from "@/assets/products/lineup-three-wheeler.webp"
+/* the remaining three ranges, supplied by the client as clean cutouts and put
+   through the same defringe + baked contact shadow as the first two, so all
+   five categories carry one treatment */
+import lineupUlt from "@/assets/products/lineup-ult.webp"
+import lineupOht from "@/assets/products/lineup-off-highway.webp"
+import lineupSg from "@/assets/products/lineup-supergrip.webp"
+/* The vehicle line-up for each category, for the hero carousel. Built by
+   scripts/products/category_slides.py: all five stay on one shared canvas and
+   are centred on it, so nothing shifts sideways as the carousel cycles. */
+import slide2w from "@/assets/products/categories/two-wheeler.webp"
+import slide3w from "@/assets/products/categories/three-wheeler.webp"
+import slideUlt from "@/assets/products/categories/ultra-light-truck.webp"
+import slideOht from "@/assets/products/categories/off-highway.webp"
+import slideSg from "@/assets/products/categories/supergrip.webp"
 /* The two-wheeler applications, as vehicles you can see. Generated cutouts —
    placeholders, deliberately generic and unbranded, to be replaced with the
    client's own vehicle photography. See docs/PRODUCTS-PAGE.md. */
@@ -199,6 +215,7 @@ export const CATEGORIES: Category[] = [
     accent: "red",
     tyres: [tyre2w],
     lineup: lineup2w,
+    slide: slide2w,
     fleet: [
       { name: "Scooters", note: "City automatics, 10\u201314 inch", img: fleetScooter },
       { name: "Commuters", note: "The 100\u2013150cc daily ride", img: fleetCommuter },
@@ -232,6 +249,7 @@ export const CATEGORIES: Category[] = [
     accent: "blue",
     tyres: [tyre3w],
     lineup: lineup3w,
+    slide: slide3w,
     fleet: [
       { name: "Passenger auto", note: "City taxi duty, kerb to kerb", img: fleet3wAuto },
       { name: "Cargo three-wheeler", note: "Load bed, routinely over rating", img: fleet3wCargo },
@@ -257,6 +275,8 @@ export const CATEGORIES: Category[] = [
     img: lightTruck,
     accent: "blue",
     tyres: [tyreUlt],
+    lineup: lineupUlt,
+    slide: slideUlt,
     fleet: [
       { name: "Light commercial", note: "Pick-ups on full load, all day", img: fleetUltPickup },
       { name: "Delivery vehicles", note: "Stop-start, kerbing, no downtime", img: fleetUltVan },
@@ -282,6 +302,8 @@ export const CATEGORIES: Category[] = [
     img: tractor,
     accent: "blue",
     tyres: [tyreOht, tyreOht2],
+    lineup: lineupOht,
+    slide: slideOht,
     fleet: [
       { name: "Agriculture", note: "Tractor drive and front, implements", img: fleetOhtTractor },
       { name: "Construction", note: "Backhoe, loader, grader, telehandler", img: fleetOhtBackhoe },
@@ -326,6 +348,8 @@ export const CATEGORIES: Category[] = [
     fit: "contain",
     accent: "red",
     tyres: [tyreSg],
+    lineup: lineupSg,
+    slide: slideSg,
     fleet: [
       { name: "Material handling", note: "Forklifts on solid resilients", img: fleetSgForklift },
       { name: "Ports & container", note: "Reach stackers and yard handlers", img: fleetSgStacker },

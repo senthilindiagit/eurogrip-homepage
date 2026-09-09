@@ -21,9 +21,7 @@ import certBis from "@/assets/certs/cert-bis.webp"
 import certGso from "@/assets/certs/cert-gso.webp"
 import certSabs from "@/assets/certs/cert-sabs.webp"
 import certReach from "@/assets/certs/cert-reach.webp"
-/* the client's two-wheeler pair, lifted off its blue plate and re-shadowed by
-   scripts/products/blue_plate_cutout.py */
-import heroTwoWheeler from "@/assets/products/hero-two-wheeler.webp"
+import { CategoryCarousel } from "@/components/site/CategoryCarousel"
 
 const CERTS = [
   { img: null, name: "ECE" },
@@ -798,22 +796,7 @@ export function Products() {
           /* top of the column, not its middle, so the line-up sits high in the
              banner and the copy stays the thing you read first */
           asideAlign="start"
-          aside={
-            <img
-              src={heroTwoWheeler}
-              width={1400}
-              height={769}
-              /* above the fold, so no lazy loading */
-              decoding="async"
-              alt="An Aprilia RS 457 sport bike alongside a TVS iQube electric scooter"
-              /* the bleed is a negative margin, not extra width: widening the
-                 image itself feeds back into the grid's fr sizing and rewraps
-                 the headline. This keeps its outer size at one column and only
-                 reaches into the container's own right padding, so it never
-                 crosses the viewport edge at any width. */
-              className="w-full max-w-none lg:w-[calc(100%+2rem)] lg:-mr-8"
-            />
-          }
+          aside={<CategoryCarousel />}
           pad="pb-[clamp(44px,7vh,80px)] pt-[clamp(104px,15vh,144px)]"
         />
       </div>

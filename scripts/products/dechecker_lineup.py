@@ -104,7 +104,13 @@ def keep_larger_than(mask: np.ndarray, n: int) -> np.ndarray:
     return np.isin(lab, keep)
 
 
-def main(src: str, out: str) -> None:
+def cut_checkerboard(src: str) -> Image.Image:
+    """Lift a line-up off its baked checkerboard.
+
+    Returns RGBA on the **full original canvas**, untrimmed — callers that want
+    the artwork tight can crop, and callers animating several plates against each
+    other need the shared frame so the vehicles stay registered to it.
+    """
     rgb = np.asarray(Image.open(src).convert("RGB")).astype(np.float64)
     H, W, _ = rgb.shape
     gray = rgb.mean(2)
@@ -208,17 +214,23 @@ def main(src: str, out: str) -> None:
     alpha = ndi.gaussian_filter(solid.astype(np.float64), FEATHER)
     alpha = np.clip((alpha - 0.5) * 2.4 + 0.5, 0, 1)     # keep the edge crisp
     fg = np.where(solid[..., None], rgb, 0.0)
+    return Image.fromarray(np.dstack([fg, alpha * 255.0]).round().astype(np.uint8))
 
-    ys_, xs_ = np.where(alpha > 0.02)
-    y0, y1 = max(ys_.min() - 2, 0), min(ys_.max() + 3, H)
-    x0, x1 = max(xs_.min() - 2, 0), min(xs_.max() + 3, W)
-    rgba = np.dstack([fg, alpha * 255.0])[y0:y1, x0:x1].round().astype(np.uint8)
-    print(f"  trimmed to {x1 - x0}x{y1 - y0}")
+
+def main(src: str, out: str) -> None:
+    im = cut_checkerboard(src)
+
+    a = np.asarray(im)
+    ys_, xs_ = np.where(a[:, :, 3] > 5)
+    y0, y1 = max(ys_.min() - 2, 0), min(ys_.max() + 3, im.height)
+    x0, x1 = max(xs_.min() - 2, 0), min(xs_.max() + 3, im.width)
+    im = im.crop((x0, y0, x1, y1))
+    print(f"  trimmed to {im.width}x{im.height}")
 
     # --- fresh shadows, matching the other line-ups ------------------------
-    im = ground_shadow(Image.fromarray(rgba))
-    im.save(out, "WEBP", quality=92, method=6)
-    print(f"  wrote {out} at {im.size[0]}x{im.size[1]}")
+    out_im = ground_shadow(im)
+    out_im.save(out, "WEBP", quality=92, method=6)
+    print(f"  wrote {out} at {out_im.size[0]}x{out_im.size[1]}")
 
 
 if __name__ == "__main__":

@@ -357,22 +357,68 @@ and shadows them automatically.
 An earlier pass generated placeholder *vehicle* line-ups; those were deleted
 when the direction moved to tyres.
 
-### The hero line-up
+### The hero carousel
 
-An **Aprilia RS 457 and a TVS iQube** sit in the page hero's top right, through
-`PageHero`'s existing `aside` slot with `asideAlign="start"`. On a phone that
-slot stacks under the lede instead, which is why the slot was used rather than
-an absolutely positioned decoration.
+The hero's top right cycles the **five category line-ups**, one at a time,
+through `PageHero`'s `aside` slot. `CategoryCarousel` in `components/site`; the
+images are `slide` on each category in `lib/products`, so the set is data, not
+markup. On a phone that slot stacks under the lede, which is why the slot was
+used rather than an absolutely positioned decoration.
 
-Worth raising with the client: the headline beside it reads "One specialist.
-Five categories." and the picture shows two two-wheelers, so the image
-under-delivers on the line it sits next to. Either is easy to change — the image
-is one import, the headline one line.
+It also answers a note that had been open here: the headline reads "One
+specialist. Five categories." and the hero used to show a single two-wheeler
+pair. Now it shows all five.
 
-This replaced a six-vehicle line-up (motorcycle, auto-rickshaw, tractor, backhoe
-loader, truck, forklift) at the client's request. That plate and the script that
-cut it are documented below, because the technique is worth keeping; the source
-PNG is still in the untracked `content/products/` if it is ever wanted back.
+**The motion.** Each slide enters from the left at zero opacity, settles at
+centre, then carries on out to the right as it fades — and the next one starts
+its entrance at the same moment, so the two cross rather than alternate. That
+simultaneity is the effect the client asked for, and it is why this uses
+`AnimatePresence` in **`sync`** mode; the default `wait` holds the incoming slide
+until the outgoing one has finished and the hero sits empty between categories.
+3.6s dwell, 1.15s cross-over, a long asymmetric ease so a slide is quick to
+leave the edge and almost stopped by the time it reaches centre.
+
+**Registration is what makes it look deliberate.**
+`scripts/products/category_slides.py` keeps all five on the one shared 1672x941
+canvas and centres each by its own content. The plates are not consistently
+composed — measured, they sit up to 54px off centre vertically and 38px
+horizontally — and without that step one slide arrives low or left and the
+travel reads as a wobble rather than a slide. Trimming each plate to its own
+bounding box, the obvious thing to do, would guarantee it.
+
+**Two things it has to get right beyond looking nice.** Content that moves on its
+own for more than five seconds needs a way to stop it (WCAG 2.2.2), so the ticks
+are buttons: picking a category stops the rotation and stays put. And the ticks
+are 6px tall because that is what looks right, so the button around each one is
+padded out to a 27x29 target rather than the bar being enlarged (WCAG 2.5.8).
+The interval also does not run while the document is hidden, and restarts on
+`visibilitychange`.
+
+The label deliberately has **no** `AnimatePresence`. In `wait` mode it holds the
+incoming name until the outgoing one has left, so a stalled exit animation
+strands the label on the wrong category permanently — which is exactly what
+happened in the review pane. Remounting on the key animates the new name in and
+needs no exit, so the worst case is a name that appears without a transition
+rather than one that never appears.
+
+The hero previously showed an Aprilia RS 457 and a TVS iQube, and before that a
+six-vehicle line-up. Both plates and the scripts that cut them are documented
+below, because the techniques are worth keeping; the sources are still in the
+untracked `content/products/`.
+
+### All five ranges now have a tyre line-up
+
+`lineup-ult`, `lineup-off-highway`, `lineup-supergrip` and `lineup-three-wheeler`
+all came from the client as clean cutouts and went through `lineup_cutout.py` —
+defringe, trim and a baked navy contact shadow — so the journey's five hero
+screens carry one treatment instead of two categories having staged line-ups and
+three having a single tyre render.
+
+Three-wheeler was rebuilt from the client's own `3 Wheeler tyre.png`, replacing a
+version staged out of three separate product cutouts. Worth the swap for
+consistency: the supplied plate is lit as one photograph, on the same white rims
+and at the same angle as the ULT plate, where the staged one had the three tyres
+receding at an angle and read as a different photographer.
 
 **The bleed has to be a negative margin, not extra width.** The hero's grid is
 `1.05fr 1fr`, so a wider image feeds back into the fr sizing, and widening it to
