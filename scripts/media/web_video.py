@@ -45,9 +45,18 @@ JOBS = [
      Path("public/hero-banner.mp4"), Path("public/hero-banner-poster.webp"), 0.1, "33"),
     ("technology hero", MEDIA / "Tyre closeup.mp4",
      Path("public/tech-hero.mp4"), Path("public/tech-hero-poster.webp"), 0.1, "30"),
+    # The exploded-tyre build on the homepage. This one's "master" is the file
+    # that used to ship: 1440x1440 at 12.9 Mbps plus a 316 kbps audio track, for
+    # 12.8MB of an 8s clip rendered in a card about 320px wide. At 1080px CRF 28
+    # it is 1.16MB and indistinguishable from it — checked on the spoke
+    # gradients, which are what would band first. The master is kept in the
+    # gitignored dump rather than the repo so this stays re-runnable.
+    ("homepage tyre build", MEDIA / "tech-banner-master.mp4",
+     Path("src/assets/tech-banner.mp4"), None, 0.1, "28"),
 ]
 
 WIDTH = 1600
+NARROW = {"homepage tyre build": 1080}   # square source, rendered in a ~320px card
 
 
 def ffmpeg_bin() -> str:
@@ -75,7 +84,7 @@ def main() -> None:
 
         subprocess.run([
             ff, "-y", "-v", "error", "-i", str(src),
-            "-vf", f"scale={WIDTH}:-2",
+            "-vf", f"scale={NARROW.get(name, WIDTH)}:-2",
             "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
             "-crf", crf, "-preset", "slow",
             "-an",
@@ -84,6 +93,8 @@ def main() -> None:
         ], check=True)
         print(f"      -> {out}  {mb(out):.1f}MB")
 
+        if poster is None:
+            continue
         subprocess.run([
             ff, "-y", "-v", "error", "-ss", str(at), "-i", str(src),
             "-frames:v", "1", "-vf", f"scale={WIDTH}:-2",

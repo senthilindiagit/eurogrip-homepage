@@ -70,11 +70,27 @@ Two of the old seven — **dry bonding** and **air seal technology** — do not
 appear in the 2026 deck at all, so they are not on the site. Worth confirming
 whether they are retired or simply missing from that deck.
 
-The client also asked us to come back on what should fill the space the watermark
-left. The answer on the homepage is their own artwork: the cutaway diagram for
-whichever technology is up, large and faint behind the copy. It describes the
-thing instead of labelling it, and costs nothing to load because the same file is
-already the icon.
+## The homepage teaser
+
+The homepage section used to be the whole story: a rail of all twelve
+technologies with a rotating detail panel carrying each one's feature and
+benefit — the same content, in the same words, as this page. The client's note
+was to stop repeating it and just say what it is there, which is right: the
+homepage's job is to make someone want the page, not to be it.
+
+It is now a paragraph, the four family names, and two ways through. `TECH_COUNT`
+and `TECH_FAMILIES.length` still come from `lib/technology`, so the headline
+cannot drift out of step with the page it points at. Section height went from
+about 800px to 579px on desktop, and no individual technology is named there any
+more.
+
+That rewrite also fixed a quiet weight problem. The exploded-tyre film in that
+section, `src/assets/tech-banner.mp4`, was **12.8MB** — 1440x1440 at 12.9 Mbps
+plus a 316 kbps audio track nobody can hear, for an 8s clip rendered in a card
+about 320px wide. Re-encoded at 1080px CRF 28 it is **1.16MB** and
+indistinguishable from the original, checked on the wheel-spoke gradients, which
+are what would band first. Its master now sits in the gitignored dump as
+`tech-banner-master.mp4` so `scripts/media/web_video.py` stays re-runnable.
 
 **Names are not final.** The client is still to send final technology names and
 revised text, and said the names differ by region — "TreadSmart" is one regional
@@ -297,10 +313,12 @@ Reviewing scroll work in the Browser pane needs care, because the pane runs with
   set a scroll position, call `ScrollTrigger.update()`, then read the DOM. That
   is how the step sequence (01→03→05→07→08→10→12), the hero scrub (scale
   1.12→1.0) and the pipeline rail (scaleY 0.17→1.0) were actually verified.
-* **`window.scrollTo` silently stalls**, because the site sets
-  `scroll-behavior: smooth` and smooth scrolling is itself rAF-driven — it
-  stopped 107px into an 837px jump. Assign `document.documentElement.scrollTop`
-  instead.
+* **Programmatic scrolling silently stalls**, because the site sets
+  `scroll-behavior: smooth` and smooth scrolling is itself rAF-driven — a jump of
+  837px stopped 107px in. Note that switching to
+  `document.documentElement.scrollTop` is *not* the fix: per spec that respects
+  `scroll-behavior` too, and it stalls identically. Set
+  `documentElement.style.scrollBehavior = "auto"` first, then assign.
 * CSS transitions do not progress either, so read `className` rather than
   `getComputedStyle().backgroundColor` when checking active states.
 * Screenshots come back stale or composited wrong once the page is scrolled.
